@@ -31,6 +31,12 @@ class LoginViewController: UIViewController {
     
     private var isLogin = true
     
+    private enum ActionType {
+        case login
+        case register
+        case password
+    }
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -44,7 +50,7 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
-        if isDataInputedFor(type: isLogin ? "login" : "register") {
+        if isDataInputedFor(type: isLogin ? .login : .register) {
             
         } else {
             ProgressHUD.showFailed("All fields are required")
@@ -52,7 +58,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func forgotPasswordButtonPressed(_ sender: UIButton) {
-        if isDataInputedFor(type: "password") {
+        if isDataInputedFor(type: .password) {
             
         } else {
             ProgressHUD.showFailed("Email is required.")
@@ -60,7 +66,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func resendEmailButtonPressed(_ sender: UIButton) {
-        if isDataInputedFor(type: "password") {
+        if isDataInputedFor(type: .password) {
             
         } else {
             ProgressHUD.showFailed("Email is required.")
@@ -123,11 +129,11 @@ class LoginViewController: UIViewController {
     
     //MARK: - Helpers
     
-    private func isDataInputedFor(type: String) -> Bool {
+    private func isDataInputedFor(type: ActionType) -> Bool {
         switch type {
-        case "login":
+        case .login:
             return emailTextField.text != "" && passwordTextField.text != ""
-        case "registration":
+        case .register:
             return emailTextField.text != "" && passwordTextField.text != "" && repeatPasswordTextField.text != ""
         default:
             return emailTextField.text != ""
