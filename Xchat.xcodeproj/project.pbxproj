@@ -16,6 +16,8 @@
 		084E3D832916FDA000EC243D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 084E3D822916FDA000EC243D /* GoogleService-Info.plist */; };
 		084E3D89291AEBA200EC243D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E3D88291AEBA200EC243D /* User.swift */; };
 		084E3D8C291AED7000EC243D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E3D8B291AED7000EC243D /* Constants.swift */; };
+		084E3D8E291AEF3F00EC243D /* FirebaseCollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E3D8D291AEF3F00EC243D /* FirebaseCollectionReference.swift */; };
+		084E3D91291AEFF200EC243D /* FirebaseUserListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E3D90291AEFF200EC243D /* FirebaseUserListener.swift */; };
 		948F6E7249A3E7FE0C7F8D76 /* Pods_Xchat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AFE0BC0B2B95B317D721C61 /* Pods_Xchat.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +33,8 @@
 		084E3D822916FDA000EC243D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		084E3D88291AEBA200EC243D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		084E3D8B291AED7000EC243D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		084E3D8D291AEF3F00EC243D /* FirebaseCollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCollectionReference.swift; sourceTree = "<group>"; };
+		084E3D90291AEFF200EC243D /* FirebaseUserListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserListener.swift; sourceTree = "<group>"; };
 		9AFE0BC0B2B95B317D721C61 /* Pods_Xchat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Xchat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABAF02BB480C3C20ACE17BA5 /* Pods-Xchat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchat.release.xcconfig"; path = "Target Support Files/Pods-Xchat/Pods-Xchat.release.xcconfig"; sourceTree = "<group>"; };
 		EB08E1658AE5A2B9B850BD3D /* Pods-Xchat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchat.debug.xcconfig"; path = "Target Support Files/Pods-Xchat/Pods-Xchat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -73,6 +77,7 @@
 				084A5B1F2915C19600F1F522 /* SceneDelegate.swift */,
 				084A5B212915C19600F1F522 /* LoginViewController.swift */,
 				084E3D8B291AED7000EC243D /* Constants.swift */,
+				084E3D8F291AEFB200EC243D /* FirebaseHelpers */,
 				084E3D8A291AEBAA00EC243D /* Model */,
 				084A5B232915C19600F1F522 /* Main.storyboard */,
 				084E3D842916FDB700EC243D /* Files */,
@@ -97,6 +102,15 @@
 				084E3D88291AEBA200EC243D /* User.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		084E3D8F291AEFB200EC243D /* FirebaseHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				084E3D8D291AEF3F00EC243D /* FirebaseCollectionReference.swift */,
+				084E3D90291AEFF200EC243D /* FirebaseUserListener.swift */,
+			);
+			name = FirebaseHelpers;
 			sourceTree = "<group>";
 		};
 		136A8261596B2C26170A0B18 /* Pods */ = {
@@ -235,7 +249,9 @@
 				084E3D8C291AED7000EC243D /* Constants.swift in Sources */,
 				084E3D89291AEBA200EC243D /* User.swift in Sources */,
 				084A5B222915C19600F1F522 /* LoginViewController.swift in Sources */,
+				084E3D8E291AEF3F00EC243D /* FirebaseCollectionReference.swift in Sources */,
 				084A5B1E2915C19600F1F522 /* AppDelegate.swift in Sources */,
+				084E3D91291AEFF200EC243D /* FirebaseUserListener.swift in Sources */,
 				084A5B202915C19600F1F522 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

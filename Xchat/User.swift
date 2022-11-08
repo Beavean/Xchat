@@ -30,7 +30,7 @@ struct User: Codable, Equatable {
                     let userObject = try decoder.decode(User.self, from: dictionary)
                     return userObject
                 } catch {
-                    print("DEBUG: Error decoding user from user defaults \(error.localizedDescription)")
+                    print("DEBUG: Error decoding user from user defaults, \(error.localizedDescription)")
                 }
             }
         }
@@ -40,4 +40,15 @@ struct User: Codable, Equatable {
     static func == (lhs: User, rhs: User) -> Bool {
         lhs.id == rhs.id
     }
+}
+
+func saveUserLocally(_ user: User) {
+    let encoder = JSONEncoder()
+    do {
+        let data = try encoder.encode(user)
+        UserDefaults.standard.set(data, forKey: kCURRENTUSER)
+    } catch {
+        print("DEBUG: Error saving User locally, \(error.localizedDescription)")
+    }
+    
 }

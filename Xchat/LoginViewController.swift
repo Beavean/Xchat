@@ -8,7 +8,7 @@
 import UIKit
 import ProgressHUD
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
     //MARK: - IBOutlets
     
