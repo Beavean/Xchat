@@ -51,7 +51,7 @@ final class LoginViewController: UIViewController {
     
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         if isDataInputedFor(type: isLogin ? .login : .register) {
-            
+            isLogin ? loginUser() : registerUser()
         } else {
             ProgressHUD.showFailed("All fields are required")
         }
@@ -79,7 +79,7 @@ final class LoginViewController: UIViewController {
     }
     
     //MARK: - Setup
-
+    
     private func setupTextFieldDelegates() {
         emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -132,11 +132,50 @@ final class LoginViewController: UIViewController {
     private func isDataInputedFor(type: ActionType) -> Bool {
         switch type {
         case .login:
-            return emailTextField.text != "" && passwordTextField.text != ""
+            return emailTextField.text?.isEmpty == false && passwordTextField.text?.isEmpty == false
         case .register:
-            return emailTextField.text != "" && passwordTextField.text != "" && repeatPasswordTextField.text != ""
+            return emailTextField.text?.isEmpty == false && passwordTextField.text?.isEmpty == false && repeatPasswordTextField.text?.isEmpty == false
         default:
-            return emailTextField.text != ""
+            return emailTextField.text?.isEmpty == false
         }
     }
+    
+    private func loginUser() {
+        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
+        FirebaseUserListener.shared.loginUserWithEmail(email: email, password: password) { [weak self] error, isEmailVerified in
+            if let error {
+                ProgressHUD.showFailed(error.localizedDescription)
+            } else {
+                if isEmailVerified {
+                    self?.goToApp()
+                } else {
+                    ProgressHUD.showFailed("Please verify your email.")
+                    self?.resendEmailButtonOutlet.isHidden = false
+                }
+            }
+        }
+    }
+    
+    private func registerUser() {
+        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
+        if password.isEmpty == false && passwordTextField.text == repeatPasswordTextField.text {
+            FirebaseUserListener.shared.registerUserWith(email: email, password: password) { [weak self] error in
+                if let error {
+                    ProgressHUD.showFailed(error.localizedDescription)
+                } else {
+                    ProgressHUD.showSuccess("Verification email has been sent.")
+                    self?.resendEmailButtonOutlet.isHidden = false
+                }
+            }
+        } else {
+            ProgressHUD.showFailed("The passwords do not match.")
+        }
+    }
+    
+    //MARK: - Navigation
+    
+    private func goToApp() {
+        print("DEBUG: Login user in")
+    }
 }
+
