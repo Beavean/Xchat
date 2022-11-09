@@ -15,7 +15,7 @@ final class FirebaseUserListener {
     
     private init() {}
     
-    //MARK: - Login
+    //MARK: - Login user
     
     func loginUserWithEmail(email: String, password: String, completion: @escaping (_ error: Error?, _ isEmailVerified: Bool) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authDataResult, error in
@@ -30,7 +30,7 @@ final class FirebaseUserListener {
         }
     }
     
-    //MARK: - Register
+    //MARK: - Register user
     
     func registerUserWith(email: String, password: String, completion: @escaping (_ error: Error?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] authDataResult, error in
@@ -48,6 +48,24 @@ final class FirebaseUserListener {
         }
     }
     
+    //MARK: - Resend verification link
+    
+    func resendVerificationEmail(email: String, completion: @escaping(_ error: Error?) -> Void) {
+        Auth.auth().currentUser?.reload(completion: { error in
+            Auth.auth().currentUser?.sendEmailVerification(completion: { error in
+                completion(error)
+            })
+        })
+    }
+    
+    //MARK: - Reset password
+    
+    func resetPasswordFor(email: String, completion: @escaping (_ error: Error?) -> Void) {
+        Auth.auth().sendPasswordReset(withEmail: email) { error in
+            completion(error)
+        }
+    }
+    
     //MARK: - Save user
     
     func saveUserToFirestore(_ user: User) {
@@ -58,7 +76,7 @@ final class FirebaseUserListener {
         }
     }
     
-    //MARK: - Download user from Firebase
+    //MARK: - Download user
     
     func downloadUserFromFirebase(userId: String, email: String? = nil) {
         FirebaseReference(.User).document(userId).getDocument { snapshot, error in

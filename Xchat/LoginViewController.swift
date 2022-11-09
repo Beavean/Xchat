@@ -48,7 +48,6 @@ final class LoginViewController: UIViewController {
     
     //MARK: - IBActions
     
-    
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         if isDataInputedFor(type: isLogin ? .login : .register) {
             isLogin ? loginUser() : registerUser()
@@ -59,7 +58,7 @@ final class LoginViewController: UIViewController {
     
     @IBAction func forgotPasswordButtonPressed(_ sender: UIButton) {
         if isDataInputedFor(type: .password) {
-            
+            resetPassword()
         } else {
             ProgressHUD.showFailed("Email is required.")
         }
@@ -172,10 +171,34 @@ final class LoginViewController: UIViewController {
         }
     }
     
+    private func resetPassword() {
+        guard let email = emailTextField.text else { return }
+        FirebaseUserListener.shared.resetPasswordFor(email: email) { error in
+            if let error {
+                ProgressHUD.showFailed(error.localizedDescription)
+            } else {
+                ProgressHUD.showSuccess("Please check your email for reset instructions.")
+            }
+        }
+    }
+    
+    private func resendVerificationEmail() {
+        guard let email = emailTextField.text else { return }
+        FirebaseUserListener.shared.resendVerificationEmail(email: email) { error in
+            if let error {
+                ProgressHUD.showFailed(error.localizedDescription)
+            } else {
+                ProgressHUD.showSuccess("New verification email has been sent.")
+            }
+        }
+    }
+    
     //MARK: - Navigation
     
     private func goToApp() {
-        print("DEBUG: Login user in")
+        guard let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? UITabBarController else { return }
+        mainVC.modalPresentationStyle = .fullScreen
+        self.present(mainVC, animated: true)
     }
 }
 
