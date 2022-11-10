@@ -40,7 +40,7 @@ final class FirebaseUserListener {
                     print("DEBUG: Authentication email sent with error: \(String(describing: error?.localizedDescription))")
                 }
                 if let authDataResult {
-                    let user = User(id: authDataResult.user.uid, username: email, email: email, pushId: "", avatarLink: "", status: "I'm using Xchat")
+                    let user = User(id: authDataResult.user.uid, username: email, email: email, pushId: "", avatarLink: "", status: "I'm using Xchat 🤙")
                     saveUserLocally(user)
                     self?.saveUserToFirestore(user)
                 }
@@ -62,6 +62,19 @@ final class FirebaseUserListener {
     
     func resetPasswordFor(email: String, completion: @escaping (_ error: Error?) -> Void) {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
+            completion(error)
+        }
+    }
+    
+    //MARK: - Log Out user
+    
+    func logOutCurrentUser(completion: @escaping (_ error: Error?) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            userDefaults.removeObject(forKey: kCURRENTUSER)
+            userDefaults.synchronize()
+            completion(nil)
+        } catch let error as NSError {
             completion(error)
         }
     }

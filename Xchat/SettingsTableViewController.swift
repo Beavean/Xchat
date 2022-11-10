@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 class SettingsTableViewController: UITableViewController {
     
@@ -40,6 +41,13 @@ class SettingsTableViewController: UITableViewController {
         section == 0 ? 0.0 : 10.0
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 0 && indexPath.row == 0 {
+            performSegue(withIdentifier: "SettingsToEditProfileSegue", sender: self)
+        }
+    }
+    
     //MARK: - IBActions
     
     @IBAction func tellFriendButtonPressed(_ sender: UIButton) {
@@ -51,7 +59,17 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @IBAction func logOutButtonPressed(_ sender: UIButton) {
-        
+        FirebaseUserListener.shared.logOutCurrentUser { error in
+            if let error {
+                ProgressHUD.showFailed(error.localizedDescription)
+            } else {
+                let loginView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
+                DispatchQueue.main.async {
+                    loginView.modalPresentationStyle = .fullScreen
+                    self.present(loginView, animated: true)
+                }
+            }
+        }
     }
     
     //MARK: - Configuration

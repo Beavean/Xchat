@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		081244E9291D96EB001BA6FE /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */; };
+		081244EB291DA4F9001BA6FE /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081244EA291DA4F9001BA6FE /* EditProfileTableViewController.swift */; };
 		084A5B1E2915C19600F1F522 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084A5B1D2915C19600F1F522 /* AppDelegate.swift */; };
 		084A5B202915C19600F1F522 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084A5B1F2915C19600F1F522 /* SceneDelegate.swift */; };
 		084A5B222915C19600F1F522 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084A5B212915C19600F1F522 /* LoginViewController.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		081244EA291DA4F9001BA6FE /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		084A5B1A2915C19600F1F522 /* Xchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		084A5B1D2915C19600F1F522 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		084A5B1F2915C19600F1F522 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				084A5B1F2915C19600F1F522 /* SceneDelegate.swift */,
 				084A5B212915C19600F1F522 /* LoginViewController.swift */,
 				081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */,
+				081244EA291DA4F9001BA6FE /* EditProfileTableViewController.swift */,
 				084E3D8B291AED7000EC243D /* Constants.swift */,
 				084E3D8F291AEFB200EC243D /* FirebaseHelpers */,
 				084E3D8A291AEBAA00EC243D /* Model */,
@@ -254,6 +257,7 @@
 				084A5B222915C19600F1F522 /* LoginViewController.swift in Sources */,
 				084E3D8E291AEF3F00EC243D /* FirebaseCollectionReference.swift in Sources */,
 				081244E9291D96EB001BA6FE /* SettingsTableViewController.swift in Sources */,
+				081244EB291DA4F9001BA6FE /* EditProfileTableViewController.swift in Sources */,
 				084A5B1E2915C19600F1F522 /* AppDelegate.swift in Sources */,
 				084E3D91291AEFF200EC243D /* FirebaseUserListener.swift in Sources */,
 				084A5B202915C19600F1F522 /* SceneDelegate.swift in Sources */,
