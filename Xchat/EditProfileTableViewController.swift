@@ -92,6 +92,19 @@ class EditProfileTableViewController: UITableViewController {
         Config.initialTab = .imageTab
         self.present(gallery, animated: true)
     }
+    
+    //MARK: - Image upload
+    
+    private func uploadAvatarImage(_ image: UIImage) {
+        let fileDirectory = "Avatars/" + "_\(User.currentId)" + ".jpg"
+        FileStorage.uploadImage(image, directory: fileDirectory) { avatarLink in
+            if var user = User.currentUser {
+                user.avatarLink = avatarLink ?? ""
+                saveUserLocally(user)
+                FirebaseUserListener.shared.saveUserToFirestore(user)
+            }
+        }
+    }
 }
 
 extension EditProfileTableViewController: UITextFieldDelegate {
@@ -119,7 +132,7 @@ extension EditProfileTableViewController: GalleryControllerDelegate {
             firstImage.resolve { avatarImage in
                 if let avatarImage {
                     self.avatarImageView.image = avatarImage
-                    
+                    self.uploadAvatarImage(avatarImage)
                 } else {
                     ProgressHUD.showError("Couldn't select image")
                 }
