@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Gallery
+import ProgressHUD
 
 class EditProfileTableViewController: UITableViewController {
     
@@ -15,11 +17,21 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var usernameTextField: UITextField!
     
+    //MARK: - Properties
+    
+    private var gallery: GalleryController!
+    
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        configureTextField()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         showUserInfo()
     }
     
@@ -35,6 +47,16 @@ class EditProfileTableViewController: UITableViewController {
         section == 0 ? 0.0 : 10.0
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    //MARK: - IBActions
+    
+    @IBAction func editButtonPressed(_ sender: UIButton) {
+        showImageGallery()
+    }
+    
     //MARK: - Configuration
     
     private func configureTableView() {
@@ -44,6 +66,13 @@ class EditProfileTableViewController: UITableViewController {
         }
     }
     
+    private func configureTextField() {
+        usernameTextField.delegate = self
+        usernameTextField.clearButtonMode = .whileEditing
+    }
+    
+    //MARK: - Update UI
+    
     private func showUserInfo() {
         if let user = User.currentUser {
             statusLabel.text = user.status
@@ -51,5 +80,63 @@ class EditProfileTableViewController: UITableViewController {
                 
             }
         }
+    }
+    
+    //MARK: - Gallery
+    
+    private func showImageGallery() {
+        self.gallery = GalleryController()
+        self.gallery.delegate = self
+        Config.tabsToShow = [.imageTab, .cameraTab]
+        Config.Camera.imageLimit = 1
+        Config.initialTab = .imageTab
+        self.present(gallery, animated: true)
+    }
+}
+
+extension EditProfileTableViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == usernameTextField {
+            if !(textField.text ?? "").isEmpty {
+                if var user = User.currentUser, let username = textField.text {
+                    user.username = username
+                    saveUserLocally(user)
+                    FirebaseUserListener.shared.saveUserToFirestore(user)
+                }
+            }
+            textField.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+}
+
+extension EditProfileTableViewController: GalleryControllerDelegate {
+    
+    func galleryController(_ controller: Gallery.GalleryController, didSelectImages images: [Gallery.Image]) {
+        if !images.isEmpty, let firstImage = images.first {
+            firstImage.resolve { avatarImage in
+                if let avatarImage {
+                    self.avatarImageView.image = avatarImage
+                    
+                } else {
+                    ProgressHUD.showError("Couldn't select image")
+                }
+            }
+        }
+        controller.dismiss(animated: true)
+    }
+    
+    func galleryController(_ controller: Gallery.GalleryController, didSelectVideo video: Gallery.Video) {
+        controller.dismiss(animated: true)
+    }
+    
+    func galleryController(_ controller: Gallery.GalleryController, requestLightbox images: [Gallery.Image]) {
+        controller.dismiss(animated: true)
+    }
+    
+    func galleryControllerDidCancel(_ controller: Gallery.GalleryController) {
+        controller.dismiss(animated: true)
     }
 }
