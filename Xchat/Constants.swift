@@ -13,3 +13,6 @@ public let kFILEREFERENCE = "gs://xchat-8b871.appspot.com"
 
 public let kCURRENTUSER = "currentUser"
 
+public let kSTATUS = "status"
+
+
