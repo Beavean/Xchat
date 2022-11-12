@@ -103,6 +103,7 @@ class EditProfileTableViewController: UITableViewController {
                 saveUserLocally(user)
                 FirebaseUserListener.shared.saveUserToFirestore(user)
             }
+            FileStorage.saveFileLocally(fileData: image.jpegData(compressionQuality: 1.0)! as NSData, fileName: User.currentId)
         }
     }
 }
