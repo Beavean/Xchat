@@ -77,7 +77,9 @@ class EditProfileTableViewController: UITableViewController {
         if let user = User.currentUser {
             statusLabel.text = user.status
             if !user.avatarLink.isEmpty {
-                
+                FileStorage.downloadImage(imageUrl: user.avatarLink) { [weak self] avatarImage in
+                    self?.avatarImageView.image = avatarImage
+                }
             }
         }
     }

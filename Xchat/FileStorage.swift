@@ -42,6 +42,34 @@ class FileStorage {
         }
     }
     
+    class func downloadImage(imageUrl: String, completion: @escaping (_ image: UIImage?) -> Void) {
+        let imageFileName = fileNameFrom(fileUrl: imageUrl)
+        if fileExistsAtPath(path: imageFileName) {
+            if let contentsOfFile = UIImage(contentsOfFile: fileInDocumentsDirectory(fileName: imageFileName)) {
+                completion(contentsOfFile)
+            } else {
+                completion(UIImage(systemName: "person.crop.circle"))
+            }
+        } else {
+            if !imageUrl.isEmpty, let documentUrl = URL(string: imageUrl) {
+                let downloadQueue = DispatchQueue(label: "imageDownloadQueue")
+                downloadQueue.async {
+                    let data = NSData(contentsOf: documentUrl)
+                    if let data {
+                        FileStorage.saveFileLocally(fileData: data, fileName: imageFileName)
+                        DispatchQueue.main.async {
+                            completion(UIImage(data: data as Data))
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            completion(nil)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     //MARK: - Save locally
     
     class func saveFileLocally(fileData: NSData, fileName: String) {

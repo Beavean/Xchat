@@ -83,12 +83,16 @@ class SettingsTableViewController: UITableViewController {
         applicationVersionLabel.text = "Version \(appVersion ?? "1.0")"
     }
     
+    //MARK: - UI update
+    
     private func showUserInfo() {
         if let user = User.currentUser {
             usernameLabel.text = user.username
             statusLabel.text = user.status
             if !user.avatarLink.isEmpty {
-                
+                FileStorage.downloadImage(imageUrl: user.avatarLink) { [weak self] avatarImage in
+                    self?.avatarImageView.image = avatarImage
+                }
             }
         }
     }
