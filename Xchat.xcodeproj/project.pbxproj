@@ -22,6 +22,7 @@
 		084E3D91291AEFF200EC243D /* FirebaseUserListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E3D90291AEFF200EC243D /* FirebaseUserListener.swift */; };
 		087A467A291EEDC500B5838A /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A4679291EEDC500B5838A /* FileStorage.swift */; };
 		087A467D291FCA4600B5838A /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A467C291FCA4600B5838A /* GlobalFunctions.swift */; };
+		087A467F291FD0C600B5838A /* Extensions .swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A467E291FD0C600B5838A /* Extensions .swift */; };
 		948F6E7249A3E7FE0C7F8D76 /* Pods_Xchat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AFE0BC0B2B95B317D721C61 /* Pods_Xchat.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		084E3D90291AEFF200EC243D /* FirebaseUserListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserListener.swift; sourceTree = "<group>"; };
 		087A4679291EEDC500B5838A /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
 		087A467C291FCA4600B5838A /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		087A467E291FD0C600B5838A /* Extensions .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions .swift"; sourceTree = "<group>"; };
 		9AFE0BC0B2B95B317D721C61 /* Pods_Xchat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Xchat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABAF02BB480C3C20ACE17BA5 /* Pods-Xchat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchat.release.xcconfig"; path = "Target Support Files/Pods-Xchat/Pods-Xchat.release.xcconfig"; sourceTree = "<group>"; };
 		EB08E1658AE5A2B9B850BD3D /* Pods-Xchat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchat.debug.xcconfig"; path = "Target Support Files/Pods-Xchat/Pods-Xchat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			children = (
 				084E3D8B291AED7000EC243D /* Constants.swift */,
 				087A467C291FCA4600B5838A /* GlobalFunctions.swift */,
+				087A467E291FD0C600B5838A /* Extensions .swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				087A467F291FD0C600B5838A /* Extensions .swift in Sources */,
 				087A467D291FCA4600B5838A /* GlobalFunctions.swift in Sources */,
 				084E3D8C291AED7000EC243D /* Constants.swift in Sources */,
 				087A467A291EEDC500B5838A /* FileStorage.swift in Sources */,

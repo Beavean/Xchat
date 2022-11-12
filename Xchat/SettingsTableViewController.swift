@@ -59,14 +59,14 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @IBAction func logOutButtonPressed(_ sender: UIButton) {
-        FirebaseUserListener.shared.logOutCurrentUser { error in
+        FirebaseUserListener.shared.logOutCurrentUser { [weak self] error in
             if let error {
                 ProgressHUD.showFailed(error.localizedDescription)
             } else {
                 let loginView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController")
                 DispatchQueue.main.async {
                     loginView.modalPresentationStyle = .fullScreen
-                    self.present(loginView, animated: true)
+                    self?.present(loginView, animated: true)
                 }
             }
         }
@@ -91,7 +91,7 @@ class SettingsTableViewController: UITableViewController {
             statusLabel.text = user.status
             if !user.avatarLink.isEmpty {
                 FileStorage.downloadImage(imageUrl: user.avatarLink) { [weak self] avatarImage in
-                    self?.avatarImageView.image = avatarImage
+                    self?.avatarImageView.image = avatarImage?.circleMasked
                 }
             }
         }
