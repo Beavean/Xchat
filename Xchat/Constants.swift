@@ -15,4 +15,4 @@ public let kCURRENTUSER = "currentUser"
 
 public let kSTATUS = "status"
 
-
+public let kFIRSTRUN = "firstRun"

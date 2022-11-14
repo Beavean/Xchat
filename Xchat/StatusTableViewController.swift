@@ -37,9 +37,29 @@ class StatusTableViewController: UITableViewController {
         return cell
     }
     
-    //MARK: - Configuration
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        updateCellCheck(indexPath)
+        tableView.reloadData()
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor(named: "TableViewBackgroundColor")
+        return headerView
+    }
+    
+    //MARK: - Status load and update
     
     private func loadUserStatus() {
         allStatuses = userDefaults.object(forKey: kSTATUS) as? [String] ?? ["No statuses"]
+    }
+    
+    private func updateCellCheck(_ indexPath: IndexPath) {
+        if var user = User.currentUser {
+            user.status = allStatuses[indexPath.row]
+            saveUserLocally(user)
+            FirebaseUserListener.shared.saveUserToFirestore(user)
+        }
     }
 }
