@@ -50,5 +50,4 @@ func saveUserLocally(_ user: User) {
     } catch {
         print("DEBUG: Error saving User locally, \(error.localizedDescription)")
     }
-    
 }
