@@ -27,6 +27,7 @@
 		087A4683291FD7CB00B5838A /* StatusTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A4682291FD7CB00B5838A /* StatusTableViewController.swift */; };
 		087A46852922677100B5838A /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A46842922677100B5838A /* UserTableViewCell.swift */; };
 		087A46872922679200B5838A /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A46862922679200B5838A /* UsersTableViewController.swift */; };
+		087A46AA29243E3000B5838A /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A46A929243E2F00B5838A /* ProfileTableViewController.swift */; };
 		948F6E7249A3E7FE0C7F8D76 /* Pods_Xchat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AFE0BC0B2B95B317D721C61 /* Pods_Xchat.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		087A4682291FD7CB00B5838A /* StatusTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewController.swift; sourceTree = "<group>"; };
 		087A46842922677100B5838A /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		087A46862922679200B5838A /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
+		087A46A929243E2F00B5838A /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		9AFE0BC0B2B95B317D721C61 /* Pods_Xchat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Xchat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABAF02BB480C3C20ACE17BA5 /* Pods-Xchat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchat.release.xcconfig"; path = "Target Support Files/Pods-Xchat/Pods-Xchat.release.xcconfig"; sourceTree = "<group>"; };
 		EB08E1658AE5A2B9B850BD3D /* Pods-Xchat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchat.debug.xcconfig"; path = "Target Support Files/Pods-Xchat/Pods-Xchat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -93,12 +95,11 @@
 			children = (
 				084A5B1D2915C19600F1F522 /* AppDelegate.swift */,
 				084A5B1F2915C19600F1F522 /* SceneDelegate.swift */,
-				084A5B212915C19600F1F522 /* LoginViewController.swift */,
-				081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */,
-				081244EA291DA4F9001BA6FE /* EditProfileTableViewController.swift */,
-				087A4682291FD7CB00B5838A /* StatusTableViewController.swift */,
-				087A46842922677100B5838A /* UserTableViewCell.swift */,
-				087A46862922679200B5838A /* UsersTableViewController.swift */,
+				087A46A729243DCE00B5838A /* LoginViews */,
+				087A46A829243DDC00B5838A /* MainViews */,
+				087A46AB29243E3C00B5838A /* SecondaryViews */,
+				087A46A529243DAB00B5838A /* SettingsViews */,
+				087A46A629243DB800B5838A /* CustomCells */,
 				084E3D8F291AEFB200EC243D /* FirebaseHelpers */,
 				087A467B291EEEA500B5838A /* Helpers */,
 				084E3D8A291AEBAA00EC243D /* Model */,
@@ -146,6 +147,48 @@
 				087A467E291FD0C600B5838A /* Extensions .swift */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		087A46A529243DAB00B5838A /* SettingsViews */ = {
+			isa = PBXGroup;
+			children = (
+				081244EA291DA4F9001BA6FE /* EditProfileTableViewController.swift */,
+				087A4682291FD7CB00B5838A /* StatusTableViewController.swift */,
+			);
+			name = SettingsViews;
+			sourceTree = "<group>";
+		};
+		087A46A629243DB800B5838A /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				087A46842922677100B5838A /* UserTableViewCell.swift */,
+			);
+			name = CustomCells;
+			sourceTree = "<group>";
+		};
+		087A46A729243DCE00B5838A /* LoginViews */ = {
+			isa = PBXGroup;
+			children = (
+				084A5B212915C19600F1F522 /* LoginViewController.swift */,
+			);
+			name = LoginViews;
+			sourceTree = "<group>";
+		};
+		087A46A829243DDC00B5838A /* MainViews */ = {
+			isa = PBXGroup;
+			children = (
+				087A46862922679200B5838A /* UsersTableViewController.swift */,
+				081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */,
+			);
+			name = MainViews;
+			sourceTree = "<group>";
+		};
+		087A46AB29243E3C00B5838A /* SecondaryViews */ = {
+			isa = PBXGroup;
+			children = (
+				087A46A929243E2F00B5838A /* ProfileTableViewController.swift */,
+			);
+			name = SecondaryViews;
 			sourceTree = "<group>";
 		};
 		136A8261596B2C26170A0B18 /* Pods */ = {
@@ -288,6 +331,7 @@
 				087A46852922677100B5838A /* UserTableViewCell.swift in Sources */,
 				084E3D89291AEBA200EC243D /* User.swift in Sources */,
 				084A5B222915C19600F1F522 /* LoginViewController.swift in Sources */,
+				087A46AA29243E3000B5838A /* ProfileTableViewController.swift in Sources */,
 				084E3D8E291AEF3F00EC243D /* FirebaseCollectionReference.swift in Sources */,
 				081244E9291D96EB001BA6FE /* SettingsTableViewController.swift in Sources */,
 				081244EB291DA4F9001BA6FE /* EditProfileTableViewController.swift in Sources */,

@@ -48,7 +48,7 @@ class FileStorage {
             if let contentsOfFile = UIImage(contentsOfFile: fileInDocumentsDirectory(fileName: imageFileName)) {
                 completion(contentsOfFile)
             } else {
-                completion(UIImage(systemName: "person.crop.circle"))
+                completion(UIImage(systemName: "person.crop.circle.fill"))
             }
         } else {
             if !imageUrl.isEmpty, let documentUrl = URL(string: imageUrl) {
