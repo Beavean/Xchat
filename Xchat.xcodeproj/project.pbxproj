@@ -20,6 +20,7 @@
 		084E3D8C291AED7000EC243D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E3D8B291AED7000EC243D /* Constants.swift */; };
 		084E3D8E291AEF3F00EC243D /* FirebaseCollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E3D8D291AEF3F00EC243D /* FirebaseCollectionReference.swift */; };
 		084E3D91291AEFF200EC243D /* FirebaseUserListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E3D90291AEFF200EC243D /* FirebaseUserListener.swift */; };
+		085FCB6329254D3200092021 /* RecentChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085FCB6229254D3200092021 /* RecentChat.swift */; };
 		087A467A291EEDC500B5838A /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A4679291EEDC500B5838A /* FileStorage.swift */; };
 		087A467D291FCA4600B5838A /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A467C291FCA4600B5838A /* GlobalFunctions.swift */; };
 		087A467F291FD0C600B5838A /* Extensions .swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A467E291FD0C600B5838A /* Extensions .swift */; };
@@ -47,6 +48,7 @@
 		084E3D8B291AED7000EC243D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		084E3D8D291AEF3F00EC243D /* FirebaseCollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCollectionReference.swift; sourceTree = "<group>"; };
 		084E3D90291AEFF200EC243D /* FirebaseUserListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserListener.swift; sourceTree = "<group>"; };
+		085FCB6229254D3200092021 /* RecentChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChat.swift; sourceTree = "<group>"; };
 		087A4679291EEDC500B5838A /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
 		087A467C291FCA4600B5838A /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		087A467E291FD0C600B5838A /* Extensions .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions .swift"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				084E3D88291AEBA200EC243D /* User.swift */,
+				085FCB6229254D3200092021 /* RecentChat.swift */,
 				087A4680291FD4C800B5838A /* Status.swift */,
 			);
 			name = Model;
@@ -324,6 +327,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				085FCB6329254D3200092021 /* RecentChat.swift in Sources */,
 				087A467F291FD0C600B5838A /* Extensions .swift in Sources */,
 				087A467D291FCA4600B5838A /* GlobalFunctions.swift in Sources */,
 				084E3D8C291AED7000EC243D /* Constants.swift in Sources */,
