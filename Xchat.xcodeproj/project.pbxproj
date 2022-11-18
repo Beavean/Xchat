@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		081244E9291D96EB001BA6FE /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */; };
 		081244EB291DA4F9001BA6FE /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081244EA291DA4F9001BA6FE /* EditProfileTableViewController.swift */; };
+		0822BEC92927AEFC008FF7C4 /* StartChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822BEC82927AEFC008FF7C4 /* StartChat.swift */; };
+		0822BECB2927B40D008FF7C4 /* FirebaseRecentListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822BECA2927B40D008FF7C4 /* FirebaseRecentListener.swift */; };
 		0844D269292649330052383B /* RecentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0844D268292649330052383B /* RecentTableViewCell.swift */; };
 		084A5B1E2915C19600F1F522 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084A5B1D2915C19600F1F522 /* AppDelegate.swift */; };
 		084A5B202915C19600F1F522 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084A5B1F2915C19600F1F522 /* SceneDelegate.swift */; };
@@ -36,6 +38,8 @@
 /* Begin PBXFileReference section */
 		081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		081244EA291DA4F9001BA6FE /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
+		0822BEC82927AEFC008FF7C4 /* StartChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartChat.swift; sourceTree = "<group>"; };
+		0822BECA2927B40D008FF7C4 /* FirebaseRecentListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRecentListener.swift; sourceTree = "<group>"; };
 		0844D268292649330052383B /* RecentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTableViewCell.swift; sourceTree = "<group>"; };
 		084A5B1A2915C19600F1F522 /* Xchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Xchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		084A5B1D2915C19600F1F522 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +143,7 @@
 			children = (
 				084E3D8D291AEF3F00EC243D /* FirebaseCollectionReference.swift */,
 				084E3D90291AEFF200EC243D /* FirebaseUserListener.swift */,
+				0822BECA2927B40D008FF7C4 /* FirebaseRecentListener.swift */,
 				087A4679291EEDC500B5838A /* FileStorage.swift */,
 			);
 			name = FirebaseHelpers;
@@ -149,6 +154,7 @@
 			children = (
 				084E3D8B291AED7000EC243D /* Constants.swift */,
 				087A467C291FCA4600B5838A /* GlobalFunctions.swift */,
+				0822BEC82927AEFC008FF7C4 /* StartChat.swift */,
 				087A467E291FD0C600B5838A /* Extensions .swift */,
 			);
 			name = Helpers;
@@ -333,6 +339,7 @@
 				085FCB6329254D3200092021 /* RecentChat.swift in Sources */,
 				087A467F291FD0C600B5838A /* Extensions .swift in Sources */,
 				087A467D291FCA4600B5838A /* GlobalFunctions.swift in Sources */,
+				0822BECB2927B40D008FF7C4 /* FirebaseRecentListener.swift in Sources */,
 				084E3D8C291AED7000EC243D /* Constants.swift in Sources */,
 				087A467A291EEDC500B5838A /* FileStorage.swift in Sources */,
 				087A46852922677100B5838A /* UserTableViewCell.swift in Sources */,
@@ -346,6 +353,7 @@
 				087A4681291FD4C800B5838A /* Status.swift in Sources */,
 				084A5B1E2915C19600F1F522 /* AppDelegate.swift in Sources */,
 				084E3D91291AEFF200EC243D /* FirebaseUserListener.swift in Sources */,
+				0822BEC92927AEFC008FF7C4 /* StartChat.swift in Sources */,
 				087A46872922679200B5838A /* UsersTableViewController.swift in Sources */,
 				084A5B202915C19600F1F522 /* SceneDelegate.swift in Sources */,
 				0844D269292649330052383B /* RecentTableViewCell.swift in Sources */,
