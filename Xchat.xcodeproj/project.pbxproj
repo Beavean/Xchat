@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		081244E9291D96EB001BA6FE /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */; };
 		081244EB291DA4F9001BA6FE /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081244EA291DA4F9001BA6FE /* EditProfileTableViewController.swift */; };
+		08213772292909E500AE4DEA /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08213771292909E500AE4DEA /* ChatViewController.swift */; };
 		0822BEC92927AEFC008FF7C4 /* StartChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822BEC82927AEFC008FF7C4 /* StartChat.swift */; };
 		0822BECB2927B40D008FF7C4 /* FirebaseRecentListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822BECA2927B40D008FF7C4 /* FirebaseRecentListener.swift */; };
 		0822BECD2927C2FB008FF7C4 /* ChatsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0822BECC2927C2FB008FF7C4 /* ChatsTableViewController.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		081244EA291DA4F9001BA6FE /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
+		08213771292909E500AE4DEA /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		0822BEC82927AEFC008FF7C4 /* StartChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartChat.swift; sourceTree = "<group>"; };
 		0822BECA2927B40D008FF7C4 /* FirebaseRecentListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRecentListener.swift; sourceTree = "<group>"; };
 		0822BECC2927C2FB008FF7C4 /* ChatsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTableViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				087A46A929243E2F00B5838A /* ProfileTableViewController.swift */,
+				08213771292909E500AE4DEA /* ChatViewController.swift */,
 			);
 			name = SecondaryViews;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				087A4683291FD7CB00B5838A /* StatusTableViewController.swift in Sources */,
 				087A4681291FD4C800B5838A /* Status.swift in Sources */,
 				084A5B1E2915C19600F1F522 /* AppDelegate.swift in Sources */,
+				08213772292909E500AE4DEA /* ChatViewController.swift in Sources */,
 				084E3D91291AEFF200EC243D /* FirebaseUserListener.swift in Sources */,
 				0822BECD2927C2FB008FF7C4 /* ChatsTableViewController.swift in Sources */,
 				0822BEC92927AEFC008FF7C4 /* StartChat.swift in Sources */,
