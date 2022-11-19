@@ -35,13 +35,13 @@ func createRecentItems(chatRoomId: String, users: [User]) {
                                           senderId: senderUser.id,
                                           senderName: senderUser.username,
                                           receiverId: receiverUser.id,
-                                          receiverName: receiverUser.id,
+                                          receiverName: receiverUser.username,
                                           memberIds: [senderUser.id, receiverUser.id],
                                           lastMessage: "",
                                           unreadCounter: 0,
                                           avatarLink: receiverUser.avatarLink,
                                           date: Date())
-            FirebaseRecentListener.shared.addRecent(recentObject)
+            FirebaseRecentListener.shared.saveRecent(recentObject)
         }
     }
 }

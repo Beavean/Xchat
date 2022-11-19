@@ -243,7 +243,7 @@
         <!--Users-->
         <scene sceneID="Y78-wu-r7M">
             <objects>
-                <tableViewController id="uq8-fC-zWX" customClass="UsersTableViewController" customModule="Xchat" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="UsersTableViewController" id="uq8-fC-zWX" customClass="UsersTableViewController" customModule="Xchat" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="tDb-kn-07c">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -334,13 +334,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aK-7B-6H2">
-                                                    <rect key="frame" x="76" y="10" width="275.66666666666663" height="24"/>
+                                                    <rect key="frame" x="76" y="10" width="275.66666666666669" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UE3-ut-29e">
-                                                    <rect key="frame" x="76" y="47" width="275.66666666666663" height="23"/>
+                                                    <rect key="frame" x="76" y="47" width="275.66666666666669" height="23"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
                                                     <color key="textColor" systemColor="systemGrayColor"/>
                                                     <nil key="highlightedColor"/>
@@ -393,14 +393,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="MVH-g7-3Nm">
-                                        <rect key="frame" x="0.0" y="258" width="390" height="37"/>
+                                        <rect key="frame" x="0.0" y="258" width="390" height="37.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MVH-g7-3Nm" id="RNN-qN-V9q">
-                                            <rect key="frame" x="0.0" y="0.0" width="359.66666666666669" height="37"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359.66666666666669" height="37.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VXE-jZ-60O">
-                                                    <rect key="frame" x="8" y="8" width="343.66666666666669" height="21"/>
+                                                    <rect key="frame" x="8" y="8.0000000000000018" width="343.66666666666669" height="21.666666666666671"/>
                                                     <color key="tintColor" name="label"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain">
@@ -427,7 +427,7 @@
                             <tableViewSection headerTitle="Section-3" id="30j-Ax-5ae">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="50" id="0UR-i2-y4U">
-                                        <rect key="frame" x="0.0" y="373" width="390" height="50"/>
+                                        <rect key="frame" x="0.0" y="373.66666793823242" width="390" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0UR-i2-y4U" id="izC-4x-V2P">
                                             <rect key="frame" x="0.0" y="0.0" width="359.66666666666669" height="50"/>
@@ -449,7 +449,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="D7Q-e7-fTM">
-                                        <rect key="frame" x="0.0" y="423" width="390" height="50"/>
+                                        <rect key="frame" x="0.0" y="423.66666793823242" width="390" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D7Q-e7-fTM" id="HX1-fO-2LV">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="50"/>
@@ -822,10 +822,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="TableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="TOr-6U-zSg">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatCell" id="TOr-6U-zSg" customClass="RecentTableViewCell" customModule="Xchat" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="50" width="390" height="85"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TOr-6U-zSg" id="Ztl-BO-6jd" customClass="RecentTableViewCell" customModule="Xchat" customModuleProvider="target">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TOr-6U-zSg" id="Ztl-BO-6jd">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="85"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -899,15 +899,15 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="f2O-9X-av2" secondAttribute="bottom" id="qJ7-ar-UZw"/>
                                         <constraint firstItem="hwp-5k-U3e" firstAttribute="leading" secondItem="f2O-9X-av2" secondAttribute="trailing" constant="8" symbolic="YES" id="roy-6m-4PE"/>
                                     </constraints>
-                                    <connections>
-                                        <outlet property="avatarImageView" destination="BS4-GN-4hn" id="9WZ-D0-KlL"/>
-                                        <outlet property="dateLabel" destination="r7z-ld-07a" id="e6T-PK-SIY"/>
-                                        <outlet property="lastMessageLabel" destination="f2O-9X-av2" id="aJL-Z0-SUl"/>
-                                        <outlet property="unreadCounterBackgroundView" destination="hwp-5k-U3e" id="jea-xy-Kfo"/>
-                                        <outlet property="unreadCounterLabel" destination="K0a-sm-hTf" id="hjb-b3-H0W"/>
-                                        <outlet property="usernameLabel" destination="OaK-Jn-i9s" id="Isk-qQ-tJW"/>
-                                    </connections>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="avatarImageView" destination="BS4-GN-4hn" id="5tf-lx-l02"/>
+                                    <outlet property="dateLabel" destination="r7z-ld-07a" id="7Jg-v7-Gvc"/>
+                                    <outlet property="lastMessageLabel" destination="f2O-9X-av2" id="8Lu-mW-klg"/>
+                                    <outlet property="unreadCounterBackgroundView" destination="hwp-5k-U3e" id="l7Q-WW-ftF"/>
+                                    <outlet property="unreadCounterLabel" destination="K0a-sm-hTf" id="3vp-rG-Qbq"/>
+                                    <outlet property="usernameLabel" destination="OaK-Jn-i9s" id="5U6-Ga-Oiy"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -915,7 +915,13 @@
                             <outlet property="delegate" destination="qeH-6s-gOc" id="miX-zO-63L"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Chats" id="wIC-sB-iqS"/>
+                    <navigationItem key="navigationItem" title="Chats" id="wIC-sB-iqS">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="85M-3r-bZf">
+                            <connections>
+                                <action selector="composeBarButtonPressed:" destination="qeH-6s-gOc" id="QVw-o3-fYc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wpf-Q2-HUd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
