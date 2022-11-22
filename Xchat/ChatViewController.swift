@@ -13,6 +13,11 @@ import RealmSwift
 
 class ChatViewController: MessagesViewController {
     
+    //MARK: - UI elements
+    
+    private let refreshController = UIRefreshControl()
+    private let microphoneButton = InputBarButtonItem()
+    
     //MARK: - Properties
     
     private var chatId = ""
@@ -36,5 +41,37 @@ class ChatViewController: MessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureMessageCollectionView()
+        configureMessageInputBar()
+    }
+    
+    //MARK: - Configuration
+    
+    private func configureMessageCollectionView() {
+        messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messageCellDelegate = self
+        messagesCollectionView.messagesDisplayDelegate = self
+        messagesCollectionView.messagesLayoutDelegate = self
+        scrollsToLastItemOnKeyboardBeginsEditing = true
+        maintainPositionOnKeyboardFrameChanged = true
+        messagesCollectionView.refreshControl = refreshController
+    }
+    
+    private func configureMessageInputBar() {
+        messageInputBar.delegate = self
+        let attachButton = InputBarButtonItem()
+        attachButton.image = UIImage(systemName: "plus")
+        attachButton.setSize(CGSize(width: 30, height: 30), animated: false)
+        attachButton.onTouchUpInside { item in
+            print("DEBUG: Attach button pressed")
+        }
+        microphoneButton.image = UIImage(systemName: "mic.fill")
+        microphoneButton.setSize(CGSize(width: 30, height: 30), animated: false)
+        // FIXME: - Add gesture recogniser
+        messageInputBar.setStackViewItems([attachButton], forStack: .left, animated: false)
+        messageInputBar.setLeftStackViewWidthConstant(to: 36, animated: false)
+        messageInputBar.inputTextView.isImagePasteEnabled = false
+        messageInputBar.backgroundView.backgroundColor = .systemBackground
+        messageInputBar.inputTextView.backgroundColor = .systemBackground
     }
 }
