@@ -23,6 +23,7 @@ class ChatViewController: MessagesViewController {
     private var chatId = ""
     private var recipientId = ""
     private var recipientName = ""
+    let currentUser = MKSEnder(senderId: User.currentId, displayName: User.currentUser?.username ?? "No username")
     
     //MARK: - Inits
     

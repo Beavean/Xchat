@@ -39,6 +39,9 @@
 		087A46852922677100B5838A /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A46842922677100B5838A /* UserTableViewCell.swift */; };
 		087A46872922679200B5838A /* UsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A46862922679200B5838A /* UsersTableViewController.swift */; };
 		087A46AA29243E3000B5838A /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A46A929243E2F00B5838A /* ProfileTableViewController.swift */; };
+		08816A07292CE28A00D0FB49 /* MessageKitDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08816A06292CE28A00D0FB49 /* MessageKitDefaults.swift */; };
+		08816A09292CE61C00D0FB49 /* MKMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08816A08292CE61C00D0FB49 /* MKMessage.swift */; };
+		08816A0B292CF0E700D0FB49 /* LocalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08816A0A292CF0E600D0FB49 /* LocalMessage.swift */; };
 		948F6E7249A3E7FE0C7F8D76 /* Pods_Xchat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AFE0BC0B2B95B317D721C61 /* Pods_Xchat.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +80,9 @@
 		087A46842922677100B5838A /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		087A46862922679200B5838A /* UsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersTableViewController.swift; sourceTree = "<group>"; };
 		087A46A929243E2F00B5838A /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		08816A06292CE28A00D0FB49 /* MessageKitDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitDefaults.swift; sourceTree = "<group>"; };
+		08816A08292CE61C00D0FB49 /* MKMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMessage.swift; sourceTree = "<group>"; };
+		08816A0A292CF0E600D0FB49 /* LocalMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMessage.swift; sourceTree = "<group>"; };
 		9AFE0BC0B2B95B317D721C61 /* Pods_Xchat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Xchat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABAF02BB480C3C20ACE17BA5 /* Pods-Xchat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchat.release.xcconfig"; path = "Target Support Files/Pods-Xchat/Pods-Xchat.release.xcconfig"; sourceTree = "<group>"; };
 		EB08E1658AE5A2B9B850BD3D /* Pods-Xchat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Xchat.debug.xcconfig"; path = "Target Support Files/Pods-Xchat/Pods-Xchat.debug.xcconfig"; sourceTree = "<group>"; };
@@ -160,6 +166,8 @@
 				084E3D88291AEBA200EC243D /* User.swift */,
 				085FCB6229254D3200092021 /* RecentChat.swift */,
 				087A4680291FD4C800B5838A /* Status.swift */,
+				08816A08292CE61C00D0FB49 /* MKMessage.swift */,
+				08816A0A292CF0E600D0FB49 /* LocalMessage.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -182,6 +190,7 @@
 				087A467C291FCA4600B5838A /* GlobalFunctions.swift */,
 				0822BEC82927AEFC008FF7C4 /* StartChat.swift */,
 				087A467E291FD0C600B5838A /* Extensions .swift */,
+				08816A06292CE28A00D0FB49 /* MessageKitDefaults.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -366,11 +375,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				085FCB6329254D3200092021 /* RecentChat.swift in Sources */,
+				08816A0B292CF0E700D0FB49 /* LocalMessage.swift in Sources */,
 				087A467F291FD0C600B5838A /* Extensions .swift in Sources */,
 				087A467D291FCA4600B5838A /* GlobalFunctions.swift in Sources */,
 				0822BECB2927B40D008FF7C4 /* FirebaseRecentListener.swift in Sources */,
 				084E3D8C291AED7000EC243D /* Constants.swift in Sources */,
 				0822537B292CE0C20093B57B /* InputBarAccessoryViewDelegate.swift in Sources */,
+				08816A07292CE28A00D0FB49 /* MessageKitDefaults.swift in Sources */,
 				08225375292CE0990093B57B /* MessageCellDelegate.swift in Sources */,
 				087A467A291EEDC500B5838A /* FileStorage.swift in Sources */,
 				087A46852922677100B5838A /* UserTableViewCell.swift in Sources */,
@@ -393,6 +404,7 @@
 				087A46872922679200B5838A /* UsersTableViewController.swift in Sources */,
 				084A5B202915C19600F1F522 /* SceneDelegate.swift in Sources */,
 				0844D269292649330052383B /* RecentTableViewCell.swift in Sources */,
+				08816A09292CE61C00D0FB49 /* MKMessage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
