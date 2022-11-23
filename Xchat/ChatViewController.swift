@@ -17,13 +17,14 @@ class ChatViewController: MessagesViewController {
     
     private let refreshController = UIRefreshControl()
     private let microphoneButton = InputBarButtonItem()
+    var mkMessages = [MKMessage]()
     
     //MARK: - Properties
     
     private var chatId = ""
     private var recipientId = ""
     private var recipientName = ""
-    let currentUser = MKSEnder(senderId: User.currentId, displayName: User.currentUser?.username ?? "No username")
+    let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser?.username ?? "No username")
     
     //MARK: - Inits
     
@@ -42,8 +43,8 @@ class ChatViewController: MessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureMessageCollectionView()
         configureMessageInputBar()
+        configureMessageCollectionView()
     }
     
     //MARK: - Configuration

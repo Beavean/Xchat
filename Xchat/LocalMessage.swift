@@ -15,7 +15,7 @@ class LocalMessage: Object, Codable {
     @Persisted var date = Date()
     @Persisted var senderName = ""
     @Persisted var senderId = ""
-    @Persisted var senderinitials = ""
+    @Persisted var senderInitials = ""
     @Persisted var readDate = Date()
     @Persisted var type = ""
     @Persisted var status = ""

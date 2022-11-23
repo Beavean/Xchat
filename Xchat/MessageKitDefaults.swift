@@ -8,7 +8,7 @@
 import UIKit
 import MessageKit
 
-struct MKSEnder: SenderType, Equatable {
+struct MKSender: SenderType, Equatable {
     
     var senderId: String
     var displayName: String
