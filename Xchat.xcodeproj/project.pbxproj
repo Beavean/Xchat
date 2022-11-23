@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		081244E9291D96EB001BA6FE /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */; };
 		081244EB291DA4F9001BA6FE /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081244EA291DA4F9001BA6FE /* EditProfileTableViewController.swift */; };
+		081EFC91292E86CC0050A5FC /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EFC90292E86CC0050A5FC /* RealmManager.swift */; };
+		081EFC93292E89740050A5FC /* OutgoingMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081EFC92292E89730050A5FC /* OutgoingMessage.swift */; };
 		08213772292909E500AE4DEA /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08213771292909E500AE4DEA /* ChatViewController.swift */; };
 		08225372292CE0820093B57B /* MessagesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08225371292CE0820093B57B /* MessagesDataSource.swift */; };
 		08225375292CE0990093B57B /* MessageCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08225374292CE0990093B57B /* MessageCellDelegate.swift */; };
@@ -48,6 +50,8 @@
 /* Begin PBXFileReference section */
 		081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		081244EA291DA4F9001BA6FE /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
+		081EFC90292E86CC0050A5FC /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		081EFC92292E89730050A5FC /* OutgoingMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessage.swift; sourceTree = "<group>"; };
 		08213771292909E500AE4DEA /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		08225371292CE0820093B57B /* MessagesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesDataSource.swift; sourceTree = "<group>"; };
 		08225374292CE0990093B57B /* MessageCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +104,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		081EFC8F292E86B50050A5FC /* RealmMessage */ = {
+			isa = PBXGroup;
+			children = (
+				08816A0A292CF0E600D0FB49 /* LocalMessage.swift */,
+				081EFC90292E86CC0050A5FC /* RealmManager.swift */,
+			);
+			name = RealmMessage;
+			sourceTree = "<group>";
+		};
 		08225373292CE0890093B57B /* ChatViewExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,7 +180,8 @@
 				085FCB6229254D3200092021 /* RecentChat.swift */,
 				087A4680291FD4C800B5838A /* Status.swift */,
 				08816A08292CE61C00D0FB49 /* MKMessage.swift */,
-				08816A0A292CF0E600D0FB49 /* LocalMessage.swift */,
+				081EFC92292E89730050A5FC /* OutgoingMessage.swift */,
+				081EFC8F292E86B50050A5FC /* RealmMessage */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -389,6 +403,7 @@
 				084A5B222915C19600F1F522 /* LoginViewController.swift in Sources */,
 				087A46AA29243E3000B5838A /* ProfileTableViewController.swift in Sources */,
 				084E3D8E291AEF3F00EC243D /* FirebaseCollectionReference.swift in Sources */,
+				081EFC93292E89740050A5FC /* OutgoingMessage.swift in Sources */,
 				081244E9291D96EB001BA6FE /* SettingsTableViewController.swift in Sources */,
 				081244EB291DA4F9001BA6FE /* EditProfileTableViewController.swift in Sources */,
 				087A4683291FD7CB00B5838A /* StatusTableViewController.swift in Sources */,
@@ -399,6 +414,7 @@
 				08225379292CE0AD0093B57B /* MessagesLayoutDelegate.swift in Sources */,
 				08225377292CE0A30093B57B /* MessagesDisplayDelegate.swift in Sources */,
 				08225372292CE0820093B57B /* MessagesDataSource.swift in Sources */,
+				081EFC91292E86CC0050A5FC /* RealmManager.swift in Sources */,
 				0822BECD2927C2FB008FF7C4 /* ChatsTableViewController.swift in Sources */,
 				0822BEC92927AEFC008FF7C4 /* StartChat.swift in Sources */,
 				087A46872922679200B5838A /* UsersTableViewController.swift in Sources */,
