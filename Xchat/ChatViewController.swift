@@ -18,6 +18,9 @@ class ChatViewController: MessagesViewController {
     private let refreshController = UIRefreshControl()
     private let microphoneButton = InputBarButtonItem()
     var mkMessages = [MKMessage]()
+    var allLocalMessages: Results<LocalMessage>!
+    
+    let realm = try! Realm()
     
     //MARK: - Properties
     
@@ -25,6 +28,10 @@ class ChatViewController: MessagesViewController {
     private var recipientId = ""
     private var recipientName = ""
     let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser?.username ?? "No username")
+    
+    //MARK: - Listeners
+    
+    private var notificationToken: NotificationToken?
     
     //MARK: - Inits
     
@@ -45,6 +52,7 @@ class ChatViewController: MessagesViewController {
         super.viewDidLoad()
         configureMessageInputBar()
         configureMessageCollectionView()
+        loadChats()
     }
     
     //MARK: - Configuration
@@ -62,12 +70,12 @@ class ChatViewController: MessagesViewController {
     private func configureMessageInputBar() {
         messageInputBar.delegate = self
         let attachButton = InputBarButtonItem()
-        attachButton.image = UIImage(systemName: "plus")
+        attachButton.image = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         attachButton.setSize(CGSize(width: 30, height: 30), animated: false)
         attachButton.onTouchUpInside { item in
             print("DEBUG: Attach button pressed")
         }
-        microphoneButton.image = UIImage(systemName: "mic.fill")
+        microphoneButton.image = UIImage(systemName: "mic.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         microphoneButton.setSize(CGSize(width: 30, height: 30), animated: false)
         // FIXME: - Add gesture recogniser
         messageInputBar.setStackViewItems([attachButton], forStack: .left, animated: false)
@@ -76,6 +84,43 @@ class ChatViewController: MessagesViewController {
         messageInputBar.backgroundView.backgroundColor = .systemBackground
         messageInputBar.inputTextView.backgroundColor = .systemBackground
     }
+    
+    //MARK: - Load chats
+    
+    private func loadChats() {
+        let predicate = NSPredicate(format: "\(kCHATROOMID) = %@", chatId)
+        allLocalMessages = realm.objects(LocalMessage.self).filter(predicate).sorted(byKeyPath: kDATE, ascending: true)
+        notificationToken = allLocalMessages.observe({ [weak self] (changes: RealmCollectionChange) in
+            switch changes {
+            case .initial:
+                self?.insertMessages()
+                self?.messagesCollectionView.reloadData()
+                self?.messagesCollectionView.scrollToLastItem(animated: true)
+            case .update(_, _ , let insertions, _):
+                for index in insertions {
+                    guard let allLocalMessages = self?.allLocalMessages else { return }
+                    self?.insertMessage(allLocalMessages[index])
+                    self?.messagesCollectionView.reloadData()
+                    self?.messagesCollectionView.scrollToLastItem(animated: false)
+                }
+            case .error(let error):
+                print("Error on new insertion", error.localizedDescription)
+            }
+        })
+    }
+    
+    private func insertMessages() {
+        for message in allLocalMessages {
+            insertMessage(message)
+        }
+    }
+    
+    private func insertMessage(_ localMessage: LocalMessage) {
+        let incoming = IncomingMessage(collectionView: self)
+        guard let message = incoming.createMessage(localMessage: localMessage) else { return }
+        self.mkMessages.append(message)
+    }
+    
     
     //MARK: - Actions
     
