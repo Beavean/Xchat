@@ -15,15 +15,35 @@ class ChatViewController: MessagesViewController {
     
     //MARK: - UI elements
     
+    private lazy var leftBarButtonView: UIView = {
+        UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
+    }()
+    
+    private let titleLabel: UILabel = {
+        let title = UILabel(frame: CGRect(x: 5, y: 0, width: 180, height: 25))
+        title.textAlignment = .left
+        title.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        title.adjustsFontSizeToFitWidth = true
+        return title
+    }()
+    
+    private let subTitleLabel: UILabel = {
+        let subTitle = UILabel(frame: CGRect(x: 5, y: 22, width: 180, height: 20))
+        subTitle.textAlignment = .left
+        subTitle.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        subTitle.adjustsFontSizeToFitWidth = true
+        return subTitle
+    }()
+    
     private let refreshController = UIRefreshControl()
     private let microphoneButton = InputBarButtonItem()
-    var mkMessages = [MKMessage]()
-    var allLocalMessages: Results<LocalMessage>!
-    
-    let realm = try! Realm()
+
     
     //MARK: - Properties
     
+    var mkMessages = [MKMessage]()
+    var allLocalMessages: Results<LocalMessage>!
+    let realm = try! Realm()
     private var chatId = ""
     private var recipientId = ""
     private var recipientName = ""
@@ -52,6 +72,9 @@ class ChatViewController: MessagesViewController {
         super.viewDidLoad()
         configureMessageInputBar()
         configureMessageCollectionView()
+        configureLeftBarButton()
+        configureCustomTitle()
+        updateTypingIndicator(true)
         loadChats()
     }
     
@@ -83,6 +106,18 @@ class ChatViewController: MessagesViewController {
         messageInputBar.inputTextView.isImagePasteEnabled = false
         messageInputBar.backgroundView.backgroundColor = .systemBackground
         messageInputBar.inputTextView.backgroundColor = .systemBackground
+    }
+    
+    private func configureLeftBarButton() {
+        self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(self.backButtonPressed))]
+    }
+    
+    private func configureCustomTitle() {
+        leftBarButtonView.addSubview(titleLabel)
+        leftBarButtonView.addSubview(subTitleLabel)
+        let leftBarButtonItem = UIBarButtonItem(customView: leftBarButtonView)
+        self.navigationItem.leftBarButtonItems?.append(leftBarButtonItem)
+        titleLabel.text = recipientName
     }
     
     //MARK: - Load chats
@@ -126,5 +161,17 @@ class ChatViewController: MessagesViewController {
     
     func sendMessage(text: String?, photo: UIImage?, video: String?, audio: String?, location: String?, audioDuration: Float = 0.0) {
         OutgoingMessage.send(chatId: chatId, text: text, photo: photo, video: video, audio: audio, location: location, memberIds: [User.currentId, recipientId])
+    }
+    
+    @objc func backButtonPressed() {
+        FirebaseRecentListener.shared.resetRecentCounter(chatRoomId: chatId)
+        // FIXME: - Remove listeners
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK: - Update typing indicator
+    
+    func updateTypingIndicator(_ show: Bool) {
+        subTitleLabel.text = show ? "Typing..." : String()
     }
 }
