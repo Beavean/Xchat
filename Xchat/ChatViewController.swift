@@ -76,6 +76,7 @@ class ChatViewController: MessagesViewController {
         configureCustomTitle()
         updateTypingIndicator(true)
         loadChats()
+        listenForNewChats()
     }
     
     //MARK: - Configuration
@@ -100,14 +101,24 @@ class ChatViewController: MessagesViewController {
         }
         microphoneButton.image = UIImage(systemName: "mic.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         microphoneButton.setSize(CGSize(width: 30, height: 30), animated: false)
-        // FIXME: - Add gesture recogniser
+        // FIXME: - Add gesture recognizer
         messageInputBar.setStackViewItems([attachButton], forStack: .left, animated: false)
         messageInputBar.setLeftStackViewWidthConstant(to: 36, animated: false)
+        updateMicrophoneButtonStatus(show: true)
         messageInputBar.inputTextView.isImagePasteEnabled = false
         messageInputBar.backgroundView.backgroundColor = .systemBackground
         messageInputBar.inputTextView.backgroundColor = .systemBackground
     }
     
+    func updateMicrophoneButtonStatus(show: Bool) {
+        if show {
+            messageInputBar.setStackViewItems([microphoneButton], forStack: .right, animated: false)
+            messageInputBar.setRightStackViewWidthConstant(to: 30, animated: false)
+        } else {
+            messageInputBar.setStackViewItems([messageInputBar.sendButton], forStack: .right, animated: false)
+            messageInputBar.setRightStackViewWidthConstant(to: 55, animated: false)
+        }
+    }
     private func configureLeftBarButton() {
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(self.backButtonPressed))]
     }
@@ -125,6 +136,9 @@ class ChatViewController: MessagesViewController {
     private func loadChats() {
         let predicate = NSPredicate(format: "\(kCHATROOMID) = %@", chatId)
         allLocalMessages = realm.objects(LocalMessage.self).filter(predicate).sorted(byKeyPath: kDATE, ascending: true)
+        if allLocalMessages.isEmpty {
+            checkForOldChats()
+        }
         notificationToken = allLocalMessages.observe({ [weak self] (changes: RealmCollectionChange) in
             switch changes {
             case .initial:
@@ -143,6 +157,16 @@ class ChatViewController: MessagesViewController {
             }
         })
     }
+    
+    private func listenForNewChats() {
+        FirebaseMessageListener.shared.listenForNewChats(User.currentId, collectionId: chatId, lastMessageDate: lastMessageDate())
+    }
+    
+    private func checkForOldChats() {
+        FirebaseMessageListener.shared.checkForOldChats(User.currentId, collectionId: chatId)
+    }
+    
+    //MARK: - Insert messages
     
     private func insertMessages() {
         for message in allLocalMessages {
@@ -173,5 +197,12 @@ class ChatViewController: MessagesViewController {
     
     func updateTypingIndicator(_ show: Bool) {
         subTitleLabel.text = show ? "Typing..." : String()
+    }
+    
+    //MARK: - Helpers
+    
+    private func lastMessageDate() -> Date {
+        let lastMessageDate = allLocalMessages.last?.date ?? Date()
+        return Calendar.current.date(byAdding: .second, value: 1, to: lastMessageDate) ?? lastMessageDate
     }
 }
