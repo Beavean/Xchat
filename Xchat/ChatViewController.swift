@@ -44,6 +44,9 @@ class ChatViewController: MessagesViewController {
     var mkMessages = [MKMessage]()
     var allLocalMessages: Results<LocalMessage>!
     let realm = try! Realm()
+    var displayingMessagesCount = 0
+    var maxMessageNumber = 0
+    var minMessageNumber = 0
     private var chatId = ""
     private var recipientId = ""
     private var recipientName = ""
@@ -124,10 +127,11 @@ class ChatViewController: MessagesViewController {
     }
     
     private func configureCustomTitle() {
+        navigationItem.largeTitleDisplayMode = .never
         leftBarButtonView.addSubview(titleLabel)
         leftBarButtonView.addSubview(subTitleLabel)
         let leftBarButtonItem = UIBarButtonItem(customView: leftBarButtonView)
-        self.navigationItem.leftBarButtonItems?.append(leftBarButtonItem)
+        navigationItem.leftBarButtonItems?.append(leftBarButtonItem)
         titleLabel.text = recipientName
     }
     
@@ -169,8 +173,13 @@ class ChatViewController: MessagesViewController {
     //MARK: - Insert messages
     
     private func insertMessages() {
-        for message in allLocalMessages {
-            insertMessage(message)
+        maxMessageNumber = allLocalMessages.count - displayingMessagesCount
+        minMessageNumber = maxMessageNumber - kNUMBEROFMESSAGES
+        if minMessageNumber < 0 {
+            minMessageNumber = 0
+        }
+        for i in minMessageNumber ..< maxMessageNumber {
+            insertMessage(allLocalMessages[i])
         }
     }
     
@@ -178,8 +187,25 @@ class ChatViewController: MessagesViewController {
         let incoming = IncomingMessage(collectionView: self)
         guard let message = incoming.createMessage(localMessage: localMessage) else { return }
         self.mkMessages.append(message)
+        displayingMessagesCount += 1
     }
     
+    private func loadMoreMessages(maxNumber: Int, minNumber: Int) {
+        maxMessageNumber = minNumber - 1
+        minMessageNumber = maxMessageNumber - kNUMBEROFMESSAGES
+        if minMessageNumber < 0 {
+            minMessageNumber = 0
+        }
+        for i in (minMessageNumber ... maxMessageNumber).reversed() {
+            insertOlderMessage(allLocalMessages[i])
+        }
+    }
+    
+    private func insertOlderMessage(_ localMessage: LocalMessage) {
+        let incoming = IncomingMessage(collectionView: self)
+        self.mkMessages.insert(incoming.createMessage(localMessage: localMessage)!, at: 0)
+        displayingMessagesCount += 1
+    }
     
     //MARK: - Actions
     
@@ -197,6 +223,18 @@ class ChatViewController: MessagesViewController {
     
     func updateTypingIndicator(_ show: Bool) {
         subTitleLabel.text = show ? "Typing..." : String()
+    }
+    
+    //MARK: - UIScrollViewDelegate
+    
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if refreshController.isRefreshing {
+            if displayingMessagesCount < allLocalMessages.count {
+                self.loadMoreMessages(maxNumber: maxMessageNumber, minNumber: minMessageNumber)
+                messagesCollectionView.reloadDataAndKeepOffset()
+            }
+            refreshController.endRefreshing()
+        }
     }
     
     //MARK: - Helpers

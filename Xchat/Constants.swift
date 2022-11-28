@@ -9,6 +9,8 @@ import Foundation
 
 let userDefaults = UserDefaults.standard
 
+public let kNUMBEROFMESSAGES = 12
+
 public let kFILEREFERENCE = "gs://xchat-8b871.appspot.com"
 
 public let kCURRENTUSER = "currentUser"
