@@ -20,5 +20,6 @@ target 'Xchat' do
 
 	pod 'MessageKit'
 	pod 'InputBarAccessoryView'
+  pod 'SwiftLint'
 
 end
