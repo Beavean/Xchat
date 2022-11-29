@@ -68,4 +68,11 @@ class FirebaseMessageListener {
             print("error saving message ", error.localizedDescription)
         }
     }
+    
+    func removeListener() {
+        newChatListener.remove()
+        if self.updatedChatListener != nil {
+            self.updatedChatListener.remove()
+        }
+    }
 }
