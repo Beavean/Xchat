@@ -81,6 +81,7 @@ class ChatViewController: MessagesViewController {
         loadChats()
         listenForNewChats()
         createTypingObserver()
+        listenForReadStatusChange()
     }
     
     //MARK: - Configuration
@@ -173,6 +174,14 @@ class ChatViewController: MessagesViewController {
     
     //MARK: - Insert messages
     
+    private func listenForReadStatusChange() {
+        FirebaseMessageListener.shared.listenForReadStatusChange(User.currentId, collectionId: chatId) { updatedMessage in
+            if updatedMessage.status != kSENT {
+                self.updateMessage(updatedMessage)
+            }
+        }
+    }
+    
     private func insertMessages() {
         maxMessageNumber = allLocalMessages.count - displayingMessagesCount
         minMessageNumber = maxMessageNumber - kNUMBEROFMESSAGES
@@ -185,6 +194,9 @@ class ChatViewController: MessagesViewController {
     }
     
     private func insertMessage(_ localMessage: LocalMessage) {
+        if localMessage.senderId != User.currentId {
+            markMessageAsRead(localMessage)
+        }
         let incoming = IncomingMessage(collectionView: self)
         guard let message = incoming.createMessage(localMessage: localMessage) else { return }
         self.mkMessages.append(message)
@@ -206,6 +218,12 @@ class ChatViewController: MessagesViewController {
         let incoming = IncomingMessage(collectionView: self)
         self.mkMessages.insert(incoming.createMessage(localMessage: localMessage)!, at: 0)
         displayingMessagesCount += 1
+    }
+    
+    private func markMessageAsRead(_ localMessage: LocalMessage) {
+        if localMessage.senderId != User.currentId && localMessage.status != kREAD {
+            FirebaseMessageListener.shared.updateMessageInFireStore(localMessage, memberIds: [User.currentId, recipientId])
+        }
     }
     
     //MARK: - Actions
@@ -258,6 +276,22 @@ class ChatViewController: MessagesViewController {
                 messagesCollectionView.reloadDataAndKeepOffset()
             }
             refreshController.endRefreshing()
+        }
+    }
+    
+    //MARK: - Update read message status
+    
+    private func updateMessage(_ localMessage: LocalMessage) {
+        for index in 0 ..< mkMessages.count {
+            let tempMessage = mkMessages[index]
+            if localMessage.id == tempMessage.messageId {
+                mkMessages[index].status = localMessage.status
+                mkMessages[index].readDate = localMessage.readDate
+                RealmManager.shared.saveToRealm(localMessage)
+                if mkMessages[index].status == kREAD {
+                    self.messagesCollectionView.reloadData()
+                }
+            }
         }
     }
     

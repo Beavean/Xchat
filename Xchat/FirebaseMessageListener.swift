@@ -42,6 +42,29 @@ class FirebaseMessageListener {
         })
     }
     
+    func listenForReadStatusChange(_ documentId: String, collectionId: String, completion: @escaping (_ updatedMessage: LocalMessage) -> Void) {
+        updatedChatListener = FirebaseReference(.Messages).document(documentId).collection(collectionId).addSnapshotListener({ snapshot, error in
+            guard let snapshot else { return }
+            for change in snapshot.documentChanges {
+                if change.type == .modified {
+                    let result = Result {
+                        try? change.document.data(as: LocalMessage.self)
+                    }
+                    switch result {
+                    case .success(let message):
+                        if let message {
+                            completion(message)
+                        } else {
+                            print("Document does not exist in chat")
+                        }
+                    case .failure(let error):
+                        print("Error decoding local message: \(error)")
+                    }
+                }
+            }
+        })
+    }
+    
     func checkForOldChats(_ documentId: String, collectionId: String) {
         FirebaseReference(.Messages).document(documentId).collection(collectionId).getDocuments { querySnapshot, error in
             guard let documents = querySnapshot?.documents else {
@@ -66,6 +89,17 @@ class FirebaseMessageListener {
         }
         catch {
             print("error saving message ", error.localizedDescription)
+        }
+    }
+    
+    //MARK: - Update message status
+    
+    func updateMessageInFireStore(_ message: LocalMessage, memberIds: [String]) {
+
+        let values = [kSTATUS: kREAD, kREADDATE: Date()] as [String: Any]
+
+        for userId in memberIds {
+            FirebaseReference(.Messages).document(userId).collection(message.chatRoomId).document(message.id).updateData(values)
         }
     }
     
