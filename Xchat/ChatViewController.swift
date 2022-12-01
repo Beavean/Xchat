@@ -43,6 +43,7 @@ class ChatViewController: MessagesViewController {
     
     var mkMessages = [MKMessage]()
     var allLocalMessages: Results<LocalMessage>!
+    var gallery: GalleryController!
     let realm = try! Realm()
     var displayingMessagesCount = 0
     var maxMessageNumber = 0
@@ -102,7 +103,7 @@ class ChatViewController: MessagesViewController {
         attachButton.image = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         attachButton.setSize(CGSize(width: 30, height: 30), animated: false)
         attachButton.onTouchUpInside { item in
-            print("DEBUG: Attach button pressed")
+            self.messageAttachmentAction()
         }
         microphoneButton.image = UIImage(systemName: "mic.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         microphoneButton.setSize(CGSize(width: 30, height: 30), animated: false)
@@ -238,6 +239,33 @@ class ChatViewController: MessagesViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    private func messageAttachmentAction() {
+        messageInputBar.inputTextView.resignFirstResponder()
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let takePhotoOrVideo = UIAlertAction(title: "Camera", style: .default) { alert in
+            self.showImageGallery(camera: true)
+        }
+        let shareMedia = UIAlertAction(title: "Library", style: .default) { alert in
+            self.showImageGallery(camera: false)
+        }
+        let shareLocation = UIAlertAction(title: "Share Location", style: .default) { alert in
+//            if let _ = LocationManager.shared.currentLocation {
+//                self.messageSend(text: nil, photo: nil, video: nil, audio: nil, location: kLOCATION)
+//            } else {
+//                print("no access to location")
+//            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        takePhotoOrVideo.setValue(UIImage(systemName: "camera"), forKey: "image")
+        shareMedia.setValue(UIImage(systemName: "photo.fill"), forKey: "image")
+        shareLocation.setValue(UIImage(systemName: "mappin.and.ellipse"), forKey: "image")
+        optionMenu.addAction(takePhotoOrVideo)
+        optionMenu.addAction(shareMedia)
+        optionMenu.addAction(shareLocation)
+        optionMenu.addAction(cancelAction)
+        self.present(optionMenu, animated: true, completion: nil)
+    }
+    
     //MARK: - Update typing indicator
     
     func createTypingObserver() {
@@ -305,5 +333,43 @@ class ChatViewController: MessagesViewController {
     private func lastMessageDate() -> Date {
         let lastMessageDate = allLocalMessages.last?.date ?? Date()
         return Calendar.current.date(byAdding: .second, value: 1, to: lastMessageDate) ?? lastMessageDate
+    }
+    
+    //MARK: - Gallery
+    
+    private func showImageGallery(camera: Bool) {
+        gallery = GalleryController()
+        gallery.delegate = self
+        Config.tabsToShow = camera ? [.cameraTab] : [.imageTab, .videoTab]
+        Config.Camera.imageLimit = 1
+        Config.initialTab = .imageTab
+        Config.VideoEditor.maximumDuration = 30
+        self.present(gallery, animated: true, completion: nil)
+    }
+}
+
+extension ChatViewController : GalleryControllerDelegate {
+    
+    func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
+        if images.count > 0 {
+            images.first!.resolve { image in
+                self.sendMessage(text: nil, photo: image, video: nil, audio: nil, location: nil)
+            }
+        }
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
+        print("selected video")
+//        sendMessage(text: nil, photo: nil, video: video, audio: nil, location: nil)
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func galleryController(_ controller: GalleryController, requestLightbox images: [Image]) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func galleryControllerDidCancel(_ controller: GalleryController) {
+        controller.dismiss(animated: true, completion: nil)
     }
 }
