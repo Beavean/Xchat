@@ -21,7 +21,8 @@ class IncomingMessage {
     
     func createMessage(localMessage: LocalMessage) -> MKMessage? {
         let mkMessage = MKMessage(message: localMessage)
-        if localMessage.type == kPHOTO {
+        switch localMessage.type {
+        case kPHOTO:
             let photoItem = PhotoMessage(path: localMessage.pictureUrl)
             mkMessage.photoItem = photoItem
             mkMessage.kind = MessageKind.photo(photoItem)
@@ -29,6 +30,19 @@ class IncomingMessage {
                 mkMessage.photoItem?.image = image
                 self?.messageCollectionView.messagesCollectionView.reloadData()
             }
+        case kVIDEO:
+            FileStorage.downloadImage(imageUrl: localMessage.pictureUrl) { [weak self] thumbNail in
+                FileStorage.downloadVideo(videoLink: localMessage.videoUrl) { (readyToPlay, fileName) in
+                    let videoURL = URL(fileURLWithPath: fileInDocumentsDirectory(fileName: fileName))
+                    let videoItem = VideoMessage(url: videoURL)
+                    mkMessage.videoItem = videoItem
+                    mkMessage.kind = MessageKind.video(videoItem)
+                }
+                mkMessage.videoItem?.image = thumbNail
+                self?.messageCollectionView.messagesCollectionView.reloadData()
+            }
+        default:
+            break
         }
         return mkMessage
     }

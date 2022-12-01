@@ -21,6 +21,7 @@ class MKMessage: NSObject, MessageType {
     var status: String
     var readDate: Date
     var photoItem: PhotoMessage?
+    var videoItem: VideoMessage?
     
     init(message: LocalMessage) {
         self.messageId = message.id
@@ -39,6 +40,10 @@ class MKMessage: NSObject, MessageType {
             let photoItem = PhotoMessage(path: message.pictureUrl)
             self.kind = MessageKind.photo(photoItem)
             self.photoItem = photoItem
+        case kVIDEO:
+            let videoItem = VideoMessage(url: nil)
+            self.kind = MessageKind.video(videoItem)
+            self.videoItem = videoItem
         default:
             print("DEBUG: Unknown message type")
         }

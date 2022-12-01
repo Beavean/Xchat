@@ -37,7 +37,7 @@ class ChatViewController: MessagesViewController {
     
     private let refreshController = UIRefreshControl()
     private let microphoneButton = InputBarButtonItem()
-
+    
     
     //MARK: - Properties
     
@@ -229,7 +229,7 @@ class ChatViewController: MessagesViewController {
     
     //MARK: - Actions
     
-    func sendMessage(text: String?, photo: UIImage?, video: String?, audio: String?, location: String?, audioDuration: Float = 0.0) {
+    func sendMessage(text: String?, photo: UIImage?, video: Video?, audio: String?, location: String?, audioDuration: Float = 0.0) {
         OutgoingMessage.send(chatId: chatId, text: text, photo: photo, video: video, audio: audio, location: location, memberIds: [User.currentId, recipientId])
     }
     
@@ -249,11 +249,11 @@ class ChatViewController: MessagesViewController {
             self.showImageGallery(camera: false)
         }
         let shareLocation = UIAlertAction(title: "Share Location", style: .default) { alert in
-//            if let _ = LocationManager.shared.currentLocation {
-//                self.messageSend(text: nil, photo: nil, video: nil, audio: nil, location: kLOCATION)
-//            } else {
-//                print("no access to location")
-//            }
+            //            if let _ = LocationManager.shared.currentLocation {
+            //                self.messageSend(text: nil, photo: nil, video: nil, audio: nil, location: kLOCATION)
+            //            } else {
+            //                print("no access to location")
+            //            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         takePhotoOrVideo.setValue(UIImage(systemName: "camera"), forKey: "image")
@@ -361,7 +361,7 @@ extension ChatViewController : GalleryControllerDelegate {
     
     func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
         print("selected video")
-//        sendMessage(text: nil, photo: nil, video: video, audio: nil, location: nil)
+        sendMessage(text: nil, photo: nil, video: video, audio: nil, location: nil)
         controller.dismiss(animated: true, completion: nil)
     }
     
