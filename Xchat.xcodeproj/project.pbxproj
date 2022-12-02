@@ -32,6 +32,8 @@
 		084E3D8C291AED7000EC243D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E3D8B291AED7000EC243D /* Constants.swift */; };
 		084E3D8E291AEF3F00EC243D /* FirebaseCollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E3D8D291AEF3F00EC243D /* FirebaseCollectionReference.swift */; };
 		084E3D91291AEFF200EC243D /* FirebaseUserListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E3D90291AEFF200EC243D /* FirebaseUserListener.swift */; };
+		0857336A293AB4C4005436D6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08573369293AB4C4005436D6 /* MapViewController.swift */; };
+		0857336C293AB5A2005436D6 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0857336B293AB5A2005436D6 /* MapAnnotation.swift */; };
 		085FCB6329254D3200092021 /* RecentChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085FCB6229254D3200092021 /* RecentChat.swift */; };
 		087A467A291EEDC500B5838A /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A4679291EEDC500B5838A /* FileStorage.swift */; };
 		087A467D291FCA4600B5838A /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A467C291FCA4600B5838A /* GlobalFunctions.swift */; };
@@ -82,6 +84,8 @@
 		084E3D8B291AED7000EC243D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		084E3D8D291AEF3F00EC243D /* FirebaseCollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCollectionReference.swift; sourceTree = "<group>"; };
 		084E3D90291AEFF200EC243D /* FirebaseUserListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserListener.swift; sourceTree = "<group>"; };
+		08573369293AB4C4005436D6 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		0857336B293AB5A2005436D6 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		085FCB6229254D3200092021 /* RecentChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChat.swift; sourceTree = "<group>"; };
 		087A4679291EEDC500B5838A /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
 		087A467C291FCA4600B5838A /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
@@ -197,6 +201,7 @@
 				081EFC92292E89730050A5FC /* OutgoingMessage.swift */,
 				0881661429315A31009A069D /* IncomingMessage.swift */,
 				08FB2CD1293A28960041A222 /* LocationManager.swift */,
+				0857336B293AB5A2005436D6 /* MapAnnotation.swift */,
 				08FB2CD0293A28720041A222 /* MediaMessage */,
 				081EFC8F292E86B50050A5FC /* RealmMessage */,
 			);
@@ -268,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				087A46A929243E2F00B5838A /* ProfileTableViewController.swift */,
+				08573369293AB4C4005436D6 /* MapViewController.swift */,
 				08213771292909E500AE4DEA /* ChatViewController.swift */,
 				08225373292CE0890093B57B /* ChatViewExtensions */,
 			);
@@ -440,6 +446,7 @@
 				087A4683291FD7CB00B5838A /* StatusTableViewController.swift in Sources */,
 				087A4681291FD4C800B5838A /* Status.swift in Sources */,
 				089FCBC1293A486900B14FEF /* LocationMessage.swift in Sources */,
+				0857336C293AB5A2005436D6 /* MapAnnotation.swift in Sources */,
 				084A5B1E2915C19600F1F522 /* AppDelegate.swift in Sources */,
 				0881661529315A31009A069D /* IncomingMessage.swift in Sources */,
 				08213772292909E500AE4DEA /* ChatViewController.swift in Sources */,
@@ -449,6 +456,7 @@
 				08225377292CE0A30093B57B /* MessagesDisplayDelegate.swift in Sources */,
 				08225372292CE0820093B57B /* MessagesDataSource.swift in Sources */,
 				08A416C5293138ED0087431E /* FirebaseMessageListener.swift in Sources */,
+				0857336A293AB4C4005436D6 /* MapViewController.swift in Sources */,
 				081EFC91292E86CC0050A5FC /* RealmManager.swift in Sources */,
 				0822BECD2927C2FB008FF7C4 /* ChatsTableViewController.swift in Sources */,
 				0822BEC92927AEFC008FF7C4 /* StartChat.swift in Sources */,
