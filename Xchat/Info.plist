@@ -29,5 +29,7 @@
 	<string>$(PRODUCT_NAME) would like to use your photo library</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to use your location</string>
 </dict>
 </plist>

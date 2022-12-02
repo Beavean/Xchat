@@ -18,6 +18,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let _ = (scene as? UIWindowScene) else { return }
     }
     
+    func sceneDidBecomeActive(_ scene: UIScene) {
+        LocationManager.shared.startUpdating()
+    }
+
+    func sceneWillResignActive(_ scene: UIScene) {
+        LocationManager.shared.stopUpdating()
+    }
+    
     //MARK: - Autologin
     
     func autologin() {

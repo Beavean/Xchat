@@ -30,6 +30,9 @@ class OutgoingMessage {
         if video != nil {
             sendVideoMessage(message: message, video: video!, memberIds: memberIds)
         }
+        if location != nil {
+            sendLocationMessage(message: message, memberIds: memberIds)
+        }
         FirebaseRecentListener.shared.updateRecents(chatRoomId: chatId, lastMessage: message.message)
     }
     
@@ -87,4 +90,13 @@ func sendVideoMessage(message: LocalMessage, video: Video, memberIds: [String]) 
             }
         }
     }
+}
+
+func sendLocationMessage(message: LocalMessage, memberIds: [String]) {
+    let currentLocation = LocationManager.shared.currentLocation
+    message.message = "Location message"
+    message.type = kLOCATION
+    message.latitude = currentLocation?.latitude ?? 0.0
+    message.longitude = currentLocation?.longitude ?? 0.0
+    OutgoingMessage.sendMessage(message: message, memberIds: memberIds)
 }

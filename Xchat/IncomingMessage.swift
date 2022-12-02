@@ -41,6 +41,10 @@ class IncomingMessage {
                 mkMessage.videoItem?.image = thumbNail
                 self?.messageCollectionView.messagesCollectionView.reloadData()
             }
+        case kLOCATION:
+            let locationItem = LocationMessage(location: CLLocation(latitude: localMessage.latitude, longitude: localMessage.longitude))
+            mkMessage.kind = MessageKind.location(locationItem)
+            mkMessage.locationItem = locationItem
         default:
             break
         }

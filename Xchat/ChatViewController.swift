@@ -249,11 +249,11 @@ class ChatViewController: MessagesViewController {
             self.showImageGallery(camera: false)
         }
         let shareLocation = UIAlertAction(title: "Share Location", style: .default) { alert in
-            //            if let _ = LocationManager.shared.currentLocation {
-            //                self.messageSend(text: nil, photo: nil, video: nil, audio: nil, location: kLOCATION)
-            //            } else {
-            //                print("no access to location")
-            //            }
+            if let _ = LocationManager.shared.currentLocation {
+                self.sendMessage(text: nil, photo: nil, video: nil, audio: nil, location: kLOCATION)
+            } else {
+                print("no access to location")
+            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         takePhotoOrVideo.setValue(UIImage(systemName: "camera"), forKey: "image")
