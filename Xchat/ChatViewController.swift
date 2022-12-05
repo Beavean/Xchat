@@ -78,9 +78,9 @@ class ChatViewController: MessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureGestureRecognizer()
         configureMessageInputBar()
         configureMessageCollectionView()
-        configureGestureRecognizer()
         configureLeftBarButton()
         configureCustomTitle()
         loadChats()

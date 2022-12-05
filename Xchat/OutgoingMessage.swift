@@ -108,7 +108,7 @@ func sendAudioMessage(message: LocalMessage, audioFileName: String, audioDuratio
     message.message = "Audio message"
     message.type = kAUDIO
     let fileDirectory =  "MediaMessages/Audio/" + "\(message.chatRoomId)/" + "_\(audioFileName)" + ".m4a"
-    FileStorage.uploadAudio(audioFileName, directory: fileDirectory) { (audioUrl) in
+    FileStorage.uploadAudio(audioFileName, directory: fileDirectory) { audioUrl in
         if audioUrl != nil {
             message.audioUrl = audioUrl ?? ""
             message.audioDuration = Double(audioDuration)
