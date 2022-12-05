@@ -31,5 +31,7 @@
 	<string>$(PRODUCT_NAME) would like to use your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your location</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to use your microphone</string>
 </dict>
 </plist>

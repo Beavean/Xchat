@@ -32,7 +32,7 @@ class MapViewController: UIViewController {
         mapView.showsUserLocation = true
         if let location {
             mapView.setCenter(location.coordinate, animated: false)
-            mapView.addAnnotation(MapAnnotation(title: nil, coordinate: location.coordinate))
+            mapView.addAnnotation(MapAnnotation(title: "Shared location", coordinate: location.coordinate))
         }
         view.addSubview(mapView)
     }
