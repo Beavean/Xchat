@@ -23,6 +23,7 @@ class MKMessage: NSObject, MessageType {
     var photoItem: PhotoMessage?
     var videoItem: VideoMessage?
     var locationItem: LocationMessage?
+    var audioItem: AudioMessage?
     
     init(message: LocalMessage) {
         self.messageId = message.id
@@ -49,6 +50,10 @@ class MKMessage: NSObject, MessageType {
             let locationItem = LocationMessage(location: CLLocation(latitude: message.latitude, longitude: message.longitude))
             self.kind = MessageKind.location(locationItem)
             self.locationItem = locationItem
+        case kAUDIO:
+            let audioItem = AudioMessage(duration: 2.0)
+            self.kind = MessageKind.audio(audioItem)
+            self.audioItem = audioItem
         default:
             print("DEBUG: Unknown message type")
         }

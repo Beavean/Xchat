@@ -52,6 +52,7 @@ class ChatViewController: MessagesViewController {
     private var chatId = ""
     private var recipientId = ""
     private var recipientName = ""
+    open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser?.username ?? "No username")
     
     //MARK: - Listeners
