@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Status: String {
+enum Status: String, CaseIterable {
     
     case available = "Available"
     case busy = "Busy"
@@ -20,36 +20,4 @@ enum Status: String {
     case atTheGym = "At the gym"
     case sleeping = "Sleeping"
     case urgentCallsOnly = "Urgent calls only"
-    
-    static var array: [Status] {
-        var arrayOfStatuses: [Status] = []
-        
-        switch Status.available {
-        case .available:
-            arrayOfStatuses.append(.available); fallthrough
-        case .busy:
-            arrayOfStatuses.append(.busy); fallthrough
-        case .atSchool:
-            arrayOfStatuses.append(.atSchool); fallthrough
-        case .atTheMovies:
-            arrayOfStatuses.append(.atTheMovies); fallthrough
-        case .atWork:
-            arrayOfStatuses.append(.atWork); fallthrough
-        case .batteryGettingLow:
-            arrayOfStatuses.append(.batteryGettingLow); fallthrough
-        case .cantTalk:
-            arrayOfStatuses.append(.cantTalk); fallthrough
-        case .inTheMeeting:
-            arrayOfStatuses.append(.inTheMeeting); fallthrough
-        case .atTheGym:
-            arrayOfStatuses.append(.atTheGym); fallthrough
-        case .sleeping:
-            arrayOfStatuses.append(.sleeping); fallthrough
-        case .urgentCallsOnly:
-            arrayOfStatuses.append(.urgentCallsOnly); fallthrough
-        default:
-            break
-        }
-        return arrayOfStatuses
-    }
 }
