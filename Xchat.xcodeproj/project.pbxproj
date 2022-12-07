@@ -49,6 +49,7 @@
 		08816A07292CE28A00D0FB49 /* MessageKitDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08816A06292CE28A00D0FB49 /* MessageKitDefaults.swift */; };
 		08816A09292CE61C00D0FB49 /* MKMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08816A08292CE61C00D0FB49 /* MKMessage.swift */; };
 		08816A0B292CF0E700D0FB49 /* LocalMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08816A0A292CF0E600D0FB49 /* LocalMessage.swift */; };
+		088226662940E4DD006E90C0 /* ChannelsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088226652940E4DD006E90C0 /* ChannelsTableViewController.swift */; };
 		089FCBC1293A486900B14FEF /* LocationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089FCBC0293A486900B14FEF /* LocationMessage.swift */; };
 		08A416C5293138ED0087431E /* FirebaseMessageListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A416C4293138ED0087431E /* FirebaseMessageListener.swift */; };
 		08D78649293F8CC700698924 /* BasicAudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D78648293F8CC700698924 /* BasicAudioController.swift */; };
@@ -104,6 +105,7 @@
 		08816A06292CE28A00D0FB49 /* MessageKitDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKitDefaults.swift; sourceTree = "<group>"; };
 		08816A08292CE61C00D0FB49 /* MKMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKMessage.swift; sourceTree = "<group>"; };
 		08816A0A292CF0E600D0FB49 /* LocalMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalMessage.swift; sourceTree = "<group>"; };
+		088226652940E4DD006E90C0 /* ChannelsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsTableViewController.swift; sourceTree = "<group>"; };
 		089FCBC0293A486900B14FEF /* LocationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMessage.swift; sourceTree = "<group>"; };
 		08A416C4293138ED0087431E /* FirebaseMessageListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseMessageListener.swift; sourceTree = "<group>"; };
 		08D78648293F8CC700698924 /* BasicAudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicAudioController.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 			children = (
 				087A46862922679200B5838A /* UsersTableViewController.swift */,
 				0822BECC2927C2FB008FF7C4 /* ChatsTableViewController.swift */,
+				088226652940E4DD006E90C0 /* ChannelsTableViewController.swift */,
 				081244E8291D96EB001BA6FE /* SettingsTableViewController.swift */,
 			);
 			name = MainViews;
@@ -440,6 +443,7 @@
 				084E3D8C291AED7000EC243D /* Constants.swift in Sources */,
 				0822537B292CE0C20093B57B /* InputBarAccessoryViewDelegate.swift in Sources */,
 				08816A07292CE28A00D0FB49 /* MessageKitDefaults.swift in Sources */,
+				088226662940E4DD006E90C0 /* ChannelsTableViewController.swift in Sources */,
 				08225375292CE0990093B57B /* MessageCellDelegate.swift in Sources */,
 				08729EDC293DF63000CAA41B /* AudioRecorder.swift in Sources */,
 				08D78649293F8CC700698924 /* BasicAudioController.swift in Sources */,
