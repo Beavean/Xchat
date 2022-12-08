@@ -37,3 +37,6 @@ public let kDATE = "date"
 
 public let kREADDATE = "date"
 
+public let kADMINID = "adminId"
+public let kMEMBERIDS = "memberIds"
+
