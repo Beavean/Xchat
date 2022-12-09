@@ -377,14 +377,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="MVH-g7-3Nm">
-                                        <rect key="frame" x="0.0" y="258" width="390" height="37.333332061767578"/>
+                                        <rect key="frame" x="0.0" y="258" width="390" height="37.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MVH-g7-3Nm" id="RNN-qN-V9q">
-                                            <rect key="frame" x="0.0" y="0.0" width="359.66666666666669" height="37.333332061767578"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359.66666666666669" height="37.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VXE-jZ-60O">
-                                                    <rect key="frame" x="8" y="7.9999999999999982" width="343.66666666666669" height="21.333333333333329"/>
+                                                    <rect key="frame" x="8" y="8.0000000000000018" width="343.66666666666669" height="21.666666666666671"/>
                                                     <color key="tintColor" name="label"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain">
@@ -411,7 +411,7 @@
                             <tableViewSection headerTitle="Section-3" id="30j-Ax-5ae">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="50" id="0UR-i2-y4U">
-                                        <rect key="frame" x="0.0" y="373.33333206176758" width="390" height="50"/>
+                                        <rect key="frame" x="0.0" y="373.66666793823242" width="390" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0UR-i2-y4U" id="izC-4x-V2P">
                                             <rect key="frame" x="0.0" y="0.0" width="359.66666666666669" height="50"/>
@@ -433,7 +433,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="D7Q-e7-fTM">
-                                        <rect key="frame" x="0.0" y="423.33333206176758" width="390" height="50"/>
+                                        <rect key="frame" x="0.0" y="423.66666793823242" width="390" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D7Q-e7-fTM" id="HX1-fO-2LV">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="50"/>
@@ -1116,6 +1116,13 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="Cfp-ki-ksf" secondAttribute="trailing" constant="8" id="wGh-OV-w24"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="aboutLabel" destination="1AJ-Jp-lxH" id="OF4-nx-wCR"/>
+                                    <outlet property="avatarImageView" destination="egE-59-412" id="yiM-Ac-OAj"/>
+                                    <outlet property="lastMessageDateLabel" destination="Tbx-Ic-tCR" id="4j5-Ch-Kfe"/>
+                                    <outlet property="memberCountLabel" destination="FdG-Uq-phN" id="d2Q-E4-AGM"/>
+                                    <outlet property="nameLabel" destination="Cfp-ki-ksf" id="H4C-Vl-blh"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
