@@ -96,7 +96,7 @@ class AddChannelTableViewController: UITableViewController {
     
     private func saveChannel() {
         let channel = Channel(id: channelId, name: nameTextField.text!, adminId: User.currentId, memberIds: [User.currentId], avatarLink: avatarLink, aboutChannel: aboutTextView.text)
-        FirebaseChannelListener.shared.saveCannel(channel)
+        FirebaseChannelListener.shared.saveChannel(channel)
         self.navigationController?.popViewController(animated: true)
     }
 
@@ -104,7 +104,7 @@ class AddChannelTableViewController: UITableViewController {
         channelToEdit!.name = nameTextField.text!
         channelToEdit!.aboutChannel = aboutTextView.text
         channelToEdit!.avatarLink = avatarLink
-        FirebaseChannelListener.shared.saveCannel(channelToEdit!)
+        FirebaseChannelListener.shared.saveChannel(channelToEdit!)
         self.navigationController?.popViewController(animated: true)
     }
     

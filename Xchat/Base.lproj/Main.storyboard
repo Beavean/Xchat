@@ -318,13 +318,13 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aK-7B-6H2">
-                                                    <rect key="frame" x="76" y="10" width="275.66666666666669" height="24"/>
+                                                    <rect key="frame" x="76" y="10" width="275.66666666666663" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UE3-ut-29e">
-                                                    <rect key="frame" x="76" y="47" width="275.66666666666669" height="23"/>
+                                                    <rect key="frame" x="76" y="47" width="275.66666666666663" height="23"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="19"/>
                                                     <color key="textColor" systemColor="systemGrayColor"/>
                                                     <nil key="highlightedColor"/>
@@ -377,14 +377,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="MVH-g7-3Nm">
-                                        <rect key="frame" x="0.0" y="258" width="390" height="37.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="258" width="390" height="37.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MVH-g7-3Nm" id="RNN-qN-V9q">
-                                            <rect key="frame" x="0.0" y="0.0" width="359.66666666666669" height="37.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359.66666666666669" height="37.333332061767578"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VXE-jZ-60O">
-                                                    <rect key="frame" x="8" y="8.0000000000000018" width="343.66666666666669" height="21.666666666666671"/>
+                                                    <rect key="frame" x="8" y="7.9999999999999982" width="343.66666666666669" height="21.333333333333329"/>
                                                     <color key="tintColor" name="label"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain">
@@ -411,7 +411,7 @@
                             <tableViewSection headerTitle="Section-3" id="30j-Ax-5ae">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="50" id="0UR-i2-y4U">
-                                        <rect key="frame" x="0.0" y="373.66666793823242" width="390" height="50"/>
+                                        <rect key="frame" x="0.0" y="373.33333206176758" width="390" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0UR-i2-y4U" id="izC-4x-V2P">
                                             <rect key="frame" x="0.0" y="0.0" width="359.66666666666669" height="50"/>
@@ -433,7 +433,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="50" id="D7Q-e7-fTM">
-                                        <rect key="frame" x="0.0" y="423.66666793823242" width="390" height="50"/>
+                                        <rect key="frame" x="0.0" y="423.33333206176758" width="390" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D7Q-e7-fTM" id="HX1-fO-2LV">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="50"/>
@@ -1133,10 +1133,13 @@
                     <navigationItem key="navigationItem" title="My Channels" id="TXh-So-qBm">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="CGh-7Q-Fqj">
                             <connections>
-                                <segue destination="C7U-76-UZF" kind="show" id="3vH-Fa-qEe"/>
+                                <action selector="addBarButtonPressed:" destination="3ZO-L7-Y9T" id="ezW-gK-C6K"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="C7U-76-UZF" kind="show" identifier="AddChannelSegue" id="a2x-8K-oAW"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7h4-wF-1d9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1226,7 +1229,7 @@
                             <outlet property="delegate" destination="C7U-76-UZF" id="3Rc-6H-jHZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="New Channel" id="csj-gS-61R">
+                    <navigationItem key="navigationItem" title="New Channel" largeTitleDisplayMode="never" id="csj-gS-61R">
                         <barButtonItem key="rightBarButtonItem" title="Save" id="Uey-tm-yu6">
                             <connections>
                                 <action selector="saveButtonPressed:" destination="C7U-76-UZF" id="Tbj-vk-7iS"/>

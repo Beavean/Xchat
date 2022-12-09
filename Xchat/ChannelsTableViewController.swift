@@ -15,14 +15,16 @@ class ChannelsTableViewController: UITableViewController {
     
     //MARK: - Properties
     
-    var allChannels: [Channel] = []
-    var subscribedChannels: [Channel] = []
+    var allChannels = [Channel]()
+    var subscribedChannels = [Channel]()
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        downloadAllChannels()
+        downloadSubscribedChannels()
     }
     
     // MARK: - Table view data source
@@ -64,7 +66,7 @@ class ChannelsTableViewController: UITableViewController {
             if let index = channelToUnfollow.memberIds.firstIndex(of: User.currentId) {
                 channelToUnfollow.memberIds.remove(at: index)
             }
-//            FirebaseChannelListener.shared.saveCannel(channelToUnfollow)
+            FirebaseChannelListener.shared.saveChannel(channelToUnfollow)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -73,6 +75,30 @@ class ChannelsTableViewController: UITableViewController {
     
     @IBAction func channelsSegmentValueChanged(_ sender: Any) {
         tableView.reloadData()
+    }
+    
+    //MARK: - Download channels
+    
+    private func downloadAllChannels() {
+        FirebaseChannelListener.shared.downloadAllChannels { (allChannels) in
+            self.allChannels = allChannels
+            if self.channelsSegmentedControlOutlet.selectedSegmentIndex == 1 {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    private func downloadSubscribedChannels() {
+        FirebaseChannelListener.shared.downloadSubscribedChannels { (subscribedChannels) in
+            self.subscribedChannels = subscribedChannels
+            if self.channelsSegmentedControlOutlet.selectedSegmentIndex == 0 {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
     //MARK: - Configuration
@@ -89,14 +115,14 @@ class ChannelsTableViewController: UITableViewController {
     
     private func showChannelView(channel: Channel) {
 //        let channelVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "channelView") as! ChannelDetailTableViewController
-//        channelVC.channel = channel
-//        channelVC.delegate = self
-//        self.navigationController?.pushViewController(channelVC, animated: true)
+        channelVC.channel = channel
+        channelVC.delegate = self
+        self.navigationController?.pushViewController(channelVC, animated: true)
     }
     
     private func showChat(channel: Channel) {
 //        let channelChatVC = ChannelChatViewController(channel: channel)
-//        channelChatVC.hidesBottomBarWhenPushed = true
-//        navigationController?.pushViewController(channelChatVC, animated: true)
+        channelChatVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(channelChatVC, animated: true)
     }
 }

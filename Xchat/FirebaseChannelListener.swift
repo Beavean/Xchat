@@ -63,7 +63,7 @@ class FirebaseChannelListener {
     
     //MARK: - Save and Delete
     
-    func saveCannel(_ channel: Channel) {
+    func saveChannel(_ channel: Channel) {
         do {
             try FirebaseReference(.Channel).document(channel.id).setData(from: channel)
 
@@ -79,7 +79,7 @@ class FirebaseChannelListener {
     //MARK: - Helpers
     
     func removeSubscribedChannels(_ allChannels: [Channel]) -> [Channel] {
-        var newChannels: [Channel] = []
+        var newChannels = [Channel]()
         for channel in allChannels {
             if !channel.memberIds.contains(User.currentId) {
                 newChannels.append(channel)

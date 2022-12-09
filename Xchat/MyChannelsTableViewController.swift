@@ -11,7 +11,7 @@ class MyChannelsTableViewController: UITableViewController {
     
     //MARK: - Properties
     
-    var myChannels: [Channel] = []
+    var myChannels = [Channel]()
     
     //MARK: - LifeCycle
     
