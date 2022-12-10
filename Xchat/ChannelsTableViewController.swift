@@ -123,15 +123,21 @@ class ChannelsTableViewController: UITableViewController {
     //MARK: - Navigation
     
     private func showChannelView(channel: Channel) {
-//        let channelVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "channelView") as! ChannelDetailTableViewController
-//        channelVC.channel = channel
-//        channelVC.delegate = self
-//        self.navigationController?.pushViewController(channelVC, animated: true)
+        let channelVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "ChannelView") as! ChannelDetailTableViewController
+        channelVC.channel = channel
+        channelVC.delegate = self
+        self.navigationController?.pushViewController(channelVC, animated: true)
     }
     
     private func showChat(channel: Channel) {
-//        let channelChatVC = ChannelChatViewController(channel: channel)
-//        channelChatVC.hidesBottomBarWhenPushed = true
-//        navigationController?.pushViewController(channelChatVC, animated: true)
+        let channelChatVC = ChannelChatViewController(channel: channel)
+        channelChatVC.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(channelChatVC, animated: true)
+    }
+}
+
+extension ChannelsTableViewController : ChannelDetailTableViewControllerDelegate {
+    func didClickFollow() {
+        self.downloadAllChannels()
     }
 }
