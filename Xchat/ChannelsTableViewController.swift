@@ -101,6 +101,15 @@ class ChannelsTableViewController: UITableViewController {
         }
     }
     
+    //MARK: - UIScrollViewDelegate
+    
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if self.refreshControl!.isRefreshing {
+            self.downloadAllChannels()
+            self.refreshControl!.endRefreshing()
+        }
+    }
+    
     //MARK: - Configuration
     
     private func configure() {
@@ -115,14 +124,14 @@ class ChannelsTableViewController: UITableViewController {
     
     private func showChannelView(channel: Channel) {
 //        let channelVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "channelView") as! ChannelDetailTableViewController
-        channelVC.channel = channel
-        channelVC.delegate = self
-        self.navigationController?.pushViewController(channelVC, animated: true)
+//        channelVC.channel = channel
+//        channelVC.delegate = self
+//        self.navigationController?.pushViewController(channelVC, animated: true)
     }
     
     private func showChat(channel: Channel) {
 //        let channelChatVC = ChannelChatViewController(channel: channel)
-        channelChatVC.hidesBottomBarWhenPushed = true
-        navigationController?.pushViewController(channelChatVC, animated: true)
+//        channelChatVC.hidesBottomBarWhenPushed = true
+//        navigationController?.pushViewController(channelChatVC, animated: true)
     }
 }

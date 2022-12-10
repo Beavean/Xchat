@@ -66,7 +66,6 @@ class FirebaseChannelListener {
     func saveChannel(_ channel: Channel) {
         do {
             try FirebaseReference(.Channel).document(channel.id).setData(from: channel)
-
         } catch {
             print("Error saving channel ", error.localizedDescription)
         }
