@@ -38,7 +38,6 @@ class ChatViewController: MessagesViewController {
     private let refreshController = UIRefreshControl()
     private let microphoneButton = InputBarButtonItem()
     
-    
     //MARK: - Properties
     
     var mkMessages = [MKMessage]()
