@@ -51,10 +51,6 @@ extension ChannelChatViewController: MessagesLayoutDelegate {
         return 0
     }
     
-//    func cellBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-//        return isFromCurrentSender(message: message) ? 17 : 0
-//    }
-    
     //MARK: - Message bottom label
     
     func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
