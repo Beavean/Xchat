@@ -92,12 +92,20 @@ class FirebaseMessageListener {
         }
     }
     
+    func addChannelMessage(_ message: LocalMessage, channel: Channel) {
+        do {
+            try FirebaseReference(.Messages).document(channel.id).collection(channel.id).document(message.id).setData(from: message)
+        }
+        catch {
+            print("error saving message ", error.localizedDescription)
+        }
+    }
+    
+    
     //MARK: - Update message status
     
     func updateMessageInFireStore(_ message: LocalMessage, memberIds: [String]) {
-
         let values = [kSTATUS: kREAD, kREADDATE: Date()] as [String: Any]
-
         for userId in memberIds {
             FirebaseReference(.Messages).document(userId).collection(message.chatRoomId).document(message.id).updateData(values)
         }
