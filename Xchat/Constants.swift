@@ -12,7 +12,7 @@ let userDefaults = UserDefaults.standard
 public let kNUMBEROFMESSAGES = 12
 
 public let kFILEREFERENCE = "gs://xchat-8b871.appspot.com"
-public let kSERVERKEY = "AAAAJ8nfCDU:APA91bFD7NnDfGMcv3bYYIX7yVQ4nz2ksVrE4rx-3fRLB571i1XsyKj-0OemnTreLvf2uFJJhJxPuqyYu083wAo1AfHPSbpy1wZ7wsTLVNn2tL90TSe72Dpl-L6w_QN1Y43yUtw4cAV6"
+public let kSERVERKEY = "no key"
 
 public let kCURRENTUSER = "currentUser"
 
