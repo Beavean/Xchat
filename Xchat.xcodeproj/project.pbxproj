@@ -35,6 +35,7 @@
 		0857336A293AB4C4005436D6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08573369293AB4C4005436D6 /* MapViewController.swift */; };
 		0857336C293AB5A2005436D6 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0857336B293AB5A2005436D6 /* MapAnnotation.swift */; };
 		085FCB6329254D3200092021 /* RecentChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085FCB6229254D3200092021 /* RecentChat.swift */; };
+		086EEFF92949FDC5007DD4E1 /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086EEFF82949FDC5007DD4E1 /* PushNotificationService.swift */; };
 		08729EDC293DF63000CAA41B /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08729EDB293DF63000CAA41B /* AudioRecorder.swift */; };
 		08729EDE293DFEEF00CAA41B /* AudioMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08729EDD293DFEEF00CAA41B /* AudioMessage.swift */; };
 		087A467A291EEDC500B5838A /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087A4679291EEDC500B5838A /* FileStorage.swift */; };
@@ -98,6 +99,7 @@
 		08573369293AB4C4005436D6 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		0857336B293AB5A2005436D6 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		085FCB6229254D3200092021 /* RecentChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentChat.swift; sourceTree = "<group>"; };
+		086EEFF82949FDC5007DD4E1 /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
 		08729EDB293DF63000CAA41B /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		08729EDD293DFEEF00CAA41B /* AudioMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMessage.swift; sourceTree = "<group>"; };
 		0872AB912948861C00E61B42 /* Xchat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Xchat.entitlements; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				08A416C4293138ED0087431E /* FirebaseMessageListener.swift */,
 				08D83A8D29420FCB0066F8FF /* FirebaseChannelListener.swift */,
 				087A4679291EEDC500B5838A /* FileStorage.swift */,
+				086EEFF82949FDC5007DD4E1 /* PushNotificationService.swift */,
 			);
 			name = FirebaseHelpers;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				087A467D291FCA4600B5838A /* GlobalFunctions.swift in Sources */,
 				0822BECB2927B40D008FF7C4 /* FirebaseRecentListener.swift in Sources */,
 				084E3D8C291AED7000EC243D /* Constants.swift in Sources */,
+				086EEFF92949FDC5007DD4E1 /* PushNotificationService.swift in Sources */,
 				0822537B292CE0C20093B57B /* InputBarAccessoryViewDelegate.swift in Sources */,
 				08816A07292CE28A00D0FB49 /* MessageKitDefaults.swift in Sources */,
 				088226662940E4DD006E90C0 /* ChannelsTableViewController.swift in Sources */,
