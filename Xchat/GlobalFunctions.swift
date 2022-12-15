@@ -50,3 +50,13 @@ func videoThumbnail(video: URL) -> UIImage {
         return UIImage(systemName: "photo")!
     }
 }
+
+func removeCurrentUserFrom(userIds: [String]) -> [String] {
+    var allIds = userIds
+    for id in allIds {
+        if id == User.currentId {
+            allIds.remove(at: allIds.firstIndex(of: id)!)
+        }
+    }
+    return allIds
+}

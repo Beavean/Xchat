@@ -36,6 +36,7 @@ class OutgoingMessage {
         if audio != nil {
             sendAudioMessage(message: message, audioFileName: audio!, audioDuration: audioDuration, memberIds: memberIds)
         }
+        PushNotificationService.shared.sendPushNotificationTo(userIds: removeCurrentUserFrom(userIds: memberIds), body: message.message, chatRoomId: chatId)
         FirebaseRecentListener.shared.updateRecents(chatRoomId: chatId, lastMessage: message.message)
     }
     
@@ -65,7 +66,7 @@ class OutgoingMessage {
         if audio != nil {
             sendAudioMessage(message: message, audioFileName: audio!, audioDuration: audioDuration, memberIds: channel.memberIds, channel: channel)
         }
-        // FIXME: - PushNotificationService
+        PushNotificationService.shared.sendPushNotificationTo(userIds: removeCurrentUserFrom(userIds: channel.memberIds), body: message.message, channel: channel, chatRoomId: channel.id)
         channel.lastMessageDate = Date()
         FirebaseChannelListener.shared.saveChannel(channel)
     }
