@@ -352,6 +352,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 084A5B2E2915C19800F1F522 /* Build configuration list for PBXNativeTarget "Xchat" */;
 			buildPhases = (
+				083F120C294B32E90076F59D /* ShellScript */,
 				795F3414379F2FD88934BDF9 /* [CP] Check Pods Manifest.lock */,
 				084A5B162915C19600F1F522 /* Sources */,
 				084A5B172915C19600F1F522 /* Frameworks */,
@@ -415,6 +416,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		083F120C294B32E90076F59D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		20C28ECA11A768EC804A4466 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

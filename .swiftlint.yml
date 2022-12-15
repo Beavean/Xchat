@@ -1,2 +1,6 @@
+included:
+  - Xchat
 excluded:
   - Pods
+disabled_rules:
+ - force_try

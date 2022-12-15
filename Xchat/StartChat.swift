@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-//MARK: - Start chat
+// MARK: - Start chat
 
 func startChat(user1: User, user2: User) -> String {
     let chatRoomId = chatRoomIdFrom(user1Id: user1.id, user2Id: user2.id)
@@ -28,7 +28,7 @@ func createRecentItems(chatRoomId: String, users: [User]) {
     guard let firstUser = users.first?.id, let secondUser = users.last?.id else { return }
     var memberIdsToCreateRecent = [firstUser, secondUser]
     print("DEBUG: Members to create recent - \(memberIdsToCreateRecent)")
-    FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { snapshot, error in
+    firebaseReference(.recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { snapshot, _ in
         guard let snapshot else { return }
         if !snapshot.isEmpty {
             memberIdsToCreateRecent = removeMemberWhoHasRecent(snapshot: snapshot, memberIds: memberIdsToCreateRecent)

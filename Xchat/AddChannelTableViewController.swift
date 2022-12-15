@@ -10,23 +10,23 @@ import Gallery
 import ProgressHUD
 
 class AddChannelTableViewController: UITableViewController {
-    
-    //MARK: - IBOutlets
-    
+
+    // MARK: - IBOutlets
+
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var aboutTextView: UITextView!
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     var gallery: GalleryController!
     var tapGesture = UITapGestureRecognizer()
     var avatarLink = ""
     var channelId = UUID().uuidString
     var channelToEdit: Channel?
-    
-    //MARK: - Lifecycle
-    
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -36,9 +36,9 @@ class AddChannelTableViewController: UITableViewController {
             configureEditingView()
         }
     }
-    
-    //MARK: - IBActions
-    
+
+    // MARK: - IBActions
+
     @IBAction func saveButtonPressed(_ sender: Any) {
         if nameTextField.text != "" {
             channelToEdit != nil ? editChannel() : saveChannel()
@@ -46,32 +46,32 @@ class AddChannelTableViewController: UITableViewController {
             ProgressHUD.showError("Channel name is empty!")
         }
     }
-    
+
     @objc func avatarImageTap() {
         showGallery()
     }
-    
+
     @objc func backButtonPressed() {
         self.navigationController?.popViewController(animated: true)
     }
-    
-    //MARK: - Configuration
-    
+
+    // MARK: - Configuration
+
     private func configure() {
         navigationItem.largeTitleDisplayMode = .never
         tableView.tableFooterView = UIView()
     }
-    
+
     private func configureGestures() {
         tapGesture.addTarget(self, action: #selector(avatarImageTap))
         avatarImageView.isUserInteractionEnabled = true
         avatarImageView.addGestureRecognizer(tapGesture)
     }
-    
+
     private func configureLeftBarButton() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonPressed))
     }
-    
+
     private func configureEditingView() {
         self.nameTextField.text = channelToEdit!.name
         self.channelId = channelToEdit!.id
@@ -80,9 +80,9 @@ class AddChannelTableViewController: UITableViewController {
         self.title = "Editing Channel"
         setAvatar(avatarLink: channelToEdit!.avatarLink)
     }
-    
-    //MARK: - Gallery
-    
+
+    // MARK: - Gallery
+
     private func showGallery() {
         self.gallery = GalleryController()
         self.gallery.delegate = self
@@ -91,9 +91,9 @@ class AddChannelTableViewController: UITableViewController {
         Config.initialTab = .imageTab
         self.present(gallery, animated: true, completion: nil)
     }
-    
-    //MARK: - Channel actions
-    
+
+    // MARK: - Channel actions
+
     private func saveChannel() {
         let channel = Channel(id: channelId, name: nameTextField.text!, adminId: User.currentId, memberIds: [User.currentId], avatarLink: avatarLink, aboutChannel: aboutTextView.text)
         FirebaseChannelListener.shared.saveChannel(channel)
@@ -107,9 +107,9 @@ class AddChannelTableViewController: UITableViewController {
         FirebaseChannelListener.shared.saveChannel(channelToEdit!)
         self.navigationController?.popViewController(animated: true)
     }
-    
-    //MARK: - Avatar actions
-    
+
+    // MARK: - Avatar actions
+
     private func uploadAvatarImage(_ image: UIImage) {
         let fileDirectory = "Avatars/" + "_\(channelId)" + ".jpg"
         FileStorage.saveFileLocally(fileData: image.jpegData(compressionQuality: 0.7)! as NSData, fileName: self.channelId)
@@ -117,7 +117,7 @@ class AddChannelTableViewController: UITableViewController {
             self.avatarLink = avatarLink ?? ""
         }
     }
-    
+
     private func setAvatar(avatarLink: String) {
         if !avatarLink.isEmpty {
             FileStorage.downloadImage(imageUrl: avatarLink) { avatarImage in
@@ -132,13 +132,13 @@ class AddChannelTableViewController: UITableViewController {
 }
 
 extension AddChannelTableViewController: GalleryControllerDelegate {
-    
+
     func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
         if images.count > 0 {
             images.first!.resolve { icon in
-                if icon != nil {
-                    self.uploadAvatarImage(icon!)
-                    self.avatarImageView.image = icon!.circleMasked
+                if let icon {
+                    self.uploadAvatarImage(icon)
+                    self.avatarImageView.image = icon.circleMasked
                 } else {
                     ProgressHUD.showFailed("Couldn't select image!")
                 }
@@ -146,15 +146,15 @@ extension AddChannelTableViewController: GalleryControllerDelegate {
         }
         controller.dismiss(animated: true, completion: nil)
     }
-    
+
     func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
         controller.dismiss(animated: true, completion: nil)
     }
-    
+
     func galleryController(_ controller: GalleryController, requestLightbox images: [Image]) {
         controller.dismiss(animated: true, completion: nil)
     }
-    
+
     func galleryControllerDidCancel(_ controller: GalleryController) {
         controller.dismiss(animated: true, completion: nil)
     }

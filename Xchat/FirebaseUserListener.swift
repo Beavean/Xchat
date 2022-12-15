@@ -10,28 +10,28 @@ import FirebaseAuth
 import FirebaseFirestore
 
 final class FirebaseUserListener {
-    
+
     static let shared = FirebaseUserListener()
-    
+
     private init() {}
-    
-    //MARK: - Login user
-    
+
+    // MARK: - Login user
+
     func loginUserWithEmail(email: String, password: String, completion: @escaping (_ error: Error?, _ isEmailVerified: Bool) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authDataResult, error in
             if let authDataResult, authDataResult.user.isEmailVerified && error == nil {
                 FirebaseUserListener.shared.downloadUserFromFirebase(userId: authDataResult.user.uid, email: email)
                 completion(error, true)
-                
+
             } else {
                 print("DEBUG: Email is not verified")
                 completion(error, false)
             }
         }
     }
-    
-    //MARK: - Register user
-    
+
+    // MARK: - Register user
+
     func registerUserWith(email: String, password: String, completion: @escaping (_ error: Error?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { [weak self] authDataResult, error in
             completion(error)
@@ -47,9 +47,9 @@ final class FirebaseUserListener {
             }
         }
     }
-    
-    //MARK: - Resend verification link
-    
+
+    // MARK: - Resend verification link
+
     func resendVerificationEmail(email: String, completion: @escaping(_ error: Error?) -> Void) {
         Auth.auth().currentUser?.reload(completion: { error in
             Auth.auth().currentUser?.sendEmailVerification(completion: { error in
@@ -57,17 +57,17 @@ final class FirebaseUserListener {
             })
         })
     }
-    
-    //MARK: - Reset password
-    
+
+    // MARK: - Reset password
+
     func resetPasswordFor(email: String, completion: @escaping (_ error: Error?) -> Void) {
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             completion(error)
         }
     }
-    
-    //MARK: - Log Out user
-    
+
+    // MARK: - Log Out user
+
     func logOutCurrentUser(completion: @escaping (_ error: Error?) -> Void) {
         do {
             try Auth.auth().signOut()
@@ -78,21 +78,21 @@ final class FirebaseUserListener {
             completion(error)
         }
     }
-    
-    //MARK: - Save user
-    
+
+    // MARK: - Save user
+
     func saveUserToFirestore(_ user: User) {
         do {
-            try FirebaseReference(.User).document(user.id).setData(from: user)
+            try firebaseReference(.user).document(user.id).setData(from: user)
         } catch {
             print("DEBUG: Adding user \(error.localizedDescription)")
         }
     }
-    
-    //MARK: - Download user
-    
+
+    // MARK: - Download user
+
     func downloadUserFromFirebase(userId: String, email: String? = nil) {
-        FirebaseReference(.User).document(userId).getDocument { snapshot, error in
+        firebaseReference(.user).document(userId).getDocument { snapshot, error in
             guard let snapshot else {
                 print("DEBUG: No document for user")
                 return
@@ -112,10 +112,10 @@ final class FirebaseUserListener {
             }
         }
     }
-    
+
     func downloadAllUsersFromFirebase(completion: @escaping (_ allUsers: [User]) -> Void) {
         var users: [User] = []
-        FirebaseReference(.User).limit(to: 20).getDocuments { querySnapshot, error in
+        firebaseReference(.user).limit(to: 20).getDocuments { querySnapshot, _ in
             guard let document = querySnapshot?.documents else {
                 print("DEBUG: No documents in all users.")
                 return
@@ -131,12 +131,12 @@ final class FirebaseUserListener {
             completion(users)
         }
     }
-    
+
     func downloadUsersFromFirebase(withIds: [String], completion: @escaping (_ allUsers: [User]) -> Void) {
         var count = 0
         var usersArray = [User]()
         for userId in withIds {
-            FirebaseReference(.User).document(userId).getDocument { querySnapshot, error in
+            firebaseReference(.user).document(userId).getDocument { querySnapshot, _ in
                 guard let document = querySnapshot else {
                     print("DEBUG: No documents in all users.")
                     return
@@ -150,12 +150,12 @@ final class FirebaseUserListener {
             }
         }
     }
-    
-    //MARK: - Update
-    
+
+    // MARK: - Update
+
     func updateUserInFirebase(_ user: User) {
         do {
-            let _ = try FirebaseReference(.User).document(user.id).setData(from: user)
+            _ = try firebaseReference(.user).document(user.id).setData(from: user)
         } catch {
             print(error.localizedDescription, "updating user...")
         }

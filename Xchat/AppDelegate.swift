@@ -11,7 +11,7 @@ import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
+
     var firstRun: Bool?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -29,13 +29,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
-    
-    //MARK: - Remote notifications
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+
+    // MARK: - Remote notifications
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         completionHandler(UIBackgroundFetchResult.newData)
     }
-    
+
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print("unable to register for remote notifications ", error.localizedDescription)
     }
@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { _, _ in
         }
     }
-    
+
     private func updateUserPushId(newPushId: String) {
         if var user = User.currentUser {
             user.pushId = newPushId
@@ -54,9 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             FirebaseUserListener.shared.updateUserInFirebase(user)
         }
     }
-    
-    //MARK: - First Run
-    
+
+    // MARK: - First Run
+
     private func firstRunCheck() {
         firstRun = userDefaults.bool(forKey: kFIRSTRUN)
         guard let firstRun else { return }
@@ -70,18 +70,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    
+
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         completionHandler()
     }
 }
 
-extension AppDelegate : MessagingDelegate {
-    
+extension AppDelegate: MessagingDelegate {
+
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         guard let fcmToken else { return }
         print("DEBUG: user push token is ", fcmToken)
         updateUserPushId(newPushId: fcmToken)
     }
 }
-

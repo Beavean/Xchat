@@ -9,21 +9,21 @@ import Foundation
 import MessageKit
 
 extension ChatViewController: MessagesDataSource {
-    
+
     func currentSender() -> MessageKit.SenderType {
         currentUser
     }
-    
+
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessageKit.MessagesCollectionView) -> MessageKit.MessageType {
         mkMessages[indexPath.section]
     }
-    
+
     func numberOfSections(in messagesCollectionView: MessageKit.MessagesCollectionView) -> Int {
         mkMessages.count
     }
-    
-    //MARK: - Cell top labels
-    
+
+    // MARK: - Cell top labels
+
     func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if indexPath.section % 3 == 0 {
             let showLoadMore = indexPath.section == 0 && allLocalMessages.count > displayingMessagesCount
@@ -34,9 +34,9 @@ extension ChatViewController: MessagesDataSource {
         }
         return nil
     }
-    
-    //MARK: - Cell bottom label
-    
+
+    // MARK: - Cell bottom label
+
     func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if isFromCurrentSender(message: message) {
             let message = mkMessages[indexPath.section]
@@ -47,9 +47,9 @@ extension ChatViewController: MessagesDataSource {
         }
         return nil
     }
-    
-    //MARK: - Message bottom label
-    
+
+    // MARK: - Message bottom label
+
     func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if indexPath.section != mkMessages.count - 1 {
             let font = UIFont.boldSystemFont(ofSize: 10)
@@ -61,21 +61,21 @@ extension ChatViewController: MessagesDataSource {
 }
 
 extension ChannelChatViewController: MessagesDataSource {
-    
+
     func currentSender() -> MessageKit.SenderType {
         currentUser
     }
-    
+
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessageKit.MessagesCollectionView) -> MessageKit.MessageType {
         mkMessages[indexPath.section]
     }
-    
+
     func numberOfSections(in messagesCollectionView: MessageKit.MessagesCollectionView) -> Int {
         mkMessages.count
     }
-    
-    //MARK: - Cell top labels
-    
+
+    // MARK: - Cell top labels
+
     func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if indexPath.section % 3 == 0 {
             let showLoadMore = indexPath.section == 0 && allLocalMessages.count > displayingMessagesCount
@@ -86,9 +86,9 @@ extension ChannelChatViewController: MessagesDataSource {
         }
         return nil
     }
-    
-    //MARK: - Message bottom label
-    
+
+    // MARK: - Message bottom label
+
     func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         if indexPath.section != mkMessages.count - 1 {
             let font = UIFont.boldSystemFont(ofSize: 10)
@@ -98,4 +98,3 @@ extension ChannelChatViewController: MessagesDataSource {
         return nil
     }
 }
-

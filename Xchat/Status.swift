@@ -8,7 +8,7 @@
 import Foundation
 
 enum Status: String, CaseIterable {
-    
+
     case available = "Available"
     case busy = "Busy"
     case atSchool = "At School"

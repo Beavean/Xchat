@@ -12,11 +12,11 @@ import AVKit
 import SKPhotoBrowser
 
 extension ChatViewController: MessageCellDelegate {
-    
+
     func didTapImage(in cell: MessageCollectionViewCell) {
         if let indexPath = messagesCollectionView.indexPath(for: cell) {
             let mkMessage = mkMessages[indexPath.section]
-            
+
             if let image = mkMessage.photoItem?.image {
                 var images = [SKPhoto]()
                 let photo = SKPhoto.photoWithImage(image)
@@ -25,7 +25,7 @@ extension ChatViewController: MessageCellDelegate {
                 browser.initializePageIndex(0)
                 present(browser, animated: true, completion: nil)
             }
-            
+
             if let videoUrl = mkMessage.videoItem?.url {
                 let player = AVPlayer(url: videoUrl)
                 let moviePlayer = AVPlayerViewController()
@@ -38,7 +38,7 @@ extension ChatViewController: MessageCellDelegate {
             }
         }
     }
-    
+
     func didTapMessage(in cell: MessageCollectionViewCell) {
         if let indexPath = messagesCollectionView.indexPath(for: cell) {
             let mkMessage = mkMessages[indexPath.section]
@@ -49,12 +49,12 @@ extension ChatViewController: MessageCellDelegate {
             }
         }
     }
-    
+
     func didTapPlayButton(in cell: AudioMessageCell) {
         guard let indexPath = messagesCollectionView.indexPath(for: cell),
-            let message = messagesCollectionView.messagesDataSource?.messageForItem(at: indexPath, in: messagesCollectionView) else {
-                print("Failed to identify message when audio cell receive tap gesture")
-                return
+              let message = messagesCollectionView.messagesDataSource?.messageForItem(at: indexPath, in: messagesCollectionView) else {
+            print("Failed to identify message when audio cell receive tap gesture")
+            return
         }
         guard audioController.state != .stopped else {
             audioController.playSound(for: message, in: cell)
@@ -74,11 +74,11 @@ extension ChatViewController: MessageCellDelegate {
 }
 
 extension ChannelChatViewController: MessageCellDelegate {
-    
+
     func didTapImage(in cell: MessageCollectionViewCell) {
         if let indexPath = messagesCollectionView.indexPath(for: cell) {
             let mkMessage = mkMessages[indexPath.section]
-            
+
             if let image = mkMessage.photoItem?.image {
                 var images = [SKPhoto]()
                 let photo = SKPhoto.photoWithImage(image)
@@ -87,7 +87,7 @@ extension ChannelChatViewController: MessageCellDelegate {
                 browser.initializePageIndex(0)
                 present(browser, animated: true, completion: nil)
             }
-            
+
             if let videoUrl = mkMessage.videoItem?.url {
                 let player = AVPlayer(url: videoUrl)
                 let moviePlayer = AVPlayerViewController()
@@ -100,7 +100,7 @@ extension ChannelChatViewController: MessageCellDelegate {
             }
         }
     }
-    
+
     func didTapMessage(in cell: MessageCollectionViewCell) {
         if let indexPath = messagesCollectionView.indexPath(for: cell) {
             let mkMessage = mkMessages[indexPath.section]
@@ -111,12 +111,12 @@ extension ChannelChatViewController: MessageCellDelegate {
             }
         }
     }
-    
+
     func didTapPlayButton(in cell: AudioMessageCell) {
         guard let indexPath = messagesCollectionView.indexPath(for: cell),
-            let message = messagesCollectionView.messagesDataSource?.messageForItem(at: indexPath, in: messagesCollectionView) else {
-                print("Failed to identify message when audio cell receive tap gesture")
-                return
+              let message = messagesCollectionView.messagesDataSource?.messageForItem(at: indexPath, in: messagesCollectionView) else {
+            print("Failed to identify message when audio cell receive tap gesture")
+            return
         }
         guard audioController.state != .stopped else {
             audioController.playSound(for: message, in: cell)

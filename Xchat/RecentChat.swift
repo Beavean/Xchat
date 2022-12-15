@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct RecentChat: Codable {
-    
+
     var id = ""
     var chatRoomId = ""
     var senderId = ""

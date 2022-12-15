@@ -8,27 +8,27 @@
 import UIKit
 
 class ProfileTableViewController: UITableViewController {
-    
-    //MARK: - IBOutlets
-    
+
+    // MARK: - IBOutlets
+
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     var user: User?
-    
-    //MARK: - Lifecycle
-    
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         setupUI()
     }
-    
-    //MARK: - TableView delegates
-    
+
+    // MARK: - TableView delegates
+
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = UIColor(named: "TableViewBackgroundColor")
@@ -38,7 +38,7 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         0
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 1 {
@@ -49,14 +49,14 @@ class ProfileTableViewController: UITableViewController {
             navigationController?.pushViewController(privateChatVC, animated: true)
         }
     }
-    
-    //MARK: - Configuration
-    
+
+    // MARK: - Configuration
+
     private func configureTableView() {
         navigationItem.largeTitleDisplayMode = .never
         tableView.tableFooterView = UIView()
     }
-    
+
     private func setupUI() {
         if let user {
             self.title = user.username

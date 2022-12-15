@@ -18,11 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         autologin()
         guard let _ = (scene as? UIWindowScene) else { return }
     }
-    
+
     func sceneDidDisconnect(_ scene: UIScene) {
         resetBadge()
     }
-    
+
     func sceneDidBecomeActive(_ scene: UIScene) {
         LocationManager.shared.startUpdating()
         resetBadge()
@@ -31,17 +31,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillResignActive(_ scene: UIScene) {
         LocationManager.shared.stopUpdating()
     }
-    
+
     func sceneDidEnterBackground(_ scene: UIScene) {
         resetBadge()
     }
-    
+
     func sceneWillEnterForeground(_ scene: UIScene) {
         resetBadge()
     }
-    
-    //MARK: - Autologin
-    
+
+    // MARK: - Autologin
+
     func autologin() {
         authListener = Auth.auth().addStateDidChangeListener({ [weak self] auth, user in
             guard let authListener = self?.authListener else { return }
@@ -53,14 +53,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
         })
     }
-    
+
     private func enterTheApplication() {
         guard let mainView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? UITabBarController else { return }
         self.window?.rootViewController = mainView
     }
-    
+
     private func resetBadge() {
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
 }
-

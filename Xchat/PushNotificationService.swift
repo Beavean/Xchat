@@ -8,11 +8,11 @@
 import Foundation
 
 class PushNotificationService {
-    
+
     static let shared = PushNotificationService()
-    
+
     private init() { }
-    
+
     func sendPushNotificationTo(userIds: [String], body: String, channel: Channel? = nil, chatRoomId: String) {
         print("Sending push to user ", userIds)
         FirebaseUserListener.shared.downloadUsersFromFirebase(withIds: userIds) { (users) in
@@ -22,18 +22,18 @@ class PushNotificationService {
             }
         }
     }
-    
+
     private func sendMessageToUser( to token: String, title: String, body: String, chatRoomId: String) {
         print("token is ...", token)
         let urlString = "https://fcm.googleapis.com/fcm/send"
         guard let url = NSURL(string: urlString) else { return }
-        let paramString: [String : Any] = ["to" : token,
-                                           "notification" : [
-                                            "title" : title,
-                                            "body" : body,
-                                            "badge" : "1",
-                                            "sound" : "default"
-                                           ]
+        let paramString: [String: Any] = ["to": token,
+                                          "notification": [
+                                            "title": title,
+                                            "body": body,
+                                            "badge": "1",
+                                            "sound": "default"
+                                          ]
         ]
         let request = NSMutableURLRequest(url: url as URL)
         request.httpMethod = "POST"

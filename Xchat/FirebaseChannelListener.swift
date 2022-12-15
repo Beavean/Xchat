@@ -11,15 +11,15 @@ import FirebaseFirestore
 class FirebaseChannelListener {
 
     static let shared = FirebaseChannelListener()
-    
+
     var channelListener: ListenerRegistration!
-    
+
     private init() { }
-    
-    //MARK: - Fetching
-    
-    func downloadUserChannelsFromFirebase(completion: @escaping (_ allChannels: [Channel]) ->Void) {
-        channelListener = FirebaseReference(.Channel).whereField(kADMINID, isEqualTo: User.currentId).addSnapshotListener { querySnapshot, error in
+
+    // MARK: - Fetching
+
+    func downloadUserChannelsFromFirebase(completion: @escaping (_ allChannels: [Channel]) -> Void) {
+        channelListener = firebaseReference(.channel).whereField(kADMINID, isEqualTo: User.currentId).addSnapshotListener { querySnapshot, _ in
             guard let documents = querySnapshot?.documents else {
                 print("no documents for user channels")
                 return
@@ -31,9 +31,9 @@ class FirebaseChannelListener {
             completion(allChannels)
         }
     }
-    
-    func downloadSubscribedChannels(completion: @escaping (_ allChannels: [Channel]) ->Void) {
-        channelListener = FirebaseReference(.Channel).whereField(kMEMBERIDS, arrayContains: User.currentId).addSnapshotListener { querySnapshot, error in
+
+    func downloadSubscribedChannels(completion: @escaping (_ allChannels: [Channel]) -> Void) {
+        channelListener = firebaseReference(.channel).whereField(kMEMBERIDS, arrayContains: User.currentId).addSnapshotListener { querySnapshot, _ in
             guard let documents = querySnapshot?.documents else {
                 print("no documents for subscribed channels")
                 return
@@ -45,9 +45,9 @@ class FirebaseChannelListener {
             completion(allChannels)
         }
     }
-    
-    func downloadAllChannels(completion: @escaping (_ allChannels: [Channel]) ->Void) {
-        FirebaseReference(.Channel).getDocuments { querySnapshot, error in
+
+    func downloadAllChannels(completion: @escaping (_ allChannels: [Channel]) -> Void) {
+        firebaseReference(.channel).getDocuments { querySnapshot, _ in
             guard let documents = querySnapshot?.documents else {
                 print("no documents for all channels")
                 return
@@ -60,23 +60,23 @@ class FirebaseChannelListener {
             completion(allChannels)
         }
     }
-    
-    //MARK: - Save and Delete
-    
+
+    // MARK: - Save and Delete
+
     func saveChannel(_ channel: Channel) {
         do {
-            try FirebaseReference(.Channel).document(channel.id).setData(from: channel)
+            try firebaseReference(.channel).document(channel.id).setData(from: channel)
         } catch {
             print("Error saving channel ", error.localizedDescription)
         }
     }
-    
+
     func deleteChannel(_ channel: Channel) {
-        FirebaseReference(.Channel).document(channel.id).delete()
+        firebaseReference(.channel).document(channel.id).delete()
     }
 
-    //MARK: - Helpers
-    
+    // MARK: - Helpers
+
     func removeSubscribedChannels(_ allChannels: [Channel]) -> [Channel] {
         var newChannels = [Channel]()
         for channel in allChannels {
@@ -86,7 +86,7 @@ class FirebaseChannelListener {
         }
         return newChannels
     }
-    
+
     func removeChannelListener() {
         self.channelListener.remove()
     }

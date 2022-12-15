@@ -9,23 +9,23 @@ import Foundation
 import AVFoundation
 
 class AudioRecorder: NSObject, AVAudioRecorderDelegate {
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     static let shared = AudioRecorder()
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var isAudioRecordingGranted: Bool!
-    
-    //MARK: - Inits
-    
+
+    // MARK: - Inits
+
     private override init() {
         super.init()
         checkForRecordPermission()
     }
-    
-    //MARK: - Methods
-    
+
+    // MARK: - Methods
+
     private func checkForRecordPermission() {
         switch AVAudioSession.sharedInstance().recordPermission {
         case .granted:
@@ -42,7 +42,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
             break
         }
     }
-    
+
     func setupRecorder() {
         if isAudioRecordingGranted {
             recordingSession = AVAudioSession.sharedInstance()
@@ -54,8 +54,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
             }
         }
     }
-    
-    
+
     func startRecording(fileName: String) {
         let audioFileName = getDocumentsURL().appendingPathComponent(fileName + ".m4a", isDirectory: false)
         let settings = [
@@ -73,7 +72,7 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
             finishRecording()
         }
     }
-    
+
     func finishRecording() {
         if audioRecorder != nil {
             audioRecorder.stop()

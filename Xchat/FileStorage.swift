@@ -12,21 +12,21 @@ import ProgressHUD
 let storage = Storage.storage()
 
 class FileStorage {
-    
-    //MARK: - Images
-    
+
+    // MARK: - Images
+
     class func uploadImage(_ image: UIImage, directory: String, completion: @escaping (_ documentLink: String?) -> Void) {
         let storageReference = storage.reference(forURL: kFILEREFERENCE).child(directory)
         guard let imageData = image.jpegData(compressionQuality: 0.6) else { return }
         var task: StorageUploadTask!
-        task = storageReference.putData(imageData, metadata: nil, completion: { metadata, error in
+        task = storageReference.putData(imageData, metadata: nil, completion: { _, error in
             task.removeAllObservers()
             ProgressHUD.dismiss()
             if let error {
                 print("DEBUG: Error uploading image \(error.localizedDescription)")
                 return
             }
-            storageReference.downloadURL { url, error in
+            storageReference.downloadURL { url, _ in
                 guard let url else {
                     completion(nil)
                     return
@@ -41,7 +41,7 @@ class FileStorage {
             }
         }
     }
-    
+
     class func downloadImage(imageUrl: String, completion: @escaping (_ image: UIImage?) -> Void) {
         let imageFileName = fileNameFrom(fileUrl: imageUrl)
         if fileExistsAtPath(path: imageFileName) {
@@ -69,20 +69,20 @@ class FileStorage {
             }
         }
     }
-    
-    //MARK: - Videos
-    
+
+    // MARK: - Videos
+
     class func uploadVideo(_ video: NSData, directory: String, completion: @escaping (_ videoLink: String?) -> Void) {
         let storageRef = storage.reference(forURL: kFILEREFERENCE).child(directory)
         var task: StorageUploadTask!
-        task = storageRef.putData(video as Data, metadata: nil, completion: { metadata, error in
+        task = storageRef.putData(video as Data, metadata: nil, completion: { _, error in
             task.removeAllObservers()
             ProgressHUD.dismiss()
-            if error != nil {
-                print("DEBUG: error uploading video \(error!.localizedDescription)")
+            if let error {
+                print("DEBUG: error uploading video \(error.localizedDescription)")
                 return
             }
-            storageRef.downloadURL { (url, error) in
+            storageRef.downloadURL { (url, _) in
                 guard let downloadUrl = url  else {
                     completion(nil)
                     return
@@ -95,7 +95,7 @@ class FileStorage {
             ProgressHUD.showProgress(CGFloat(progress))
         }
     }
-    
+
     class func downloadVideo(videoLink: String, completion: @escaping (_ isReadyToPlay: Bool, _ videoFileName: String) -> Void) {
         let videoUrl = URL(string: videoLink)
         let videoFileName = fileNameFrom(fileUrl: videoLink) + ".mov"
@@ -116,23 +116,23 @@ class FileStorage {
             }
         }
     }
-    
-    //MARK: - Audio
-    
+
+    // MARK: - Audio
+
     class func uploadAudio(_ audioFileName: String, directory: String, completion: @escaping (_ audioLink: String?) -> Void) {
         let fileName = audioFileName + ".m4a"
         let storageRef = storage.reference(forURL: kFILEREFERENCE).child(directory)
         var task: StorageUploadTask!
         if fileExistsAtPath(path: fileName) {
             if let audioData = NSData(contentsOfFile: fileInDocumentsDirectory(fileName: fileName)) {
-                task = storageRef.putData(audioData as Data, metadata: nil, completion: { metadata, error in
+                task = storageRef.putData(audioData as Data, metadata: nil, completion: { _, error in
                     task.removeAllObservers()
                     ProgressHUD.dismiss()
                     if let error {
                         print("error uploading audio \(error.localizedDescription)")
                         return
                     }
-                    storageRef.downloadURL { url, error in
+                    storageRef.downloadURL { url, _ in
                         guard let downloadUrl = url  else {
                             completion(nil)
                             return
@@ -149,7 +149,7 @@ class FileStorage {
             }
         }
     }
-    
+
     class func downloadAudio(audioLink: String, completion: @escaping (_ audioFileName: String) -> Void) {
         let audioFileName = fileNameFrom(fileUrl: audioLink) + ".m4a"
         if fileExistsAtPath(path: audioFileName) {
@@ -159,7 +159,7 @@ class FileStorage {
             downloadQueue.async {
                 let data = NSData(contentsOf: URL(string: audioLink)!)
                 if let data {
-                     FileStorage.saveFileLocally(fileData: data, fileName: audioFileName)
+                    FileStorage.saveFileLocally(fileData: data, fileName: audioFileName)
                     DispatchQueue.main.async {
                         completion(audioFileName)
                     }
@@ -169,16 +169,16 @@ class FileStorage {
             }
         }
     }
-    
-    //MARK: - Save locally
-    
+
+    // MARK: - Save locally
+
     class func saveFileLocally(fileData: NSData, fileName: String) {
         let documentURL = getDocumentsURL().appendingPathComponent(fileName, isDirectory: false)
         fileData.write(to: documentURL, atomically: true)
     }
 }
 
-//MARK: - Helpers
+// MARK: - Helpers
 
 func fileInDocumentsDirectory(fileName: String) -> String {
     getDocumentsURL().appendingPathComponent(fileName).path

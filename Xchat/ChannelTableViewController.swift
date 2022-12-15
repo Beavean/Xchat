@@ -12,35 +12,35 @@ protocol ChannelDetailTableViewControllerDelegate {
 }
 
 class ChannelTableViewController: UITableViewController {
-    
-    //MARK: - IBActions
-    
+
+    // MARK: - IBActions
+
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var membersLabel: UILabel!
     @IBOutlet weak var aboutTextView: UITextView!
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     var channel: Channel!
     var delegate: ChannelDetailTableViewControllerDelegate?
-    
-    //MARK: - Lifecycle
-    
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         showChannelData()
         configureRightBarButton()
     }
-    
-    //MARK: - Configure
-    
+
+    // MARK: - Configure
+
     private func configure() {
         navigationItem.largeTitleDisplayMode = .never
         tableView.tableFooterView = UIView()
     }
-    
+
     private func showChannelData() {
         self.title = channel.name
         nameLabel.text = channel.name
@@ -48,7 +48,7 @@ class ChannelTableViewController: UITableViewController {
         aboutTextView.text = channel.aboutChannel
         setAvatar(avatarLink: channel.avatarLink)
     }
-    
+
     private func configureRightBarButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Follow", style: .plain, target: self, action: #selector(followChannel))
     }
@@ -64,9 +64,9 @@ class ChannelTableViewController: UITableViewController {
             self.avatarImageView.image = UIImage(named: "avatar")
         }
     }
-    
-    //MARK: - Actions
-    
+
+    // MARK: - Actions
+
     @objc func followChannel() {
         channel.memberIds.append(User.currentId)
         FirebaseChannelListener.shared.saveChannel(channel)

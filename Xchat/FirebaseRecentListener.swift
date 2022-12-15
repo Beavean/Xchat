@@ -9,13 +9,13 @@ import Foundation
 import FirebaseFirestore
 
 class FirebaseRecentListener {
-    
+
     static let shared = FirebaseRecentListener()
-    
+
     private init() {}
-    
+
     func downloadRecentChatsFromFireStore(completion: @escaping (_ allRecents: [RecentChat]) -> Void) {
-        FirebaseReference(.Recent).whereField(kSENDERID, isEqualTo: User.currentId).addSnapshotListener { querySnapshot, error in
+        firebaseReference(.recent).whereField(kSENDERID, isEqualTo: User.currentId).addSnapshotListener { querySnapshot, _ in
             var recentChats = [RecentChat]()
             guard let documents = querySnapshot?.documents else {
                 print("DEBUG: No documents found for recent chat.")
@@ -33,9 +33,9 @@ class FirebaseRecentListener {
             completion(recentChats)
         }
     }
-    
+
     func resetRecentCounter(chatRoomId: String) {
-        FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).whereField(kSENDERID, isEqualTo: User.currentId).getDocuments { [weak self] querySnapshot, error in
+        firebaseReference(.recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).whereField(kSENDERID, isEqualTo: User.currentId).getDocuments { [weak self] querySnapshot, _ in
             guard let documents = querySnapshot?.documents else {
                 print("DEBUG: No documents found for recents.")
                 return
@@ -48,9 +48,9 @@ class FirebaseRecentListener {
             }
         }
     }
-    
+
     func updateRecents(chatRoomId: String, lastMessage: String) {
-        FirebaseReference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { querySnapshot, error in
+        firebaseReference(.recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { querySnapshot, _ in
             guard let documents = querySnapshot?.documents else {
                 print("no document for recent update")
                 return
@@ -73,23 +73,22 @@ class FirebaseRecentListener {
         tempRecent.date = Date()
         self.saveRecent(tempRecent)
     }
-    
+
     func clearUnreadCounter(recent: RecentChat) {
         var newRecent = recent
         newRecent.unreadCounter = 0
         saveRecent(newRecent)
     }
-    
+
     func saveRecent(_ recent: RecentChat) {
         do {
-            try FirebaseReference(.Recent).document(recent.id).setData(from: recent)
-        }
-        catch {
+            try firebaseReference(.recent).document(recent.id).setData(from: recent)
+        } catch {
             print("DEBUG: Error saving recent chat - \(error.localizedDescription)")
         }
     }
-    
+
     func deleteRecentChat(_ recent: RecentChat) {
-        FirebaseReference(.Recent).document(recent.id).delete()
+        firebaseReference(.recent).document(recent.id).delete()
     }
 }

@@ -16,23 +16,23 @@ enum PlayerState {
 }
 
 class BasicAudioController: NSObject, AVAudioPlayerDelegate {
-    
+
     var audioPlayer: AVAudioPlayer?
     weak var playingCell: AudioMessageCell?
     var playingMessage: MessageType?
     private(set) var state: PlayerState = .stopped
     weak var messageCollectionView: MessagesCollectionView?
     var progressTimer: Timer?
-    
+
     // MARK: - Init Methods
-    
+
     public init(messageCollectionView: MessagesCollectionView) {
         self.messageCollectionView = messageCollectionView
         super.init()
     }
-    
+
     // MARK: - Methods
-    
+
     func configureAudioCell(_ cell: AudioMessageCell, message: MessageType) {
         if playingMessage?.messageId == message.messageId, let collectionView = messageCollectionView, let player = audioPlayer {
             playingCell = cell
@@ -66,7 +66,7 @@ class BasicAudioController: NSObject, AVAudioPlayerDelegate {
             print("BasicAudioPlayer failed play sound because given message kind is not Audio")
         }
     }
-    
+
     func pauseSound(for message: MessageType, in audioCell: AudioMessageCell) {
         audioPlayer?.pause()
         state = .pause
@@ -76,7 +76,7 @@ class BasicAudioController: NSObject, AVAudioPlayerDelegate {
             cell.delegate?.didPauseAudio(in: cell)
         }
     }
-    
+
     func stopAnyOngoingPlaying() {
         guard let player = audioPlayer, let collectionView = messageCollectionView else { return }
         player.stop()
@@ -96,7 +96,7 @@ class BasicAudioController: NSObject, AVAudioPlayerDelegate {
         playingMessage = nil
         playingCell = nil
     }
-    
+
     func resumeSound() {
         guard let player = audioPlayer, let cell = playingCell else {
             stopAnyOngoingPlaying()
@@ -109,16 +109,15 @@ class BasicAudioController: NSObject, AVAudioPlayerDelegate {
         cell.playButton.isSelected = true
         cell.delegate?.didStartAudio(in: cell)
     }
-    
+
     // MARK: - Fire Methods
-    
+
     @objc private func didFireProgressTimer(_ timer: Timer) {
         guard let player = audioPlayer, let collectionView = messageCollectionView, let cell = playingCell else {
             return
         }
         if let playingCellIndexPath = collectionView.indexPath(for: cell) {
-            let currentMessage = collectionView.messagesDataSource?.messageForItem(at: playingCellIndexPath, in: collectionView)
-            if currentMessage != nil && currentMessage?.messageId == playingMessage?.messageId {
+            if let currentMessage = collectionView.messagesDataSource?.messageForItem(at: playingCellIndexPath, in: collectionView), currentMessage.messageId == playingMessage?.messageId {
                 cell.progressView.progress = (player.duration == 0) ? 0 : Float(player.currentTime/player.duration)
                 guard let displayDelegate = collectionView.messagesDisplayDelegate else {
                     fatalError("MessagesDisplayDelegate has not been set.")
@@ -129,23 +128,23 @@ class BasicAudioController: NSObject, AVAudioPlayerDelegate {
             }
         }
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func startProgressTimer() {
         progressTimer?.invalidate()
         progressTimer = nil
         progressTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(BasicAudioController.didFireProgressTimer(_:)), userInfo: nil, repeats: true)
     }
-    
+
     // MARK: - AVAudioPlayerDelegate
-    
+
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         stopAnyOngoingPlaying()
     }
-    
+
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         stopAnyOngoingPlaying()
     }
-    
+
 }

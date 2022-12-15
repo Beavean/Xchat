@@ -9,25 +9,25 @@ import Foundation
 import CoreLocation
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
-    
-    //MARK: - Singleton
-    
+
+    // MARK: - Singleton
+
     static let shared = LocationManager()
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     var locationManager: CLLocationManager?
     var currentLocation: CLLocationCoordinate2D?
-    
-    //MARK: - Init
-    
+
+    // MARK: - Init
+
     private override init() {
         super.init()
         requestLocationAccess()
     }
-    
-    //MARK: - Methods
-    
+
+    // MARK: - Methods
+
     func requestLocationAccess() {
         if locationManager == nil {
             print("auth location manager")
@@ -39,27 +39,27 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             print("we have location manager")
         }
     }
-    
+
     func startUpdating() {
         locationManager!.startUpdatingLocation()
     }
-    
+
     func stopUpdating() {
         if locationManager != nil {
             locationManager!.stopUpdatingLocation()
         }
     }
-    
-    //MARK: - Delegate
-    
+
+    // MARK: - Delegate
+
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to get location")
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations.last!.coordinate
     }
-    
+
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         if manager.authorizationStatus == .notDetermined {
             self.locationManager!.requestWhenInUseAuthorization()

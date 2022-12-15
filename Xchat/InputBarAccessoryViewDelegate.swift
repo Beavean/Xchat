@@ -9,14 +9,14 @@ import Foundation
 import InputBarAccessoryView
 
 extension ChatViewController: InputBarAccessoryViewDelegate {
-    
+
     func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
         if !text.isEmpty {
             typingIndicatorUpdate()
         }
         updateMicrophoneButtonStatus(show: text.isEmpty)
     }
-    
+
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         for component in inputBar.inputTextView.components {
             if let text = component as? String {
@@ -29,11 +29,11 @@ extension ChatViewController: InputBarAccessoryViewDelegate {
 }
 
 extension ChannelChatViewController: InputBarAccessoryViewDelegate {
-    
+
     func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
         updateMicrophoneButtonStatus(show: text.isEmpty)
     }
-    
+
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         for component in inputBar.inputTextView.components {
             if let text = component as? String {

@@ -9,45 +9,45 @@ import UIKit
 import ProgressHUD
 
 final class LoginViewController: UIViewController {
-    
-    //MARK: - IBOutlets
-    
+
+    // MARK: - IBOutlets
+
     @IBOutlet private weak var emailLabel: UILabel!
     @IBOutlet private weak var passwordLabel: UILabel!
     @IBOutlet private weak var repeatPasswordLabel: UILabel!
     @IBOutlet private weak var signUpLabel: UILabel!
-    
+
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
     @IBOutlet private weak var repeatPasswordTextField: UITextField!
-    
+
     @IBOutlet private weak var resendEmailButtonOutlet: UIButton!
     @IBOutlet private weak var loginButtonOutlet: UIButton!
     @IBOutlet private weak var signUpButtonOutlet: UIButton!
-    
+
     @IBOutlet private weak var repeatPasswordLineView: UIView!
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     private var isLogin = true
-    
+
     private enum ActionType {
         case login
         case register
         case password
     }
-    
-    //MARK: - Lifecycle
-    
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUIFor(login: true)
         setupTextFieldDelegates()
         setupBackgroundTap()
     }
-    
-    //MARK: - IBActions
-    
+
+    // MARK: - IBActions
+
     @IBAction func loginButtonPressed(_ sender: UIButton) {
         if isDataInputedFor(type: isLogin ? .login : .register) {
             isLogin ? loginUser() : registerUser()
@@ -55,7 +55,7 @@ final class LoginViewController: UIViewController {
             ProgressHUD.showFailed("All fields are required")
         }
     }
-    
+
     @IBAction func forgotPasswordButtonPressed(_ sender: UIButton) {
         if isDataInputedFor(type: .password) {
             resetPassword()
@@ -63,45 +63,45 @@ final class LoginViewController: UIViewController {
             ProgressHUD.showFailed("Email is required.")
         }
     }
-    
+
     @IBAction func resendEmailButtonPressed(_ sender: UIButton) {
         if isDataInputedFor(type: .password) {
-            
+
         } else {
             ProgressHUD.showFailed("Email is required.")
         }
     }
-    
+
     @IBAction func signUpButtonPressed(_ sender: UIButton) {
         updateUIFor(login: sender.titleLabel?.text == "Log In")
         isLogin.toggle()
     }
-    
-    //MARK: - Setup
-    
+
+    // MARK: - Setup
+
     private func setupTextFieldDelegates() {
         emailTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         repeatPasswordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
-    
+
     private func setupBackgroundTap() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(backgroundTap))
         view.addGestureRecognizer(tap)
     }
-    
-    //MARK: - Selectors
-    
+
+    // MARK: - Selectors
+
     @objc private func textFieldDidChange(_ textField: UITextField) {
         updatePlaceholderLabels(textField: textField)
     }
-    
+
     @objc private func backgroundTap() {
         view.endEditing(false)
     }
-    
-    //MARK: - Animations
-    
+
+    // MARK: - Animations
+
     private func updateUIFor(login: Bool) {
         loginButtonOutlet.setTitle(login ? "Login" : "Register", for: .normal)
         signUpButtonOutlet.setTitle(login ? "Sign Up" : "Log In", for: .normal)
@@ -112,7 +112,7 @@ final class LoginViewController: UIViewController {
             self.repeatPasswordLineView.isHidden = login
         }
     }
-    
+
     private func updatePlaceholderLabels(textField: UITextField) {
         switch textField {
         case emailTextField:
@@ -125,9 +125,9 @@ final class LoginViewController: UIViewController {
             break
         }
     }
-    
-    //MARK: - Helpers
-    
+
+    // MARK: - Helpers
+
     private func isDataInputedFor(type: ActionType) -> Bool {
         switch type {
         case .login:
@@ -138,7 +138,7 @@ final class LoginViewController: UIViewController {
             return emailTextField.text?.isEmpty == false
         }
     }
-    
+
     private func loginUser() {
         guard let email = emailTextField.text, let password = passwordTextField.text else { return }
         FirebaseUserListener.shared.loginUserWithEmail(email: email, password: password) { [weak self] error, isEmailVerified in
@@ -154,7 +154,7 @@ final class LoginViewController: UIViewController {
             }
         }
     }
-    
+
     private func registerUser() {
         guard let email = emailTextField.text, let password = passwordTextField.text else { return }
         if password.isEmpty == false && passwordTextField.text == repeatPasswordTextField.text {
@@ -170,7 +170,7 @@ final class LoginViewController: UIViewController {
             ProgressHUD.showFailed("The passwords do not match.")
         }
     }
-    
+
     private func resetPassword() {
         guard let email = emailTextField.text else { return }
         FirebaseUserListener.shared.resetPasswordFor(email: email) { error in
@@ -181,7 +181,7 @@ final class LoginViewController: UIViewController {
             }
         }
     }
-    
+
     private func resendVerificationEmail() {
         guard let email = emailTextField.text else { return }
         FirebaseUserListener.shared.resendVerificationEmail(email: email) { error in
@@ -192,13 +192,12 @@ final class LoginViewController: UIViewController {
             }
         }
     }
-    
-    //MARK: - Navigation
-    
+
+    // MARK: - Navigation
+
     private func goToApp() {
         guard let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainViewController") as? UITabBarController else { return }
         mainVC.modalPresentationStyle = .fullScreen
         self.present(mainVC, animated: true)
     }
 }
-

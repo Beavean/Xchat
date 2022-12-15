@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct Channel: Codable {
-    
+
     var id = ""
     var name = ""
     var adminId = ""

@@ -10,7 +10,7 @@ import MessageKit
 import CoreLocation
 
 class MKMessage: NSObject, MessageType {
-    
+
     var messageId: String
     var kind: MessageKit.MessageKind
     var sentDate: Date
@@ -24,7 +24,7 @@ class MKMessage: NSObject, MessageType {
     var videoItem: VideoMessage?
     var locationItem: LocationMessage?
     var audioItem: AudioMessage?
-    
+
     init(message: LocalMessage) {
         self.messageId = message.id
         self.mkSender = MKSender(senderId: message.senderId, displayName: message.senderName)
@@ -34,7 +34,7 @@ class MKMessage: NSObject, MessageType {
         self.sentDate = message.date
         self.readDate = message.readDate
         self.incoming = User.currentId != mkSender.senderId
-        
+
         switch message.type {
         case kTEXT:
             self.kind = MessageKind.text(message.message)

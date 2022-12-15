@@ -12,13 +12,13 @@ import Gallery
 import RealmSwift
 
 class ChannelChatViewController: MessagesViewController {
-    
-    //MARK: - UI elements
-    
+
+    // MARK: - UI elements
+
     private lazy var leftBarButtonView: UIView = {
         UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50))
     }()
-    
+
     private let titleLabel: UILabel = {
         let title = UILabel(frame: CGRect(x: 5, y: 0, width: 180, height: 25))
         title.textAlignment = .left
@@ -26,7 +26,7 @@ class ChannelChatViewController: MessagesViewController {
         title.adjustsFontSizeToFitWidth = true
         return title
     }()
-    
+
     private let subTitleLabel: UILabel = {
         let subTitle = UILabel(frame: CGRect(x: 5, y: 22, width: 180, height: 20))
         subTitle.textAlignment = .left
@@ -34,12 +34,12 @@ class ChannelChatViewController: MessagesViewController {
         subTitle.adjustsFontSizeToFitWidth = true
         return subTitle
     }()
-    
+
     private let refreshController = UIRefreshControl()
     private let microphoneButton = InputBarButtonItem()
-    
-    //MARK: - Properties
-    
+
+    // MARK: - Properties
+
     private var chatId = ""
     private var recipientId = ""
     private var recipientName = ""
@@ -53,16 +53,16 @@ class ChannelChatViewController: MessagesViewController {
     var minMessageNumber = 0
     open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser?.username ?? "No username")
-    
-    //MARK: - Listeners
-    
+
+    // MARK: - Listeners
+
     private var notificationToken: NotificationToken?
     private var longPressGesture: UILongPressGestureRecognizer!
     var audioFileName = String()
     var audioDuration: Date!
-    
-    //MARK: - Inits
-    
+
+    // MARK: - Inits
+
     init(channel: Channel) {
         super.init(nibName: nil, bundle: nil)
         self.chatId = channel.id
@@ -70,13 +70,13 @@ class ChannelChatViewController: MessagesViewController {
         self.recipientName = channel.name
         self.channel = channel
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    //MARK: - Lifecycle
-    
+
+    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
@@ -88,26 +88,26 @@ class ChannelChatViewController: MessagesViewController {
         loadChats()
         listenForNewChats()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         FirebaseRecentListener.shared.resetRecentCounter(chatRoomId: chatId)
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         FirebaseRecentListener.shared.resetRecentCounter(chatRoomId: chatId)
         audioController.stopAnyOngoingPlaying()
     }
-    
-    //MARK: - Configurations
-    
+
+    // MARK: - Configurations
+
     private func configureMessageCollectionView() {
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messageCellDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messagesCollectionView.messagesLayoutDelegate = self
-        scrollsToBottomOnKeyboardBeginsEditing = true
+        scrollsToLastItemOnKeyboardBeginsEditing = true
         maintainPositionOnKeyboardFrameChanged = true
         messagesCollectionView.refreshControl = refreshController
     }
@@ -117,8 +117,7 @@ class ChannelChatViewController: MessagesViewController {
         longPressGesture.minimumPressDuration = 0.5
         longPressGesture.delaysTouchesBegan = true
     }
-    
-    
+
     private func configureMessageInputBar() {
         messageInputBar.isHidden = channel.adminId != User.currentId
         messageInputBar.delegate = self
@@ -126,10 +125,10 @@ class ChannelChatViewController: MessagesViewController {
         attachButton.image = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         attachButton.setSize(CGSize(width: 30, height: 30), animated: false)
         attachButton.onTouchUpInside {
-            item in
+            _ in
             self.actionAttachMessage()
         }
-        
+
         microphoneButton.image = UIImage(systemName: "mic.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         microphoneButton.setSize(CGSize(width: 30, height: 30), animated: false)
         microphoneButton.addGestureRecognizer(longPressGesture)
@@ -140,7 +139,7 @@ class ChannelChatViewController: MessagesViewController {
         messageInputBar.backgroundView.backgroundColor = .systemBackground
         messageInputBar.inputTextView.backgroundColor = .systemBackground
     }
-    
+
     func updateMicrophoneButtonStatus(show: Bool) {
         if show {
             messageInputBar.setStackViewItems([microphoneButton], forStack: .right, animated: false)
@@ -150,17 +149,17 @@ class ChannelChatViewController: MessagesViewController {
             messageInputBar.setRightStackViewWidthConstant(to: 55, animated: false)
         }
     }
-    
+
     private func configureLeftBarButton() {
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(self.backButtonPressed))]
     }
-    
+
     private func configureCustomTitle() {
         self.title = channel.name
     }
-    
-    //MARK: - Load Chats
-    
+
+    // MARK: - Load Chats
+
     private func loadChats() {
         let predicate = NSPredicate(format: "chatRoomId = %@", chatId)
         allLocalMessages = realm.objects(LocalMessage.self).filter(predicate).sorted(byKeyPath: kDATE, ascending: true)
@@ -173,7 +172,7 @@ class ChannelChatViewController: MessagesViewController {
                 self.insertMessages()
                 self.messagesCollectionView.reloadData()
                 self.messagesCollectionView.scrollToLastItem(animated: true)
-            case .update(_, _ , let insertions, _):
+            case .update(_, _, let insertions, _):
                 for index in insertions {
                     self.insertMessage(self.allLocalMessages[index])
                     self.messagesCollectionView.reloadData()
@@ -188,24 +187,24 @@ class ChannelChatViewController: MessagesViewController {
     private func listenForNewChats() {
         FirebaseMessageListener.shared.listenForNewChats(chatId, collectionId: chatId, lastMessageDate: lastMessageDate())
     }
-    
+
     private func checkForOldChats() {
         FirebaseMessageListener.shared.checkForOldChats(chatId, collectionId: chatId)
     }
-    
-    //MARK: - Insert Messages
-    
+
+    // MARK: - Insert Messages
+
     private func insertMessages() {
         maxMessageNumber = allLocalMessages.count - displayingMessagesCount
         minMessageNumber = maxMessageNumber - kNUMBEROFMESSAGES
         if minMessageNumber < 0 {
             minMessageNumber = 0
         }
-        for i in minMessageNumber ..< maxMessageNumber {
-            insertMessage(allLocalMessages[i])
+        for index in minMessageNumber ..< maxMessageNumber {
+            insertMessage(allLocalMessages[index])
         }
     }
-    
+
     private func insertMessage(_ localMessage: LocalMessage) {
         let incoming = IncomingMessage(collectionView: self)
         self.mkMessages.append(incoming.createMessage(localMessage: localMessage)!)
@@ -218,19 +217,19 @@ class ChannelChatViewController: MessagesViewController {
         if minMessageNumber < 0 {
             minMessageNumber = 0
         }
-        for i in (minMessageNumber ... maxMessageNumber).reversed() {
-            insertOlderMessage(allLocalMessages[i])
+        for index in (minMessageNumber ... maxMessageNumber).reversed() {
+            insertOlderMessage(allLocalMessages[index])
         }
     }
-    
+
     private func insertOlderMessage(_ localMessage: LocalMessage) {
         let incoming = IncomingMessage(collectionView: self)
         self.mkMessages.insert(incoming.createMessage(localMessage: localMessage)!, at: 0)
         displayingMessagesCount += 1
     }
-    
-    //MARK: - Actions
-    
+
+    // MARK: - Actions
+
     @objc func backButtonPressed() {
         FirebaseRecentListener.shared.resetRecentCounter(chatRoomId: chatId)
         removeListeners()
@@ -241,17 +240,16 @@ class ChannelChatViewController: MessagesViewController {
         OutgoingMessage.sendChannel(channel: channel, text: text, photo: photo, video: video, audio: audio, audioDuration: audioDuration, location: location)
     }
 
-    
     private func actionAttachMessage() {
         messageInputBar.inputTextView.resignFirstResponder()
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let takePhotoOrVideo = UIAlertAction(title: "Camera", style: .default) { (alert) in
+        let takePhotoOrVideo = UIAlertAction(title: "Camera", style: .default) { (_) in
             self.showImageGallery(camera: true)
         }
-        let shareMedia = UIAlertAction(title: "Library", style: .default) { (alert) in
+        let shareMedia = UIAlertAction(title: "Library", style: .default) { (_) in
             self.showImageGallery(camera: false)
         }
-        let shareLocation = UIAlertAction(title: "Share Location", style: .default) { (alert) in
+        let shareLocation = UIAlertAction(title: "Share Location", style: .default) { (_) in
             if let _ = LocationManager.shared.currentLocation {
                 self.sendMessage(text: nil, photo: nil, video: nil, audio: nil, location: kLOCATION)
             } else {
@@ -269,9 +267,9 @@ class ChannelChatViewController: MessagesViewController {
         optionMenu.addAction(cancelAction)
         self.present(optionMenu, animated: true, completion: nil)
     }
-    
-    //MARK: - UIScrollViewDelegate
-    
+
+    // MARK: - UIScrollViewDelegate
+
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if refreshController.isRefreshing {
             if displayingMessagesCount < allLocalMessages.count {
@@ -282,20 +280,20 @@ class ChannelChatViewController: MessagesViewController {
         }
     }
 
-    //MARK: - Helpers
-    
+    // MARK: - Helpers
+
     private func removeListeners() {
         FirebaseMessageListener.shared.removeListener()
     }
-    
+
     private func lastMessageDate() -> Date {
-        
+
         let lastMessageDate = allLocalMessages.last?.date ?? Date()
         return Calendar.current.date(byAdding: .second, value: 1, to: lastMessageDate) ?? lastMessageDate
     }
 
-    //MARK: - Gallery
-    
+    // MARK: - Gallery
+
     private func showImageGallery(camera: Bool) {
         gallery = GalleryController()
         gallery.delegate = self
@@ -305,9 +303,9 @@ class ChannelChatViewController: MessagesViewController {
         Config.VideoEditor.maximumDuration = 30
         self.present(gallery, animated: true, completion: nil)
     }
-    
-    //MARK: - AudioMessages
-    
+
+    // MARK: - AudioMessages
+
     @objc func recordAudio() {
         switch longPressGesture.state {
         case .began:
@@ -323,14 +321,22 @@ class ChannelChatViewController: MessagesViewController {
                 print("no audio file")
             }
             audioFileName = ""
+        case .possible:
+            fallthrough
+        case .changed:
+            fallthrough
+        case .cancelled:
+            fallthrough
+        case .failed:
+            fallthrough
         @unknown default:
-            print("unknown")
+            print("Undefined action")
         }
     }
 }
 
-extension ChannelChatViewController : GalleryControllerDelegate {
-    
+extension ChannelChatViewController: GalleryControllerDelegate {
+
     func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
         if images.count > 0 {
             images.first!.resolve { (image) in
@@ -339,16 +345,16 @@ extension ChannelChatViewController : GalleryControllerDelegate {
         }
         controller.dismiss(animated: true, completion: nil)
     }
-    
+
     func galleryController(_ controller: GalleryController, didSelectVideo video: Video) {
         self.sendMessage(text: nil, photo: nil, video: video, audio: nil, location: nil)
         controller.dismiss(animated: true, completion: nil)
     }
-    
+
     func galleryController(_ controller: GalleryController, requestLightbox images: [Image]) {
         controller.dismiss(animated: true, completion: nil)
     }
-    
+
     func galleryControllerDidCancel(_ controller: GalleryController) {
         controller.dismiss(animated: true, completion: nil)
     }

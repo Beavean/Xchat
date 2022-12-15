@@ -9,16 +9,16 @@ import UIKit
 
 class ChannelTableViewCell: UITableViewCell {
 
-    //MARK: - IBOutlets
-    
+    // MARK: - IBOutlets
+
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var memberCountLabel: UILabel!
     @IBOutlet weak var lastMessageDateLabel: UILabel!
-    
-    //MARK: - Lifecycle
-    
+
+    // MARK: - Lifecycle
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -26,9 +26,9 @@ class ChannelTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    //MARK: - Configuration
-    
+
+    // MARK: - Configuration
+
     func configure(channel: Channel) {
         nameLabel.text = channel.name
         aboutLabel.text = channel.aboutChannel
@@ -37,7 +37,7 @@ class ChannelTableViewCell: UITableViewCell {
         lastMessageDateLabel.adjustsFontSizeToFitWidth = true
         setAvatar(avatarLink: channel.avatarLink)
     }
-    
+
     private func setAvatar(avatarLink: String) {
         if !avatarLink.isEmpty {
             FileStorage.downloadImage(imageUrl: avatarLink) { (avatarImage) in

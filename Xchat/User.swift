@@ -10,18 +10,18 @@ import FirebaseAuth
 import FirebaseFirestoreSwift
 
 struct User: Codable, Equatable {
-    
+
     var id = ""
     var username: String
     var email: String
     var pushId = ""
     var avatarLink = ""
     var status: String
-    
+
     static var currentId: String {
         return Auth.auth().currentUser!.uid
     }
-    
+
     static var currentUser: User? {
         if Auth.auth().currentUser != nil {
             if let dictionary = UserDefaults.standard.data(forKey: kCURRENTUSER) {
@@ -36,7 +36,7 @@ struct User: Codable, Equatable {
         }
         return nil
     }
-    
+
     static func == (lhs: User, rhs: User) -> Bool {
         lhs.id == rhs.id
     }

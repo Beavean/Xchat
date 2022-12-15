@@ -8,21 +8,21 @@
 import UIKit
 
 class RecentTableViewCell: UITableViewCell {
-    
-    //MARK: - IBOutlets
-    
+
+    // MARK: - IBOutlets
+
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var lastMessageLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var unreadCounterLabel: UILabel!
     @IBOutlet weak var unreadCounterBackgroundView: UIView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         unreadCounterBackgroundView.layer.cornerRadius = unreadCounterBackgroundView.frame.width / 2
     }
-    
+
     func configure(recent: RecentChat) {
         usernameLabel.text = recent.receiverName
         usernameLabel.adjustsFontSizeToFitWidth = true
@@ -41,7 +41,7 @@ class RecentTableViewCell: UITableViewCell {
         dateLabel.text = timeElapsed(recent.date ?? Date())
         dateLabel.adjustsFontSizeToFitWidth = true
     }
-    
+
     private func setAvatar(avatarLink: String) {
         if !avatarLink.isEmpty {
             FileStorage.downloadImage(imageUrl: avatarLink) { [weak self] avatarImage in

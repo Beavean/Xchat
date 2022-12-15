@@ -10,15 +10,15 @@ import MessageKit
 import CoreLocation
 
 class IncomingMessage {
-    
+
     var messageCollectionView: MessagesViewController
-    
+
     init(collectionView: MessagesViewController) {
         messageCollectionView = collectionView
     }
-    
-    //MARK: - Create message
-    
+
+    // MARK: - Create message
+
     func createMessage(localMessage: LocalMessage) -> MKMessage? {
         let mkMessage = MKMessage(message: localMessage)
         switch localMessage.type {
@@ -32,7 +32,7 @@ class IncomingMessage {
             }
         case kVIDEO:
             FileStorage.downloadImage(imageUrl: localMessage.pictureUrl) { [weak self] thumbNail in
-                FileStorage.downloadVideo(videoLink: localMessage.videoUrl) { (readyToPlay, fileName) in
+                FileStorage.downloadVideo(videoLink: localMessage.videoUrl) { (_, fileName) in
                     let videoURL = URL(fileURLWithPath: fileInDocumentsDirectory(fileName: fileName))
                     let videoItem = VideoMessage(url: videoURL)
                     mkMessage.videoItem = videoItem
