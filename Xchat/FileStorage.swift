@@ -16,7 +16,7 @@ final class FileStorage {
     // MARK: - Images
 
     class func uploadImage(_ image: UIImage, directory: String, completion: @escaping (_ documentLink: String?) -> Void) {
-        let storageReference = storage.reference(forURL: kFILEREFERENCE).child(directory)
+        let storageReference = storage.reference(forURL: Constants.fileReference).child(directory)
         guard let imageData = image.jpegData(compressionQuality: 0.6) else { return }
         var task: StorageUploadTask!
         task = storageReference.putData(imageData, metadata: nil, completion: { _, error in
@@ -73,7 +73,7 @@ final class FileStorage {
     // MARK: - Videos
 
     class func uploadVideo(_ video: NSData, directory: String, completion: @escaping (_ videoLink: String?) -> Void) {
-        let storageRef = storage.reference(forURL: kFILEREFERENCE).child(directory)
+        let storageRef = storage.reference(forURL: Constants.fileReference).child(directory)
         var task: StorageUploadTask!
         task = storageRef.putData(video as Data, metadata: nil, completion: { _, error in
             task.removeAllObservers()
@@ -121,7 +121,7 @@ final class FileStorage {
 
     class func uploadAudio(_ audioFileName: String, directory: String, completion: @escaping (_ audioLink: String?) -> Void) {
         let fileName = audioFileName + ".m4a"
-        let storageRef = storage.reference(forURL: kFILEREFERENCE).child(directory)
+        let storageRef = storage.reference(forURL: Constants.fileReference).child(directory)
         var task: StorageUploadTask!
         if fileExistsAtPath(path: fileName) {
             if let audioData = NSData(contentsOfFile: fileInDocumentsDirectory(fileName: fileName)) {

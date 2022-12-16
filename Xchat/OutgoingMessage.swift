@@ -20,7 +20,7 @@ final class OutgoingMessage {
         message.senderName = currentUser.username
         message.senderInitials = String(currentUser.username.first!)
         message.date = Date()
-        message.status = kSENT
+        message.status = Constants.sentMessageStatus
         if let text {
             sendTextMessage(message: message, text: text, memberIds: memberIds)
         }
@@ -50,7 +50,7 @@ final class OutgoingMessage {
         message.senderName = currentUser.username
         message.senderInitials = String(currentUser.username.first!)
         message.date = Date()
-        message.status = kSENT
+        message.status = Constants.sentMessageStatus
         if let text {
             sendTextMessage(message: message, text: text, memberIds: channel.memberIds, channel: channel)
         }
@@ -86,7 +86,7 @@ final class OutgoingMessage {
 
 func sendTextMessage(message: LocalMessage, text: String, memberIds: [String], channel: Channel? = nil) {
     message.message = text
-    message.type = kTEXT
+    message.type = Constants.textMessageType
     if let channel {
         OutgoingMessage.sendChannelMessage(message: message, channel: channel)
     } else {
@@ -96,7 +96,7 @@ func sendTextMessage(message: LocalMessage, text: String, memberIds: [String], c
 
 func sendPictureMessage(message: LocalMessage, photo: UIImage, memberIds: [String], channel: Channel? = nil) {
     message.message = "Picture Message"
-    message.type = kPHOTO
+    message.type = Constants.photoMessageType
     let fileName = Date().stringDate()
     let fileDirectory = "MediaMessages/Photo/" + "\(message.chatRoomId)/" + "_\(fileName)" + ".jpg"
     FileStorage.saveFileLocally(fileData: photo.jpegData(compressionQuality: 0.6)! as NSData, fileName: fileName)
@@ -114,7 +114,7 @@ func sendPictureMessage(message: LocalMessage, photo: UIImage, memberIds: [Strin
 
 func sendVideoMessage(message: LocalMessage, video: Video, memberIds: [String], channel: Channel? = nil) {
     message.message = "Video Message"
-    message.type = kVIDEO
+    message.type = Constants.videoMessageType
     let fileName = Date().stringDate()
     let thumbnailDirectory = "MediaMessages/Photo/" + "\(message.chatRoomId)/" + "_\(fileName)" + ".jpg"
     let videoDirectory = "MediaMessages/Video/" + "\(message.chatRoomId)/" + "_\(fileName)" + ".mov"
@@ -145,7 +145,7 @@ func sendVideoMessage(message: LocalMessage, video: Video, memberIds: [String], 
 func sendLocationMessage(message: LocalMessage, memberIds: [String], channel: Channel? = nil) {
     let currentLocation = LocationManager.shared.currentLocation
     message.message = "Location message"
-    message.type = kLOCATION
+    message.type = Constants.locationMessageType
     message.latitude = currentLocation?.latitude ?? 0.0
     message.longitude = currentLocation?.longitude ?? 0.0
     if let channel {
@@ -157,7 +157,7 @@ func sendLocationMessage(message: LocalMessage, memberIds: [String], channel: Ch
 
 func sendAudioMessage(message: LocalMessage, audioFileName: String, audioDuration: Float, memberIds: [String], channel: Channel? = nil) {
     message.message = "Audio message"
-    message.type = kAUDIO
+    message.type = Constants.audioMessageType
     let fileDirectory =  "MediaMessages/Audio/" + "\(message.chatRoomId)/" + "_\(audioFileName)" + ".m4a"
     FileStorage.uploadAudio(audioFileName, directory: fileDirectory) { audioUrl in
         if audioUrl != nil {

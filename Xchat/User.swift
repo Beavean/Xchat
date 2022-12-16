@@ -24,7 +24,7 @@ struct User: Codable, Equatable {
 
     static var currentUser: User? {
         if Auth.auth().currentUser != nil {
-            if let dictionary = UserDefaults.standard.data(forKey: kCURRENTUSER) {
+            if let dictionary = UserDefaults.standard.data(forKey: Constants.currentUser) {
                 let decoder = JSONDecoder()
                 do {
                     let userObject = try decoder.decode(User.self, from: dictionary)
@@ -46,7 +46,7 @@ func saveUserLocally(_ user: User) {
     let encoder = JSONEncoder()
     do {
         let data = try encoder.encode(user)
-        UserDefaults.standard.set(data, forKey: kCURRENTUSER)
+        UserDefaults.standard.set(data, forKey: Constants.currentUser)
     } catch {
         print("DEBUG: Error saving User locally, \(error.localizedDescription)")
     }

@@ -19,7 +19,7 @@ final class FirebaseChannelListener {
     // MARK: - Fetching
 
     func downloadUserChannelsFromFirebase(completion: @escaping (_ allChannels: [Channel]) -> Void) {
-        channelListener = firebaseReference(.channel).whereField(kADMINID, isEqualTo: User.currentId).addSnapshotListener { querySnapshot, _ in
+        channelListener = firebaseReference(.channel).whereField(Constants.adminId, isEqualTo: User.currentId).addSnapshotListener { querySnapshot, _ in
             guard let documents = querySnapshot?.documents else {
                 print("no documents for user channels")
                 return
@@ -33,7 +33,7 @@ final class FirebaseChannelListener {
     }
 
     func downloadSubscribedChannels(completion: @escaping (_ allChannels: [Channel]) -> Void) {
-        channelListener = firebaseReference(.channel).whereField(kMEMBERIDS, arrayContains: User.currentId).addSnapshotListener { querySnapshot, _ in
+        channelListener = firebaseReference(.channel).whereField(Constants.memberIds, arrayContains: User.currentId).addSnapshotListener { querySnapshot, _ in
             guard let documents = querySnapshot?.documents else {
                 print("no documents for subscribed channels")
                 return

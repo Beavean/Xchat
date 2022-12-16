@@ -46,7 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         authListener = Auth.auth().addStateDidChangeListener({ [weak self] _, user in
             guard let authListener = self?.authListener else { return }
             Auth.auth().removeStateDidChangeListener(authListener)
-            if user != nil && userDefaults.object(forKey: kCURRENTUSER) != nil {
+            if user != nil && Constants.userDefaults.object(forKey: Constants.currentUser) != nil {
                 DispatchQueue.main.async {
                     self?.enterTheApplication()
                 }

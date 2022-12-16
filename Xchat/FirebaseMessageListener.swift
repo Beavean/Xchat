@@ -18,7 +18,7 @@ final class FirebaseMessageListener {
     private init() { }
 
     func listenForNewChats(_ documentId: String, collectionId: String, lastMessageDate: Date) {
-        newChatListener = firebaseReference(.messages).document(documentId).collection(collectionId).whereField(kDATE, isGreaterThan: lastMessageDate).addSnapshotListener({ querySnapshot, error in
+        newChatListener = firebaseReference(.messages).document(documentId).collection(collectionId).whereField(Constants.messageDate, isGreaterThan: lastMessageDate).addSnapshotListener({ querySnapshot, error in
             guard let snapshot = querySnapshot else { return }
             for change in snapshot.documentChanges where change.type == .added {
                 let result = Result {
@@ -98,7 +98,7 @@ final class FirebaseMessageListener {
     // MARK: - Update message status
 
     func updateMessageInFireStore(_ message: LocalMessage, memberIds: [String]) {
-        let values = [kSTATUS: kREAD, kREADDATE: Date()] as [String: Any]
+        let values = [Constants.status: Constants.readMessageStatus, Constants.messageReadDate: Date()] as [String: Any]
         for userId in memberIds {
             firebaseReference(.messages).document(userId).collection(message.chatRoomId).document(message.id).updateData(values)
         }

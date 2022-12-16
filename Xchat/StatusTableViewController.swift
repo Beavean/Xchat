@@ -52,7 +52,7 @@ final class StatusTableViewController: UITableViewController {
     // MARK: - Status load and update
 
     private func loadUserStatus() {
-        allStatuses = userDefaults.object(forKey: kSTATUS) as? [String] ?? ["No statuses"]
+        allStatuses = Constants.userDefaults.object(forKey: Constants.status) as? [String] ?? ["No statuses"]
     }
 
     private func updateCellCheck(_ indexPath: IndexPath) {

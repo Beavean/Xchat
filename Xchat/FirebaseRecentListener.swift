@@ -15,7 +15,7 @@ final class FirebaseRecentListener {
     private init() {}
 
     func downloadRecentChatsFromFireStore(completion: @escaping (_ allRecents: [RecentChat]) -> Void) {
-        firebaseReference(.recent).whereField(kSENDERID, isEqualTo: User.currentId).addSnapshotListener { querySnapshot, _ in
+        firebaseReference(.recent).whereField(Constants.senderId, isEqualTo: User.currentId).addSnapshotListener { querySnapshot, _ in
             var recentChats = [RecentChat]()
             guard let documents = querySnapshot?.documents else {
                 print("DEBUG: No documents found for recent chat.")
@@ -33,7 +33,7 @@ final class FirebaseRecentListener {
     }
 
     func resetRecentCounter(chatRoomId: String) {
-        firebaseReference(.recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).whereField(kSENDERID, isEqualTo: User.currentId).getDocuments { [weak self] querySnapshot, _ in
+        firebaseReference(.recent).whereField(Constants.chatRoomId, isEqualTo: chatRoomId).whereField(Constants.senderId, isEqualTo: User.currentId).getDocuments { [weak self] querySnapshot, _ in
             guard let documents = querySnapshot?.documents else {
                 print("DEBUG: No documents found for recents.")
                 return
@@ -48,7 +48,7 @@ final class FirebaseRecentListener {
     }
 
     func updateRecents(chatRoomId: String, lastMessage: String) {
-        firebaseReference(.recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { querySnapshot, _ in
+        firebaseReference(.recent).whereField(Constants.chatRoomId, isEqualTo: chatRoomId).getDocuments { querySnapshot, _ in
             guard let documents = querySnapshot?.documents else {
                 print("no document for recent update")
                 return

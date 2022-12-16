@@ -36,21 +36,21 @@ final class MKMessage: NSObject, MessageType {
         self.incoming = User.currentId != mkSender.senderId
 
         switch message.type {
-        case kTEXT:
+        case Constants.textMessageType:
             self.kind = MessageKind.text(message.message)
-        case kPHOTO:
+        case Constants.photoMessageType:
             let photoItem = PhotoMessage(path: message.pictureUrl)
             self.kind = MessageKind.photo(photoItem)
             self.photoItem = photoItem
-        case kVIDEO:
+        case Constants.videoMessageType:
             let videoItem = VideoMessage(url: nil)
             self.kind = MessageKind.video(videoItem)
             self.videoItem = videoItem
-        case kLOCATION:
+        case Constants.locationMessageType:
             let locationItem = LocationMessage(location: CLLocation(latitude: message.latitude, longitude: message.longitude))
             self.kind = MessageKind.location(locationItem)
             self.locationItem = locationItem
-        case kAUDIO:
+        case Constants.audioMessageType:
             let audioItem = AudioMessage(duration: 2.0)
             self.kind = MessageKind.audio(audioItem)
             self.audioItem = audioItem

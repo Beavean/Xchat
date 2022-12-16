@@ -22,7 +22,7 @@ final class IncomingMessage {
     func createMessage(localMessage: LocalMessage) -> MKMessage? {
         let mkMessage = MKMessage(message: localMessage)
         switch localMessage.type {
-        case kPHOTO:
+        case Constants.photoMessageType:
             let photoItem = PhotoMessage(path: localMessage.pictureUrl)
             mkMessage.photoItem = photoItem
             mkMessage.kind = MessageKind.photo(photoItem)
@@ -30,7 +30,7 @@ final class IncomingMessage {
                 mkMessage.photoItem?.image = image
                 self?.messageCollectionView.messagesCollectionView.reloadData()
             }
-        case kVIDEO:
+        case Constants.videoMessageType:
             FileStorage.downloadImage(imageUrl: localMessage.pictureUrl) { [weak self] thumbNail in
                 FileStorage.downloadVideo(videoLink: localMessage.videoUrl) { _, fileName in
                     let videoURL = URL(fileURLWithPath: fileInDocumentsDirectory(fileName: fileName))
@@ -41,11 +41,11 @@ final class IncomingMessage {
                 mkMessage.videoItem?.image = thumbNail
                 self?.messageCollectionView.messagesCollectionView.reloadData()
             }
-        case kLOCATION:
+        case Constants.locationMessageType:
             let locationItem = LocationMessage(location: CLLocation(latitude: localMessage.latitude, longitude: localMessage.longitude))
             mkMessage.kind = MessageKind.location(locationItem)
             mkMessage.locationItem = locationItem
-        case kAUDIO:
+        case Constants.audioMessageType:
             let audioMessage = AudioMessage(duration: Float(localMessage.audioDuration))
             mkMessage.audioItem = audioMessage
             mkMessage.kind = MessageKind.audio(audioMessage)

@@ -28,7 +28,7 @@ func createRecentItems(chatRoomId: String, users: [User]) {
     guard let firstUser = users.first?.id, let secondUser = users.last?.id else { return }
     var memberIdsToCreateRecent = [firstUser, secondUser]
     print("DEBUG: Members to create recent - \(memberIdsToCreateRecent)")
-    firebaseReference(.recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { snapshot, _ in
+    firebaseReference(.recent).whereField(Constants.chatRoomId, isEqualTo: chatRoomId).getDocuments { snapshot, _ in
         guard let snapshot else { return }
         if !snapshot.isEmpty {
             memberIdsToCreateRecent = removeMemberWhoHasRecent(snapshot: snapshot, memberIds: memberIdsToCreateRecent)
@@ -58,7 +58,7 @@ func removeMemberWhoHasRecent(snapshot: QuerySnapshot, memberIds: [String]) -> [
     var memberIdsToCreateRecent = memberIds
     for recentData in snapshot.documents {
         let currentRecent = recentData.data() as Dictionary
-        if let currentUserId = currentRecent[kSENDERID] as? String {
+        if let currentUserId = currentRecent[Constants.senderId] as? String {
             if memberIdsToCreateRecent.contains(currentUserId), let indexToRemove = memberIdsToCreateRecent.firstIndex(of: currentUserId) {
                 memberIdsToCreateRecent.remove(at: indexToRemove)
             }

@@ -163,8 +163,8 @@ final class ChatViewController: MessagesViewController {
     // MARK: - Load chats
 
     private func loadChats() {
-        let predicate = NSPredicate(format: "\(kCHATROOMID) = %@", chatId)
-        allLocalMessages = realm.objects(LocalMessage.self).filter(predicate).sorted(byKeyPath: kDATE, ascending: true)
+        let predicate = NSPredicate(format: "\(Constants.chatRoomId) = %@", chatId)
+        allLocalMessages = realm.objects(LocalMessage.self).filter(predicate).sorted(byKeyPath: Constants.messageDate, ascending: true)
         if allLocalMessages.isEmpty {
             checkForOldChats()
         }
@@ -199,7 +199,7 @@ final class ChatViewController: MessagesViewController {
 
     private func listenForReadStatusChange() {
         FirebaseMessageListener.shared.listenForReadStatusChange(User.currentId, collectionId: chatId) { updatedMessage in
-            if updatedMessage.status != kSENT {
+            if updatedMessage.status != Constants.sentMessageStatus {
                 self.updateMessage(updatedMessage)
             }
         }
@@ -207,7 +207,7 @@ final class ChatViewController: MessagesViewController {
 
     private func insertMessages() {
         maxMessageNumber = allLocalMessages.count - displayingMessagesCount
-        minMessageNumber = maxMessageNumber - kNUMBEROFMESSAGES
+        minMessageNumber = maxMessageNumber - Constants.numberOfMessages
         if minMessageNumber < 0 {
             minMessageNumber = 0
         }
@@ -228,7 +228,7 @@ final class ChatViewController: MessagesViewController {
 
     private func loadMoreMessages(maxNumber: Int, minNumber: Int) {
         maxMessageNumber = minNumber - 1
-        minMessageNumber = maxMessageNumber - kNUMBEROFMESSAGES
+        minMessageNumber = maxMessageNumber - Constants.numberOfMessages
         if minMessageNumber < 0 {
             minMessageNumber = 0
         }
@@ -244,7 +244,7 @@ final class ChatViewController: MessagesViewController {
     }
 
     private func markMessageAsRead(_ localMessage: LocalMessage) {
-        if localMessage.senderId != User.currentId && localMessage.status != kREAD {
+        if localMessage.senderId != User.currentId && localMessage.status != Constants.readMessageStatus {
             FirebaseMessageListener.shared.updateMessageInFireStore(localMessage, memberIds: [User.currentId, recipientId])
         }
     }
@@ -272,7 +272,7 @@ final class ChatViewController: MessagesViewController {
         }
         let shareLocation = UIAlertAction(title: "Share Location", style: .default) { _ in
             if LocationManager.shared.currentLocation != nil {
-                self.sendMessage(text: nil, photo: nil, video: nil, audio: nil, location: kLOCATION)
+                self.sendMessage(text: nil, photo: nil, video: nil, audio: nil, location: Constants.locationMessageType)
             } else {
                 print("no access to location")
             }
@@ -338,7 +338,7 @@ final class ChatViewController: MessagesViewController {
                 mkMessages[index].status = localMessage.status
                 mkMessages[index].readDate = localMessage.readDate
                 RealmManager.shared.saveToRealm(localMessage)
-                if mkMessages[index].status == kREAD {
+                if mkMessages[index].status == Constants.readMessageStatus {
                     self.messagesCollectionView.reloadData()
                 }
             }

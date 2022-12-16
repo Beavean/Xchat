@@ -160,7 +160,7 @@ final class ChannelChatViewController: MessagesViewController {
 
     private func loadChats() {
         let predicate = NSPredicate(format: "chatRoomId = %@", chatId)
-        allLocalMessages = realm.objects(LocalMessage.self).filter(predicate).sorted(byKeyPath: kDATE, ascending: true)
+        allLocalMessages = realm.objects(LocalMessage.self).filter(predicate).sorted(byKeyPath: Constants.messageDate, ascending: true)
         if allLocalMessages.isEmpty {
             checkForOldChats()
         }
@@ -194,7 +194,7 @@ final class ChannelChatViewController: MessagesViewController {
 
     private func insertMessages() {
         maxMessageNumber = allLocalMessages.count - displayingMessagesCount
-        minMessageNumber = maxMessageNumber - kNUMBEROFMESSAGES
+        minMessageNumber = maxMessageNumber - Constants.numberOfMessages
         if minMessageNumber < 0 {
             minMessageNumber = 0
         }
@@ -211,7 +211,7 @@ final class ChannelChatViewController: MessagesViewController {
 
     private func loadMoreMessages(maxNumber: Int, minNumber: Int) {
         maxMessageNumber = minNumber - 1
-        minMessageNumber = maxMessageNumber - kNUMBEROFMESSAGES
+        minMessageNumber = maxMessageNumber - Constants.numberOfMessages
         if minMessageNumber < 0 {
             minMessageNumber = 0
         }
@@ -249,7 +249,7 @@ final class ChannelChatViewController: MessagesViewController {
         }
         let shareLocation = UIAlertAction(title: "Share Location", style: .default) { _ in
             if LocationManager.shared.currentLocation != nil {
-                self.sendMessage(text: nil, photo: nil, video: nil, audio: nil, location: kLOCATION)
+                self.sendMessage(text: nil, photo: nil, video: nil, audio: nil, location: Constants.locationMessageType)
             } else {
                 print("no access to location")
             }

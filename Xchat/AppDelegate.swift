@@ -58,13 +58,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - First Run
 
     private func firstRunCheck() {
-        firstRun = userDefaults.bool(forKey: kFIRSTRUN)
+        firstRun = Constants.userDefaults.bool(forKey: Constants.firstRun)
         guard let firstRun else { return }
         if !firstRun {
             let status = Status.allCases.map { $0.rawValue }
-            userDefaults.set(status, forKey: kSTATUS)
-            userDefaults.set(true, forKey: kFIRSTRUN)
-            userDefaults.synchronize()
+            Constants.userDefaults.set(status, forKey: Constants.status)
+            Constants.userDefaults.set(true, forKey: Constants.firstRun)
+            Constants.userDefaults.synchronize()
         }
     }
 }

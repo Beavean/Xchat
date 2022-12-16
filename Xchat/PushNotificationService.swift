@@ -39,7 +39,7 @@ final class PushNotificationService {
         request.httpMethod = "POST"
         request.httpBody = try? JSONSerialization.data(withJSONObject: paramString, options: [.prettyPrinted])
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("key= \(kSERVERKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("key= \(Constants.serverKey)", forHTTPHeaderField: "Authorization")
         let task = URLSession.shared.dataTask(with: request as URLRequest)
         task.resume()
     }
