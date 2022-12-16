@@ -15,7 +15,7 @@ enum PlayerState {
     case stopped
 }
 
-class BasicAudioController: NSObject, AVAudioPlayerDelegate {
+final class BasicAudioController: NSObject, AVAudioPlayerDelegate {
 
     var audioPlayer: AVAudioPlayer?
     weak var playingCell: AudioMessageCell?

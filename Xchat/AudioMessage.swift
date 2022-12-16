@@ -8,7 +8,7 @@
 import Foundation
 import MessageKit
 
-class AudioMessage: NSObject, AudioItem {
+final class AudioMessage: NSObject, AudioItem {
 
     var url: URL
     var duration: Float

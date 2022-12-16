@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 
-class FirebaseMessageListener {
+final class FirebaseMessageListener {
 
     static let shared = FirebaseMessageListener()
     var newChatListener: ListenerRegistration!
@@ -20,23 +20,21 @@ class FirebaseMessageListener {
     func listenForNewChats(_ documentId: String, collectionId: String, lastMessageDate: Date) {
         newChatListener = firebaseReference(.messages).document(documentId).collection(collectionId).whereField(kDATE, isGreaterThan: lastMessageDate).addSnapshotListener({ querySnapshot, error in
             guard let snapshot = querySnapshot else { return }
-            for change in snapshot.documentChanges {
-                if change.type == .added {
-                    let result = Result {
-                        try? change.document.data(as: LocalMessage.self)
-                    }
-                    switch result {
-                    case .success(let messageObject):
-                        if let messageObject {
-                            if messageObject.senderId != User.currentId {
-                                RealmManager.shared.saveToRealm(messageObject)
-                            }
-                        } else {
-                            print("Document doesn't exist")
+            for change in snapshot.documentChanges where change.type == .added {
+                let result = Result {
+                    try? change.document.data(as: LocalMessage.self)
+                }
+                switch result {
+                case .success(let messageObject):
+                    if let messageObject {
+                        if messageObject.senderId != User.currentId {
+                            RealmManager.shared.saveToRealm(messageObject)
                         }
-                    case .failure(let error):
-                        print("Error decoding local message: \(error.localizedDescription)")
+                    } else {
+                        print("Document doesn't exist")
                     }
+                case .failure(let error):
+                    print("Error decoding local message: \(error.localizedDescription)")
                 }
             }
         })
@@ -45,21 +43,19 @@ class FirebaseMessageListener {
     func listenForReadStatusChange(_ documentId: String, collectionId: String, completion: @escaping (_ updatedMessage: LocalMessage) -> Void) {
         updatedChatListener = firebaseReference(.messages).document(documentId).collection(collectionId).addSnapshotListener({ snapshot, error in
             guard let snapshot else { return }
-            for change in snapshot.documentChanges {
-                if change.type == .modified {
-                    let result = Result {
-                        try? change.document.data(as: LocalMessage.self)
+            for change in snapshot.documentChanges where change.type == .modified {
+                let result = Result {
+                    try? change.document.data(as: LocalMessage.self)
+                }
+                switch result {
+                case .success(let message):
+                    if let message {
+                        completion(message)
+                    } else {
+                        print("Document does not exist in chat")
                     }
-                    switch result {
-                    case .success(let message):
-                        if let message {
-                            completion(message)
-                        } else {
-                            print("Document does not exist in chat")
-                        }
-                    case .failure(let error):
-                        print("Error decoding local message: \(error)")
-                    }
+                case .failure(let error):
+                    print("Error decoding local message: \(error)")
                 }
             }
         })

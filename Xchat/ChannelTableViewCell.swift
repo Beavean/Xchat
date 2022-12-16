@@ -7,15 +7,15 @@
 
 import UIKit
 
-class ChannelTableViewCell: UITableViewCell {
+final class ChannelTableViewCell: UITableViewCell {
 
     // MARK: - IBOutlets
 
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var aboutLabel: UILabel!
-    @IBOutlet weak var memberCountLabel: UILabel!
-    @IBOutlet weak var lastMessageDateLabel: UILabel!
+    @IBOutlet private weak var avatarImageView: UIImageView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var aboutLabel: UILabel!
+    @IBOutlet private weak var memberCountLabel: UILabel!
+    @IBOutlet private weak var lastMessageDateLabel: UILabel!
 
     // MARK: - Lifecycle
 
@@ -40,7 +40,7 @@ class ChannelTableViewCell: UITableViewCell {
 
     private func setAvatar(avatarLink: String) {
         if !avatarLink.isEmpty {
-            FileStorage.downloadImage(imageUrl: avatarLink) { (avatarImage) in
+            FileStorage.downloadImage(imageUrl: avatarLink) { avatarImage in
                 DispatchQueue.main.async {
                     self.avatarImageView.image = avatarImage != nil ? avatarImage?.circleMasked : UIImage(systemName: "person.2.circle")
                 }

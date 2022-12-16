@@ -7,16 +7,16 @@
 
 import UIKit
 
-class RecentTableViewCell: UITableViewCell {
+final class RecentTableViewCell: UITableViewCell {
 
     // MARK: - IBOutlets
 
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var lastMessageLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var unreadCounterLabel: UILabel!
-    @IBOutlet weak var unreadCounterBackgroundView: UIView!
+    @IBOutlet private weak var avatarImageView: UIImageView!
+    @IBOutlet private weak var usernameLabel: UILabel!
+    @IBOutlet private weak var lastMessageLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var unreadCounterLabel: UILabel!
+    @IBOutlet private weak var unreadCounterBackgroundView: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()

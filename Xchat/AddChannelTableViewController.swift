@@ -9,13 +9,13 @@ import UIKit
 import Gallery
 import ProgressHUD
 
-class AddChannelTableViewController: UITableViewController {
+final class AddChannelTableViewController: UITableViewController {
 
     // MARK: - IBOutlets
 
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var aboutTextView: UITextView!
+    @IBOutlet private weak var avatarImageView: UIImageView!
+    @IBOutlet private weak var nameTextField: UITextField!
+    @IBOutlet private weak var aboutTextView: UITextView!
 
     // MARK: - Properties
 
@@ -69,7 +69,10 @@ class AddChannelTableViewController: UITableViewController {
     }
 
     private func configureLeftBarButton() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(backButtonPressed))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(backButtonPressed))
     }
 
     private func configureEditingView() {
@@ -95,7 +98,12 @@ class AddChannelTableViewController: UITableViewController {
     // MARK: - Channel actions
 
     private func saveChannel() {
-        let channel = Channel(id: channelId, name: nameTextField.text!, adminId: User.currentId, memberIds: [User.currentId], avatarLink: avatarLink, aboutChannel: aboutTextView.text)
+        let channel = Channel(id: channelId,
+                              name: nameTextField.text!,
+                              adminId: User.currentId,
+                              memberIds: [User.currentId],
+                              avatarLink: avatarLink,
+                              aboutChannel: aboutTextView.text)
         FirebaseChannelListener.shared.saveChannel(channel)
         self.navigationController?.popViewController(animated: true)
     }

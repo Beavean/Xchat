@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyChannelsTableViewController: UITableViewController {
+final class MyChannelsTableViewController: UITableViewController {
 
     // MARK: - Properties
 
@@ -24,7 +24,7 @@ class MyChannelsTableViewController: UITableViewController {
     // MARK: - Download Channels
 
     private func downloadUserChannels() {
-        FirebaseChannelListener.shared.downloadUserChannelsFromFirebase { (allChannels) in
+        FirebaseChannelListener.shared.downloadUserChannelsFromFirebase { allChannels in
             self.myChannels = allChannels
             DispatchQueue.main.async {
                 self.tableView.reloadData()

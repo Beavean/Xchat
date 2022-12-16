@@ -11,7 +11,7 @@ import InputBarAccessoryView
 import Gallery
 import RealmSwift
 
-class ChatViewController: MessagesViewController {
+final class ChatViewController: MessagesViewController {
 
     // MARK: - UI elements
 
@@ -51,7 +51,7 @@ class ChatViewController: MessagesViewController {
     private var chatId = ""
     private var recipientId = ""
     private var recipientName = ""
-    open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
+    public lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser?.username ?? "No username")
 
     // MARK: - Listeners
@@ -146,6 +146,7 @@ class ChatViewController: MessagesViewController {
             messageInputBar.setRightStackViewWidthConstant(to: 55, animated: false)
         }
     }
+
     private func configureLeftBarButton() {
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(systemName: "chevron.left"), style: .plain, target: self, action: #selector(self.backButtonPressed))]
     }
@@ -270,7 +271,7 @@ class ChatViewController: MessagesViewController {
             self.showImageGallery(camera: false)
         }
         let shareLocation = UIAlertAction(title: "Share Location", style: .default) { _ in
-            if let _ = LocationManager.shared.currentLocation {
+            if LocationManager.shared.currentLocation != nil {
                 self.sendMessage(text: nil, photo: nil, video: nil, audio: nil, location: kLOCATION)
             } else {
                 print("no access to location")
@@ -289,7 +290,7 @@ class ChatViewController: MessagesViewController {
 
     // MARK: - Update typing indicator
 
-    func createTypingObserver() {
+    private func createTypingObserver() {
         FirebaseTypingListener.shared.createTypingObserver(chatRoomId: chatId) { isTyping in
             DispatchQueue.main.async {
                 self.updateTypingIndicator(isTyping)
@@ -297,7 +298,7 @@ class ChatViewController: MessagesViewController {
         }
     }
 
-    func updateTypingIndicator(_ show: Bool) {
+    private func updateTypingIndicator(_ show: Bool) {
         subTitleLabel.text = show ? "Typing..." : String()
     }
 
@@ -385,7 +386,7 @@ class ChatViewController: MessagesViewController {
                 print("no audio file")
             }
             audioFileName = ""
-        @unknown default:
+        default:
             print("unknown")
         }
     }

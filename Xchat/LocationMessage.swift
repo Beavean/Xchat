@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 import MessageKit
 
-class LocationMessage: NSObject, LocationItem {
+final class LocationMessage: NSObject, LocationItem {
 
     var location: CLLocation
     var size: CGSize

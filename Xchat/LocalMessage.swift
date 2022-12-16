@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class LocalMessage: Object, Codable {
+final class LocalMessage: Object, Codable {
 
     @objc dynamic var id = ""
     @objc dynamic var chatRoomId = ""

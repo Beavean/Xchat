@@ -11,7 +11,7 @@ import InputBarAccessoryView
 import Gallery
 import RealmSwift
 
-class ChannelChatViewController: MessagesViewController {
+final class ChannelChatViewController: MessagesViewController {
 
     // MARK: - UI elements
 
@@ -51,7 +51,7 @@ class ChannelChatViewController: MessagesViewController {
     var displayingMessagesCount = 0
     var maxMessageNumber = 0
     var minMessageNumber = 0
-    open lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
+    public lazy var audioController = BasicAudioController(messageCollectionView: messagesCollectionView)
     let currentUser = MKSender(senderId: User.currentId, displayName: User.currentUser?.username ?? "No username")
 
     // MARK: - Listeners
@@ -124,11 +124,9 @@ class ChannelChatViewController: MessagesViewController {
         let attachButton = InputBarButtonItem()
         attachButton.image = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         attachButton.setSize(CGSize(width: 30, height: 30), animated: false)
-        attachButton.onTouchUpInside {
-            _ in
+        attachButton.onTouchUpInside { _ in
             self.actionAttachMessage()
         }
-
         microphoneButton.image = UIImage(systemName: "mic.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))
         microphoneButton.setSize(CGSize(width: 30, height: 30), animated: false)
         microphoneButton.addGestureRecognizer(longPressGesture)
@@ -243,14 +241,14 @@ class ChannelChatViewController: MessagesViewController {
     private func actionAttachMessage() {
         messageInputBar.inputTextView.resignFirstResponder()
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let takePhotoOrVideo = UIAlertAction(title: "Camera", style: .default) { (_) in
+        let takePhotoOrVideo = UIAlertAction(title: "Camera", style: .default) { _ in
             self.showImageGallery(camera: true)
         }
-        let shareMedia = UIAlertAction(title: "Library", style: .default) { (_) in
+        let shareMedia = UIAlertAction(title: "Library", style: .default) { _ in
             self.showImageGallery(camera: false)
         }
-        let shareLocation = UIAlertAction(title: "Share Location", style: .default) { (_) in
-            if let _ = LocationManager.shared.currentLocation {
+        let shareLocation = UIAlertAction(title: "Share Location", style: .default) { _ in
+            if LocationManager.shared.currentLocation != nil {
                 self.sendMessage(text: nil, photo: nil, video: nil, audio: nil, location: kLOCATION)
             } else {
                 print("no access to location")
@@ -287,7 +285,6 @@ class ChannelChatViewController: MessagesViewController {
     }
 
     private func lastMessageDate() -> Date {
-
         let lastMessageDate = allLocalMessages.last?.date ?? Date()
         return Calendar.current.date(byAdding: .second, value: 1, to: lastMessageDate) ?? lastMessageDate
     }
@@ -321,15 +318,7 @@ class ChannelChatViewController: MessagesViewController {
                 print("no audio file")
             }
             audioFileName = ""
-        case .possible:
-            fallthrough
-        case .changed:
-            fallthrough
-        case .cancelled:
-            fallthrough
-        case .failed:
-            fallthrough
-        @unknown default:
+        default:
             print("Undefined action")
         }
     }
@@ -339,7 +328,7 @@ extension ChannelChatViewController: GalleryControllerDelegate {
 
     func galleryController(_ controller: GalleryController, didSelectImages images: [Image]) {
         if images.count > 0 {
-            images.first!.resolve { (image) in
+            images.first!.resolve { image in
                 self.sendMessage(text: nil, photo: image, video: nil, audio: nil, location: nil)
             }
         }

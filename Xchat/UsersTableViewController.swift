@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UsersTableViewController: UITableViewController {
+final class UsersTableViewController: UITableViewController {
 
     // MARK: - Properties
 

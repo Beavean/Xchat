@@ -9,7 +9,7 @@ import Foundation
 import MessageKit
 import CoreLocation
 
-class MKMessage: NSObject, MessageType {
+final class MKMessage: NSObject, MessageType {
 
     var messageId: String
     var kind: MessageKit.MessageKind

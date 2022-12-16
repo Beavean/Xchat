@@ -123,10 +123,8 @@ final class FirebaseUserListener {
             let allUsers = document.compactMap { queryDocumentSnapshot -> User? in
                 return try? queryDocumentSnapshot.data(as: User.self)
             }
-            for user in allUsers {
-                if User.currentId != user.id {
-                    users.append(user)
-                }
+            for user in allUsers where User.currentId != user.id {
+                users.append(user)
             }
             completion(users)
         }

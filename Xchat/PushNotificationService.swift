@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PushNotificationService {
+final class PushNotificationService {
 
     static let shared = PushNotificationService()
 
@@ -15,7 +15,7 @@ class PushNotificationService {
 
     func sendPushNotificationTo(userIds: [String], body: String, channel: Channel? = nil, chatRoomId: String) {
         print("Sending push to user ", userIds)
-        FirebaseUserListener.shared.downloadUsersFromFirebase(withIds: userIds) { (users) in
+        FirebaseUserListener.shared.downloadUsersFromFirebase(withIds: userIds) { users in
             for user in users {
                 let title = channel != nil ? channel!.name : User.currentUser?.username ?? "User"
                 self.sendMessageToUser(to: user.pushId, title: title, body: body, chatRoomId: chatRoomId)

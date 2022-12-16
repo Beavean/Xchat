@@ -8,14 +8,14 @@
 import UIKit
 import ProgressHUD
 
-class SettingsTableViewController: UITableViewController {
+final class SettingsTableViewController: UITableViewController {
 
     // MARK: - IBOutlets
 
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var applicationVersionLabel: UILabel!
+    @IBOutlet private weak var usernameLabel: UILabel!
+    @IBOutlet private weak var statusLabel: UILabel!
+    @IBOutlet private weak var avatarImageView: UIImageView!
+    @IBOutlet private weak var applicationVersionLabel: UILabel!
 
     // MARK: - Lifecycle
 

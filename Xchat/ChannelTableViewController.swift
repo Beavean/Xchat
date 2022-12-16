@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ChannelDetailTableViewControllerDelegate {
+protocol ChannelDetailTableViewControllerDelegate: AnyObject {
     func didClickFollow()
 }
 

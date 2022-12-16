@@ -16,15 +16,12 @@ final class LoginViewController: UIViewController {
     @IBOutlet private weak var passwordLabel: UILabel!
     @IBOutlet private weak var repeatPasswordLabel: UILabel!
     @IBOutlet private weak var signUpLabel: UILabel!
-
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
     @IBOutlet private weak var repeatPasswordTextField: UITextField!
-
     @IBOutlet private weak var resendEmailButtonOutlet: UIButton!
     @IBOutlet private weak var loginButtonOutlet: UIButton!
     @IBOutlet private weak var signUpButtonOutlet: UIButton!
-
     @IBOutlet private weak var repeatPasswordLineView: UIView!
 
     // MARK: - Properties

@@ -8,7 +8,7 @@
 import Foundation
 import AVFoundation
 
-class AudioRecorder: NSObject, AVAudioRecorderDelegate {
+final class AudioRecorder: NSObject, AVAudioRecorderDelegate {
 
     // MARK: - Properties
 
@@ -30,10 +30,8 @@ class AudioRecorder: NSObject, AVAudioRecorderDelegate {
         switch AVAudioSession.sharedInstance().recordPermission {
         case .granted:
             isAudioRecordingGranted = true
-            break
         case .denied:
             isAudioRecordingGranted = false
-            break
         case .undetermined:
             AVAudioSession.sharedInstance().requestRecordPermission { isAllowed in
                 self.isAudioRecordingGranted = isAllowed

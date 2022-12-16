@@ -15,8 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         resetBadge()
-        autologin()
-        guard let _ = (scene as? UIWindowScene) else { return }
+        autoLogin()
+        guard scene as? UIWindowScene != nil else { return }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -42,8 +42,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - Autologin
 
-    func autologin() {
-        authListener = Auth.auth().addStateDidChangeListener({ [weak self] auth, user in
+    private func autoLogin() {
+        authListener = Auth.auth().addStateDidChangeListener({ [weak self] _, user in
             guard let authListener = self?.authListener else { return }
             Auth.auth().removeStateDidChangeListener(authListener)
             if user != nil && userDefaults.object(forKey: kCURRENTUSER) != nil {

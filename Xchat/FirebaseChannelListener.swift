@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-class FirebaseChannelListener {
+final class FirebaseChannelListener {
 
     static let shared = FirebaseChannelListener()
 
@@ -79,10 +79,8 @@ class FirebaseChannelListener {
 
     func removeSubscribedChannels(_ allChannels: [Channel]) -> [Channel] {
         var newChannels = [Channel]()
-        for channel in allChannels {
-            if !channel.memberIds.contains(User.currentId) {
-                newChannels.append(channel)
-            }
+        for channel in allChannels where !channel.memberIds.contains(User.currentId) {
+            newChannels.append(channel)
         }
         return newChannels
     }

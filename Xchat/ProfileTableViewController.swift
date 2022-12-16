@@ -7,13 +7,13 @@
 
 import UIKit
 
-class ProfileTableViewController: UITableViewController {
+final class ProfileTableViewController: UITableViewController {
 
     // MARK: - IBOutlets
 
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var usernameLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet private weak var avatarImageView: UIImageView!
+    @IBOutlet private weak var usernameLabel: UILabel!
+    @IBOutlet private weak var statusLabel: UILabel!
 
     // MARK: - Properties
 

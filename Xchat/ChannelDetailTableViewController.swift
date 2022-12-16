@@ -7,18 +7,18 @@
 
 import UIKit
 
-protocol ChannelDetailTableViewControllerDelegate {
+protocol ChannelDetailTableViewControllerDelegate: AnyObject {
     func didClickFollow()
 }
 
-class ChannelDetailTableViewController: UITableViewController {
+final class ChannelDetailTableViewController: UITableViewController {
 
     // MARK: - IBActions
 
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var membersLabel: UILabel!
-    @IBOutlet weak var aboutTextView: UITextView!
+    @IBOutlet private weak var avatarImageView: UIImageView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var membersLabel: UILabel!
+    @IBOutlet private weak var aboutTextView: UITextView!
 
     // MARK: - Properties
 
@@ -55,7 +55,7 @@ class ChannelDetailTableViewController: UITableViewController {
 
     private func setAvatar(avatarLink: String) {
         if avatarLink != "" {
-            FileStorage.downloadImage(imageUrl: avatarLink) { (avatarImage) in
+            FileStorage.downloadImage(imageUrl: avatarLink) { avatarImage in
                 DispatchQueue.main.async {
                     self.avatarImageView.image = avatarImage != nil ? avatarImage?.circleMasked : UIImage(named: "avatar")
                 }

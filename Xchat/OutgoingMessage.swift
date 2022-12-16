@@ -9,7 +9,7 @@ import UIKit
 import FirebaseFirestoreSwift
 import Gallery
 
-class OutgoingMessage {
+final class OutgoingMessage {
 
     class func send(chatId: String, text: String?, photo: UIImage?, video: Video?, audio: String?, audioDuration: Float = 0.0, location: String?, memberIds: [String]) {
         let currentUser = User.currentUser!
@@ -100,7 +100,7 @@ func sendPictureMessage(message: LocalMessage, photo: UIImage, memberIds: [Strin
     let fileName = Date().stringDate()
     let fileDirectory = "MediaMessages/Photo/" + "\(message.chatRoomId)/" + "_\(fileName)" + ".jpg"
     FileStorage.saveFileLocally(fileData: photo.jpegData(compressionQuality: 0.6)! as NSData, fileName: fileName)
-    FileStorage.uploadImage(photo, directory: fileDirectory) { (imageURL) in
+    FileStorage.uploadImage(photo, directory: fileDirectory) { imageURL in
         if let imageURL {
             message.pictureUrl = imageURL
             if let channel {
@@ -119,15 +119,15 @@ func sendVideoMessage(message: LocalMessage, video: Video, memberIds: [String], 
     let thumbnailDirectory = "MediaMessages/Photo/" + "\(message.chatRoomId)/" + "_\(fileName)" + ".jpg"
     let videoDirectory = "MediaMessages/Video/" + "\(message.chatRoomId)/" + "_\(fileName)" + ".mov"
     let editor = VideoEditor()
-    editor.process(video: video) { (_, videoUrl) in
+    editor.process(video: video) { _, videoUrl in
         if let tempPath = videoUrl {
             let thumbnail = videoThumbnail(video: tempPath)
             FileStorage.saveFileLocally(fileData: thumbnail.jpegData(compressionQuality: 0.7)! as NSData, fileName: fileName)
-            FileStorage.uploadImage(thumbnail, directory: thumbnailDirectory) { (imageLink) in
+            FileStorage.uploadImage(thumbnail, directory: thumbnailDirectory) { imageLink in
                 if imageLink != nil {
                     guard let videoData = NSData(contentsOfFile: tempPath.path) else { return }
                     FileStorage.saveFileLocally(fileData: videoData, fileName: fileName + ".mov")
-                    FileStorage.uploadVideo(videoData, directory: videoDirectory) { (videoLink) in
+                    FileStorage.uploadVideo(videoData, directory: videoDirectory) { videoLink in
                         message.pictureUrl = imageLink ?? ""
                         message.videoUrl = videoLink ?? ""
                         if let channel {
@@ -159,7 +159,7 @@ func sendAudioMessage(message: LocalMessage, audioFileName: String, audioDuratio
     message.message = "Audio message"
     message.type = kAUDIO
     let fileDirectory =  "MediaMessages/Audio/" + "\(message.chatRoomId)/" + "_\(audioFileName)" + ".m4a"
-    FileStorage.uploadAudio(audioFileName, directory: fileDirectory) { (audioUrl) in
+    FileStorage.uploadAudio(audioFileName, directory: fileDirectory) { audioUrl in
         if audioUrl != nil {
             message.audioUrl = audioUrl ?? ""
             message.audioDuration = Double(audioDuration)

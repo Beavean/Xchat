@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-class FirebaseTypingListener {
+final class FirebaseTypingListener {
 
     static let shared = FirebaseTypingListener()
 

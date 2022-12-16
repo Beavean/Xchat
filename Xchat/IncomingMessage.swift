@@ -9,7 +9,7 @@ import Foundation
 import MessageKit
 import CoreLocation
 
-class IncomingMessage {
+final class IncomingMessage {
 
     var messageCollectionView: MessagesViewController
 
@@ -32,7 +32,7 @@ class IncomingMessage {
             }
         case kVIDEO:
             FileStorage.downloadImage(imageUrl: localMessage.pictureUrl) { [weak self] thumbNail in
-                FileStorage.downloadVideo(videoLink: localMessage.videoUrl) { (_, fileName) in
+                FileStorage.downloadVideo(videoLink: localMessage.videoUrl) { _, fileName in
                     let videoURL = URL(fileURLWithPath: fileInDocumentsDirectory(fileName: fileName))
                     let videoItem = VideoMessage(url: videoURL)
                     mkMessage.videoItem = videoItem
@@ -49,7 +49,7 @@ class IncomingMessage {
             let audioMessage = AudioMessage(duration: Float(localMessage.audioDuration))
             mkMessage.audioItem = audioMessage
             mkMessage.kind = MessageKind.audio(audioMessage)
-            FileStorage.downloadAudio(audioLink: localMessage.audioUrl) { (fileName) in
+            FileStorage.downloadAudio(audioLink: localMessage.audioUrl) { fileName in
                 let audioURL = URL(fileURLWithPath: fileInDocumentsDirectory(fileName: fileName))
                 mkMessage.audioItem?.url = audioURL
             }

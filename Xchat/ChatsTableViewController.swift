@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatsTableViewController: UITableViewController {
+final class ChatsTableViewController: UITableViewController {
 
     // MARK: - Properties
 

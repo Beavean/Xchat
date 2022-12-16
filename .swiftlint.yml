@@ -4,3 +4,8 @@ excluded:
   - Pods
 disabled_rules:
  - force_try
+ - void_function_in_ternary
+type_body_length: 450
+line_length: 200
+file_length: 450
+function_parameter_count: 7

@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-class FirebaseRecentListener {
+final class FirebaseRecentListener {
 
     static let shared = FirebaseRecentListener()
 
@@ -24,10 +24,8 @@ class FirebaseRecentListener {
             let allRecents = documents.compactMap { queryDocumentSnapshot -> RecentChat? in
                 return try? queryDocumentSnapshot.data(as: RecentChat.self)
             }
-            for recent in allRecents {
-                if recent.lastMessage != "" {
-                    recentChats.append(recent)
-                }
+            for recent in allRecents where recent.lastMessage != "" {
+                recentChats.append(recent)
             }
             recentChats.sort(by: { $0.date! > $1.date! })
             completion(recentChats)

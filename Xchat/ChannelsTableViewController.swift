@@ -7,11 +7,11 @@
 
 import UIKit
 
-class ChannelsTableViewController: UITableViewController {
+final class ChannelsTableViewController: UITableViewController {
 
     // MARK: - IBOutlets
 
-    @IBOutlet weak var channelsSegmentedControlOutlet: UISegmentedControl!
+    @IBOutlet private weak var channelsSegmentedControlOutlet: UISegmentedControl!
 
     // MARK: - Properties
 
@@ -80,7 +80,7 @@ class ChannelsTableViewController: UITableViewController {
     // MARK: - Download channels
 
     private func downloadAllChannels() {
-        FirebaseChannelListener.shared.downloadAllChannels { (allChannels) in
+        FirebaseChannelListener.shared.downloadAllChannels { allChannels in
             self.allChannels = allChannels
             if self.channelsSegmentedControlOutlet.selectedSegmentIndex == 1 {
                 DispatchQueue.main.async {
@@ -91,7 +91,7 @@ class ChannelsTableViewController: UITableViewController {
     }
 
     private func downloadSubscribedChannels() {
-        FirebaseChannelListener.shared.downloadSubscribedChannels { (subscribedChannels) in
+        FirebaseChannelListener.shared.downloadSubscribedChannels { subscribedChannels in
             self.subscribedChannels = subscribedChannels
             if self.channelsSegmentedControlOutlet.selectedSegmentIndex == 0 {
                 DispatchQueue.main.async {
@@ -137,6 +137,7 @@ class ChannelsTableViewController: UITableViewController {
 }
 
 extension ChannelsTableViewController: ChannelDetailTableViewControllerDelegate {
+
     func didClickFollow() {
         self.downloadAllChannels()
     }

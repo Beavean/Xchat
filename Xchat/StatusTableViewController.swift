@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StatusTableViewController: UITableViewController {
+final class StatusTableViewController: UITableViewController {
 
     // MARK: - Properties
 

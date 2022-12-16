@@ -8,7 +8,7 @@
 import Foundation
 import MessageKit
 
-class VideoMessage: NSObject, MediaItem {
+final class VideoMessage: NSObject, MediaItem {
 
     var url: URL?
     var image: UIImage?

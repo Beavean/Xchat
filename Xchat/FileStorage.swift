@@ -11,7 +11,7 @@ import ProgressHUD
 
 let storage = Storage.storage()
 
-class FileStorage {
+final class FileStorage {
 
     // MARK: - Images
 
@@ -82,7 +82,7 @@ class FileStorage {
                 print("DEBUG: error uploading video \(error.localizedDescription)")
                 return
             }
-            storageRef.downloadURL { (url, _) in
+            storageRef.downloadURL { url, _ in
                 guard let downloadUrl = url  else {
                     completion(nil)
                     return

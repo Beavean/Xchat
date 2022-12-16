@@ -9,13 +9,13 @@ import UIKit
 import Gallery
 import ProgressHUD
 
-class EditProfileTableViewController: UITableViewController {
+final class EditProfileTableViewController: UITableViewController {
 
     // MARK: - IBOutlets
 
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet private weak var avatarImageView: UIImageView!
+    @IBOutlet private weak var statusLabel: UILabel!
+    @IBOutlet private weak var usernameTextField: UITextField!
 
     // MARK: - Properties
 
